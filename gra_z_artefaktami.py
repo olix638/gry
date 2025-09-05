@@ -1,5 +1,4 @@
 from random import *
-
 import json
 def zapisz_gre(stan_gry, plik):
     with open(f"{plik}.json", "w") as f:
