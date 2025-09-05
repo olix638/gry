@@ -233,6 +233,7 @@ pos2.nczęści_ciała.append(pos2.ogon)
 pos2.synchronizacja(4)
 pos2.synchronizacja(3)
 pos2.synchronizacja(1)
+pos2.ekwipunek["siekiera"] += 1
 pos2.sprawdź_ekwipunek()
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos3.sprawdź_ekwipunek()
