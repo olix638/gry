@@ -64,7 +64,7 @@ class Postać:
         self.musi = musi
         self.drużyna = []
         self.wrogowie = []
-        self.ekwipunek = {"ciękie patyki": 0,"kamienie": 0,"kawałki metalu": 0,"siekiera":0}
+        self.ekwipunek = {"ciękie patyki": 0,"kamienie": 0,"kawałki metalu": 0,"siekiera":0,"print":}
         self.oszczędzenie = 0
         self.dodatkowe_obrarzenia = 0
         self.relacje = {}
