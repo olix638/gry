@@ -268,7 +268,13 @@ def walka1():
                             print("Elernor: udało ci się")
                             r += 1
         elif r == 1:
-            break
+            print("Elenor: no dobrze teraz naucze cię oszczędzać")
+            if pos3.oszędzenie != 0:
+                print("Tomek: przecież umiem")
+                print("Elenor: no tak to już nie musimy")
+                pos3.oszczędzenie(80)
+            else:
+                print()
 def samouczek():
     q = 0
     input("Elenor: o już jesteś")
