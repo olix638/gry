@@ -241,7 +241,7 @@ def walka1():
         if r == 0:
             print("do na starcie nauczmy cię walczyć wręcz.\npo prostu mnie walnij.")
             while not r == 1:
-                wybor = input("1.zaatakuj\n2.powiedz jej coś miłego\n")
+                wybor = input("1.zaatakuj\n2.czyn\n")
                 if wybor == "1":
                     jaka_czesc = 0
                     while not jaka_czesc in pos3.części_ciała:
