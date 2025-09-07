@@ -268,7 +268,7 @@ def walka1():
             if pos3.oszędzenie != 0:
                 print("Tomek: przecież umiem")
                 print("Elenor: no tak to już nie musimy")
-                pos3.oszczędzenie(80)
+                pos1.oszczędzenie(80,pos3)
             else:
                 print()
 def samouczek():
@@ -302,3 +302,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
+menu()
