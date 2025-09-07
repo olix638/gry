@@ -253,7 +253,7 @@ def walka1():
                     r += 1
                 elif wybor == "2":
                     print("Elenor:dziękuję że nie chcesz mnie uderzyć tylko porozmawiać, ale w tych czasach niestety trzeba")
-                    pos1.oszczędzanie(pos3.relacje["Tomek"]["zaufanie"] - pos3.relacje["Tomek"]["atak"], pos3)
+                    pos3.oszczędzanie(pos3.relacje["Tomek"]["zaufanie"] - pos3.relacje["Tomek"]["atak"])
                     while not r == 1:
                         wybor = input("1.zaatakuj\n")
                         if wybor == "1":
@@ -265,10 +265,10 @@ def walka1():
                             r += 1
         elif r == 1:
             print("Elenor: no dobrze teraz naucze cię oszczędzać")
-            if pos3.oszędzenie != 0:
+            if pos3.oszczędzenie != 0:
                 print("Tomek: przecież umiem")
                 print("Elenor: no tak to już nie musimy")
-                pos1.oszczędzenie(80,pos3)
+                pos3.oszczędzanie(80)
             else:
                 print()
 def samouczek():
@@ -284,7 +284,7 @@ def samouczek():
             break
         elif q == "2":
             print("Elenor: jak to nie jesteś gotowy? boisz się(mówi to z troską).\n, ale musimy niestety")
-            pos1.oszczędzanie(pos3.relacje['Tomek']["zaufanie"] - pos3.relacje["Tomek"]["atak"], pos3)
+            pos3.oszczędzanie(pos3.relacje['Tomek']["zaufanie"] - pos3.relacje["Tomek"]["atak"])
             walka1()
             break
 def menu():
