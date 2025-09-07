@@ -226,7 +226,6 @@ pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
 pos1.synchronizacja(3)
 pos1.ekwipunek["ciękie patyki"] += 1
 pos1.ekwipunek["kawałki metalu"] += 10
-pos1.sprawdź_ekwipunek()
 pos2.ogon = 1000000.0
 pos2.części_ciała.append("ogon")
 pos2.nczęści_ciała.append(pos2.ogon)
@@ -234,11 +233,8 @@ pos2.synchronizacja(4)
 pos2.synchronizacja(3)
 pos2.synchronizacja(1)
 pos2.ekwipunek["siekiera"] += 1
-pos2.sprawdź_ekwipunek()
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
-pos3.sprawdź_ekwipunek()
 pos4.synchronizacja(3)
-pos4.sprawdź_ekwipunek()
 def walka1():
     r = 0
     while pos3.oszczędzony():
