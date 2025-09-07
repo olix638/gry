@@ -261,13 +261,13 @@ def walka1():
                             while not jaka_czesc in pos3.części_ciała:
                                 jaka_czesc = input("napisz jaką część ciała chcesz zaatakować: ")
                             pos1.zaatakuj(pos3,jaka_czesc)
-                            print("Elernor: udało ci się")
+                            input("Elernor: udało ci się")
                             r += 1
         elif r == 1:
             print("Elenor: no dobrze teraz naucze cię oszczędzać")
             if pos3.oszczędzenie != 0:
-                print("Tomek: przecież umiem")
-                print("Elenor: no tak to już nie musimy")
+                input("Tomek: przecież umiem")
+                input("Elenor: no tak to już nie musimy")
                 pos3.oszczędzanie(80)
             else:
                 print()
