@@ -90,11 +90,11 @@ class Postać:
     def dodaj_wroga(self, wróg):
         self.wrogowie.append(wróg)
     
-    def oszczędzanie(self, o_ile, kogo):
-        kogo.oszczędzenie1 += o_ile
+    def oszczędzanie(self, o_ile):
+        self.oszczędzenie += o_ile
     
     def oszczędzony(self):
-        return self.oszczędzenie1 < 100
+        return self.oszczędzenie < 100
     
     def synchronizacja(self, protokuł):
         if protokuł == 4:
