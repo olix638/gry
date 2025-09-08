@@ -245,8 +245,8 @@ def walka1():
                 if wybor == "1":
                     jaka_czesc = 0
                     while not jaka_czesc in pos3.części_ciała:
-                        jaka_czesc = input("napisz jaką część ciała chcesz zaatakować: ")
-                    pos1.zaatakuj(pos3,jaka_czesc)
+                        jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
+                    pos1.zaatakuj(pos3,jaka_cześć)
                     input("Elenor: Udało ci... ej, czekaj. Co? Dlaczego mnie? Przecież znamy się od urodzenia... No, nieważne — udało ci się, więc\ndobrze.")
                     input("Tomek(myśli): Dlaczego ją uderzyłem...? Co jest ze mną nie tak?")
                     pos3.relacje["Tomek"]["atak"] += 1
