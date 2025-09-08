@@ -259,8 +259,8 @@ def walka1():
                         if wybor == "1":
                             jaka_czesc = 0
                             while not jaka_czesc in pos3.części_ciała:
-                                jaka_czesc = input("napisz jaką część ciała chcesz zaatakować: ")
-                            pos1.zaatakuj(pos3,jaka_czesc)
+                                jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
+                            pos1.zaatakuj(pos3,jaka_cześć)
                             input("Elernor: udało ci się")
                             r += 1
         elif r == 1:
@@ -271,6 +271,7 @@ def walka1():
                 pos3.oszczędzanie(80)
             else:
                 input()
+                
 def samouczek():
     q = 0
     input("Elenor: o już jesteś")
