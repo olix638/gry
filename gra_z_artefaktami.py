@@ -271,7 +271,6 @@ def walka1():
                 pos3.oszczędzanie(80)
             else:
                 input()
-                
 def samouczek():
     q = 0
     input("Elenor: o już jesteś")
