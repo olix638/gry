@@ -243,8 +243,8 @@ def walka1():
             while not r == 1:
                 wybor = input("1.zaatakuj\n2.czyn\n")
                 if wybor == "1":
-                    jaka_czesc = 0
-                    while not jaka_czesc in pos3.części_ciała:
+                    jaka_cześć = 0
+                    while not jaka_cześć in pos3.części_ciała:
                         jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
                     pos1.zaatakuj(pos3,jaka_cześć)
                     input("Elenor: Udało ci... ej, czekaj. Co? Dlaczego mnie? Przecież znamy się od urodzenia... No, nieważne — udało ci się, więc\ndobrze.")
@@ -269,6 +269,7 @@ def walka1():
                 input("Tomek: przecież umiem")
                 input("Elenor: no tak to już nie musimy")
                 pos3.oszczędzanie(80)
+                break
             else:
                 input("Tomek: dobra")
                 input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
@@ -316,3 +317,5 @@ def menu():
             samouczek()
             break
 menu()
+if pos3.relacje["Tomek"]["atak"] != 0:
+    print(mapa["miejsce treningowe1"])
