@@ -23,8 +23,18 @@ mapa = {"miejsce treningowe1": ("           ________________________\n"
                                 " |        |                       |          |\n"
                                 " /        #########################          \\\n"
                                 "/                           Elonor            \\\n"
+                                "|                  Tomek       |             |\n"
+                                "|                    ||       |||1             |\n"
+                                "|                              |               |\n"
+                                "|                                             |\n"
+                                "###############################################"),
+        "miejsce treningowe2":("           ________________________\n"
+                                " |        |                       |          |\n"
+                                " |        |                       |          |\n"
+                                " /        #########################          \\\n"
+                                "/                           Elonor            \\\n"
                                 "|                  Tomek     \\  /             |\n"
-                                "|                    ||       ||1             |\n"
+                                "|                    ||       ||              |\n"
                                 "|                                             |\n"
                                 "|                                             |\n"
                                 "###############################################")}
@@ -315,6 +325,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
-menu()
-if pos3.relacje["Tomek"]["atak"] != 0:
-    print(mapa["miejsce treningowe1"])
+print(mapa["miejsce treningowe1"])
