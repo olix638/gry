@@ -268,8 +268,7 @@ def walka1():
             if not pos3.oszczędzenie == 0:
                 input("Tomek: przecież umiem")
                 input("Elenor: no tak to już nie musimy")
-                pos3.oszczędzanie(80)
-                break
+                pos3.oszczędzanie(100)
             else:
                 input("Tomek: dobra")
                 input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
