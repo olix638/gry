@@ -273,6 +273,16 @@ def walka1():
                 input("Tomek: dobra")
                 input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
                 input("Elenor: dobrze to teraz oszczędź mnie")
+                wybor = input("1.uderz\n2.czyn\n")
+                if wybor == "1":
+                    print("Elenor: jej dlacze znowu mnie uderzyłeś?")
+                    input("Tomek(myśli): dlaczego to zrobiłem? i ta tak odrazu?")
+                    pos3.relacje["Tomek"]["atak"] += 5
+                    break
+                elif wybor == "2":
+                    print("Elenor: brawo że mnie oszczędziłeś")
+                    pos3.oszczędzanie(80)
+    pos3.oszczędzenie = 0
 def samouczek():
     q = 0
     input("Elenor: o już jesteś")
