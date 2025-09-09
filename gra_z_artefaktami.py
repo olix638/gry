@@ -37,6 +37,16 @@ mapa = {"miejsce treningowe1": ("           ________________________\n"
                                 "|                    ||     -||-              |\n"
                                 "|                                             |\n"
                                 "|                                             |\n"
+                                "###############################################"),
+        "miejsce treningowe3":("           ________________________\n"
+                                " |    1   |                       |    2      |\n"
+                                " |        |                       |          |\n"
+                                " /        #########################          \\\n"
+                                "/                                             \\\n"
+                                "|                  Tomek                      |\n"
+                                "|                    ||                       |\n"
+                                "|                                             |\n"
+                                "|                                             |\n"
                                 "###############################################")}
 zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,100)}
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500)}
