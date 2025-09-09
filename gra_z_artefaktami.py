@@ -94,7 +94,7 @@ class Postać:
         self.oszczędzenie += o_ile
     
     def oszczędzony(self):
-        return self.oszczędzenie < 100
+        return self.oszczędzenie > 100
     
     def synchronizacja(self, protokuł):
         if protokuł == 4:
@@ -237,7 +237,7 @@ pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos4.synchronizacja(3)
 def walka1():
     r = 0
-    while pos3.oszczędzony():
+    while not pos3.oszczędzony():
         if r == 0:
             print("do na starcie nauczmy cię walczyć wręcz.\npo prostu mnie walnij.")
             while not r == 1:
