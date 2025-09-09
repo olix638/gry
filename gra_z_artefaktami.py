@@ -270,7 +270,9 @@ def walka1():
                 input("Elenor: no tak to już nie musimy")
                 pos3.oszczędzanie(80)
             else:
-                input()
+                input("Tomek: dobra")
+                input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
+                input("Elenor: dobrze to teraz oszczędź mnie")
 def samouczek():
     q = 0
     input("Elenor: o już jesteś")
