@@ -18,7 +18,7 @@ class dodanie_stat:
         self.atak = atak
         self.tury = tury
         self.wytrzymałość = wytrzymałość
-mapa = {"miejsce treningowe1": ("           ________________________\n"
+mapa = {"miejsce treningowe1": ("\033[38;5;240m           ________________________\n"
                                 " |    1   |                       |     2    |\n"
                                 " |        |                       |          |\n"
                                 " /        #########################          \\\n"
@@ -26,7 +26,7 @@ mapa = {"miejsce treningowe1": ("           ________________________\n"
                                 "|                  Tomek       |              |\n"
                                 "|                    ||       |||1            |\n"
                                 "|                              |              |\n"
-                                "|                                             |\n"
+                                "|                                             |\033[0m\n"
                                 "###############################################"),
         "miejsce treningowe2":("           ________________________\n"
                                 " |    1   |                       |    2     |\n"
@@ -337,3 +337,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
+print(mapa["miejsce treningowe1"])
