@@ -122,7 +122,7 @@ class Postać:
         elif protokuł == 5:
             self.głód = max(0, min(self.głód, self.mgłód))
             self.napojenie = max(0, min(self.napojenie, self.mnapojenie))
-            self.oszczędzenie1 = max(0,min(self.oszczędzenie1,100))
+            self.oszczędzenie1 = max(0,min(self.oszczędzenie,100))
         elif self.istota == "goblin":
             if protokuł == 1:
                 self.obrona = self.atak
