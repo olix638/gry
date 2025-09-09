@@ -257,8 +257,8 @@ def walka1():
                     while not r == 1:
                         wybor = input("1.zaatakuj\n")
                         if wybor == "1":
-                            jaka_czesc = 0
-                            while not jaka_czesc in pos3.części_ciała:
+                            jaka_cześć = 0
+                            while not jaka_cześć in pos3.części_ciała:
                                 jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
                             pos1.zaatakuj(pos3,jaka_cześć)
                             input("Elernor: udało ci się")
