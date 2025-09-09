@@ -277,7 +277,7 @@ def walka1():
                 if wybor == "1":
                     print("Elenor: jej dlacze znowu mnie uderzyłeś?")
                     input("Tomek(myśli): dlaczego to zrobiłem? i ta tak odrazu?")
-                    input("Elenor: dobra już uciekam. pa(mówi to z żalem).")
+                    input("Elenor: dobra już uciekam. pa(mówi to z żalem i nienawiścią).")
                     pos3.relacje["Tomek"]["atak"] += 5
                     break
                 elif wybor == "2":
