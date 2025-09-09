@@ -302,7 +302,8 @@ def walka1():
                     break
                 elif wybor == "2":
                     print("Elenor: brawo że mnie oszczędziłeś")
-                    pos3.oszczędzanie(80)
+                    pos3.oszczędzanie(100)
+                    pos3.synchronizacja(5)
     pos3.oszczędzenie = 0
 def samouczek():
     q = 0
