@@ -265,7 +265,7 @@ def walka1():
                             r += 1
         elif r == 1:
             input("Elenor: no dobrze teraz naucze cię oszczędzać")
-            if pos3.oszczędzenie != 0:
+            if not pos3.oszczędzenie == 0:
                 input("Tomek: przecież umiem")
                 input("Elenor: no tak to już nie musimy")
                 pos3.oszczędzanie(80)
