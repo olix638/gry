@@ -335,4 +335,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
-print(mapa["miejsce treningowe3"])
+print(mapa["miejsce treningowe2"])
