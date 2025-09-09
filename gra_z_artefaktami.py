@@ -33,7 +33,7 @@ mapa = {"miejsce treningowe1": ("           ________________________\n"
                                 " |        |                       |          |\n"
                                 " /        #########################          \\\n"
                                 "/                           Elonor            \\\n"
-                                "|                  Tomek     \\  /             |\n"
+                                "|                  Tomek     _  _           |\n"
                                 "|                    ||       ||              |\n"
                                 "|                                             |\n"
                                 "|                                             |\n"
@@ -325,4 +325,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
-print(mapa["miejsce treningowe1"])
+print(mapa["miejsce treningowe2"])
