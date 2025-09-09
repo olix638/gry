@@ -274,6 +274,7 @@ def walka1():
                 elif wybor == "2":
                     print("Elenor:dziękuję że nie chcesz mnie uderzyć tylko porozmawiać, ale w tych czasach niestety trzeba")
                     pos3.oszczędzanie(pos3.relacje["Tomek"]["zaufanie"] - pos3.relacje["Tomek"]["atak"])
+                    pos3.synchronizacja(5)
                     while not r == 1:
                         wybor = input("1.zaatakuj\n")
                         if wybor == "1":
