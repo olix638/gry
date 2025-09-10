@@ -47,7 +47,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),}
-zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,100)}
+zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",500,0,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,1000)}
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500)}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
 class Postać:
@@ -240,6 +240,7 @@ pos1 = Postać("człowiek", "Tomek", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5,
 pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 200,300, 50, 100, 0, 0, zbroje["brak_zbroi"], bronie["topur"],False,True)
 pos3 = Postać("elf", "Elenor", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
 pos4 = Postać("elf", "Romeo", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 50000, 100000, 100, 100,100, 100, 5, 10, zbroje["czarno_zbroja"], bronie["łuk"],True,False)
+pos5 = Postać("elf","Rukur",200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["brak_broni"])
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
 pos1.synchronizacja(3)
