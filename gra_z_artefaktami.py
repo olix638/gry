@@ -341,7 +341,6 @@ def menu():
         elif men == "3":
             samouczek()
             break
-print(mapa["miejsce treningowe3"])
 if pos3.relacje['Tomek']["atak"] == 0:
     liczba_fabuły = 1
 elif pos3.relacje['Tomek']["atak"] == 1:
