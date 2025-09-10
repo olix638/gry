@@ -244,7 +244,7 @@ pos1 = Postać("człowiek", "Tomek", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5,
 pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 200,300, 50, 100, 0, 0, zbroje["brak_zbroi"], bronie["topur"],False,True)
 pos3 = Postać("elf", "Elenor", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
 pos4 = Postać("elf", "Romeo", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 50000, 100000, 100, 100,100, 100, 5, 10, zbroje["czarno_zbroja"], bronie["łuk"],True,False)
-pos5 = Postać("elf","Rukur",200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["brak_broni"],False,True)
+pos5 = Postać("elf","Rukur",200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
 pos1.synchronizacja(3)
