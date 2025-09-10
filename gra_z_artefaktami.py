@@ -407,4 +407,4 @@ def przygoda1():
         if wybor == 1:
             if liczba_fabuły == 2:
                 input("dlaczego mnie zatakowałeś? bolało mnie to")
-                wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze")
+                wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
