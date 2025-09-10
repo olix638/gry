@@ -337,3 +337,17 @@ def menu():
         elif men == "3":
             samouczek()
             break
+if pos3.relacje['Tomek']["atak"] == 0:
+    liczba_fabuły = 1
+elif pos3.relacje['Tomek']["atak"] == 1:
+    liczba_fabuły = 2
+elif pos3.relacje['Tomek']["atak"] >= 5:
+    liczba_fabuły = 3
+def przygoda1():
+    global liczba_fabuły
+    if liczba_fabuły == 1:
+        print(mapa["miejsce treningowe2"])
+    elif liczba_fabuły == 2:
+        print(mapa["miejsce treningowe1"])
+    elif liczba_fabuły == 3:
+        print(mapa["miejsce treningowe3"])
