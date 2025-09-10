@@ -201,7 +201,7 @@ class Postać:
             print(f"{wrog.imie} dostał {rzeczywiste_obrazenia} obrażeń w {jaka_czesc}!")
             print(f"{wrog.imie} ma {nowe_hp} HP w {jaka_czesc}")
             if not wrog.bronie.wytrzymałość == 0:
-                self.bronie.wytrzymałość = max(0,wrog.bronie.wytrzymałość - 1)
+                self.bronie.wytrzymałość = max(0,self.bronie.wytrzymałość - 1)
         else:
             if not self.chce:
                 print("nie chcę atakować")
