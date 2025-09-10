@@ -341,7 +341,7 @@ def menu():
         elif men == "3":
             samouczek()
             break
-pos3.relacje['Tomek']["atak"] = 6
+
 if pos3.relacje['Tomek']["atak"] == 0:
     liczba_fabuły = 1
 elif pos3.relacje['Tomek']["atak"] == 1:
