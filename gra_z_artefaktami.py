@@ -203,7 +203,7 @@ class Postać:
                 print("nie chcę atakować")
     
     def zyje(self):
-        return self.ciało > 0
+        return self.ciało > 0 or self.głowa > 0
     
     def dodaj_artefakt(self, nazwa, wymuszony_slot):
             self.artefakty[wymuszony_slot] = nazwa
@@ -396,7 +396,8 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "ekwipunek": pos4.ekwipunek},
                 "liczba_fabuły": liczba_fabuły}
 def walka2():
-    pass
+    while pos1.zyje() and pos2.zyje():
+        pass
 def przygoda1():
     global liczba_fabuły
     if liczba_fabuły == 1:
