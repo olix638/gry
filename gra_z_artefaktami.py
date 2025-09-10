@@ -408,3 +408,13 @@ def przygoda1():
             if liczba_fabuły == 2:
                 input("dlaczego mnie zatakowałeś? bolało mnie to")
                 wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
+                if wybor == "1":
+                    input("Gracz: uderzyłem cie, bo mi kazałaś")
+                    input("Elenor: aha, czyli…… to moja wina że mnie uderzyłeś? to chyba nie jest w porządku")
+                    input("Tomek(myśli): dlaczego to powiedziała? przecież to nie prawda")
+                elif wybor == "2":
+                    input("Gracz: przepraszam")
+                    input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
+                    input("Tomek(myśli): wiem……, ale jak to nic nie powiedziałem?")
+                elif wybor == "3":
+                    input("Tomek:")
