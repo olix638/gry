@@ -410,4 +410,4 @@ def przygoda1():
         print(mapa["miejsce treningowe1"])
     elif liczba_fabuły == 3:
         print(mapa["miejsce treningowe3"])
-    
+przygoda1()
