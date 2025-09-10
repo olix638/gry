@@ -36,11 +36,6 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|     |              \033[0mTomek    \033[0mElenor \033[38;5;240m\033[38;5;240m        |\n"
                                 "|     /               \033[0m||       -||-\033[38;5;240m            |\n"
                                 "|                               \033[0m\033[38;5;240m               |\n"
-                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                                      |     \\\n"
-                                "|     |              \033[0mTomek      \033[0mElenor \033[38;5;240m       |\n"
-                                "|     /               \033[0m||       -||-\033[38;5;240m           |\n"
-                                "|                               \033[0m\033[38;5;240m              |\n"
-                                "|                          /                  |\033[0m\n"
                                 "\033[38;5;240m##########\033[48;5;22m#####\033[0m\033[38;5;240m################################\033[0m"),
         "miejsce treningowe3":("\033[38;5;240m           ________________________\n"
                                 " |    1   |                       |     2    |\n"
@@ -341,7 +336,7 @@ def menu():
         elif men == "3":
             samouczek()
             break
-
+print(mapa["miejsce treningowe3"])
 if pos3.relacje['Tomek']["atak"] == 0:
     liczba_fabuły = 1
 elif pos3.relacje['Tomek']["atak"] == 1:
@@ -401,7 +396,6 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "relacje": pos4.relacje, 
                 "ekwipunek": pos4.ekwipunek},
                 "liczba_fabuły": liczba_fabuły}
-zapisz_gre(zapis, "zapis")
 def przygoda1():
     global liczba_fabuły
     if liczba_fabuły == 1:
@@ -410,4 +404,3 @@ def przygoda1():
         print(mapa["miejsce treningowe1"])
     elif liczba_fabuły == 3:
         print(mapa["miejsce treningowe3"])
-przygoda1()
