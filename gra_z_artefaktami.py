@@ -32,22 +32,22 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 " |    1   |                       |     2    |\n"
                                 " |        |                       |          |\n"
                                 " /\033[48;5;22m   \033[0m     ######################### \033[38;5;240m         \\\n"
-                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                        \033[0mElenor \033[38;5;240m        |     \\\n"
-                                "|     |              \033[0mTomek      \033[38;5;240m              |\n"
-                                "|     /               \033[0m||       -||-\033[38;5;240m            |\n"
+                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                                      |     \\\n"
+                                "|     |              \033[0mTomek      \033[0mElenor \033[38;5;240m       |\n"
+                                "|     /               \033[0m||       -||-\033[38;5;240m           |\n"
                                 "|                               \033[0m\033[38;5;240m              |\n"
-                                "|                          /                   |\033[0m\n"
+                                "|                          /                  |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),
-        "miejsce treningowe3":("           ________________________\n"
-                                " |    1   |                       |    2     |\n"
+        "miejsce treningowe3":("\033[38;5;240m           ________________________\n"
+                                " |    1   |                       |     2    |\n"
                                 " |        |                       |          |\n"
-                                " /        #########################          \\\n"
-                                "/                                             \\\n"
-                                "|                  Tomek                      |\n"
-                                "|                    ||                       |\n"
-                                "|                                             |\n"
-                                "|                                             |\n"
-                                "###############################################")}
+                                " /\033[48;5;22m   \033[0m     ######################### \033[38;5;240m         \\\n"
+                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                                       |     \\\n"
+                                "|     |              \033[0mTomek      \033[38;5;240m               |\n"
+                                "|     /               \033[0m||\033[38;5;240m                       |\n"
+                                "|                                              |\n"
+                                "|                          /                   |\033[0m\n"
+                                "\033[38;5;240m###############################################\033[0m")}
 zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,100)}
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500)}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
@@ -337,4 +337,4 @@ def menu():
         elif men == "3":
             samouczek()
             break
-print(mapa["miejsce treningowe1"])
+print(mapa["miejsce treningowe3"])
