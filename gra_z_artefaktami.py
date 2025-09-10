@@ -341,6 +341,7 @@ def menu():
         elif men == "3":
             samouczek()
             break
+pos3.relacje['Tomek']["atak"] = 6
 if pos3.relacje['Tomek']["atak"] == 0:
     liczba_fabuły = 1
 elif pos3.relacje['Tomek']["atak"] == 1:
@@ -409,3 +410,4 @@ def przygoda1():
         print(mapa["miejsce treningowe1"])
     elif liczba_fabuły == 3:
         print(mapa["miejsce treningowe3"])
+    
