@@ -394,6 +394,8 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "relacje": pos4.relacje, 
                 "ekwipunek": pos4.ekwipunek},
                 "liczba_fabuły": liczba_fabuły}
+def walka2():
+    pass
 def przygoda1():
     global liczba_fabuły
     if liczba_fabuły == 1:
@@ -426,5 +428,14 @@ def przygoda1():
                 input("Elenor: nie mogę w to uwierzyć. muszę się stąd wydostać")
                 input("Gracz: Elenor jest to nie możliwe, bo jesteś częścią gry.")
                 input("niestety")
-            else:
-                pass
+        else:
+            print("jesteś przy ścianie i masz opcje")
+            wybor = input("1.nasłuchuj\n2.idź do wyjścia\n3.poczekaj\n")
+            if wybor == "1":
+                print("słyszysz dwóch strażników którzy rozmawiają o nowych rządach manreda i na to narzekają")
+                wybor = input("1.idź do wyjścia\n2.poczekaj\n")
+                if wybor == "1":
+                    input("idziesz do wyjścia")
+                    input("strażnik: hej ty! gdzie idziesz?")
+                    input("biegniesz do wyjścia")
+                    input("ale są za szybcy")
