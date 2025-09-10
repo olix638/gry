@@ -439,3 +439,4 @@ def przygoda1():
                     input("strażnik: hej ty! gdzie idziesz?")
                     input("biegniesz do wyjścia")
                     input("ale są za szybcy")
+                    walka2()
