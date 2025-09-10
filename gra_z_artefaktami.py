@@ -48,7 +48,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),}
 zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",500,0,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,1000)}
-bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 200,0,200),"miecz": }
+bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 200,0,200)}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
 class Postać:
     def __init__(self, istota, imie, głowa, klatka, lręka, pręka, brzuch, lrzebro, przebro, lnoga, pnoga, napojenie,mnapojenie, głód, mgłód, atak, obrona, zbroja, bronie,chce_zatakować,musi):
@@ -182,6 +182,9 @@ class Postać:
             p1.drużyna.append(p2)
     
     def zaatakuj(self, wrog, jaka_czesc):
+        if self.bronie.tury > 0:
+            self.bronie.tury -= 1
+            return
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
