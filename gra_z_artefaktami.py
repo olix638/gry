@@ -402,3 +402,9 @@ def przygoda1():
         print(mapa["miejsce treningowe1"])
     elif liczba_fabuły == 3:
         print(mapa["miejsce treningowe3"])
+    while True:
+        wybor = input("wybierz gdzie chcesz iść: ")
+        if wybor == 1:
+            if liczba_fabuły == 2:
+                input("dlaczego mnie zatakowałeś? bolało mnie to")
+                wybor = input("1.uderzyłem cie, bo mi kazałaś")
