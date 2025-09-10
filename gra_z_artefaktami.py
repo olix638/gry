@@ -396,7 +396,7 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "ekwipunek": pos4.ekwipunek},
                 "liczba_fabuły": liczba_fabuły}
 def walka2():
-    while pos1.zyje() and pos2.zyje():
+    while pos1.zyje() and pos2.zyje() or    :
         pass
 def przygoda1():
     global liczba_fabuły
