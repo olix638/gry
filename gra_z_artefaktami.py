@@ -19,7 +19,7 @@ class dodanie_stat:
         self.tury = tury
         self.wytrzymałość = wytrzymałość
 mapa = {"miejsce treningowe1": ("\033[38;5;240m           ________________________\n"
-                                " |    1   |                       |     2    |\n"
+                                " |    2   |                       |     3    |\n"
                                 " |        |                       |          |\n"
                                 " /\033[48;5;22m   \033[0m     ######################### \033[38;5;240m         \\\n"
                                 "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                        \033[0mElenor \033[38;5;240m        |     \\\n"
@@ -27,7 +27,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|     /               \033[0m||       |||1\033[38;5;240m            |\n"
                                 "|                               \033[0m|\033[38;5;240m              |\n"
                                 "|                          /                   |\033[0m\n"
-                                "\033[38;5;240m###############################################\033[0m"),
+                                "\033[38;5;240m##########\033[48;5;22m#####\033[0m\033[38;5;240m################################\033[0m"),
         "miejsce treningowe2":("\033[38;5;240m           ________________________\n"
                                 " |    1   |                       |     2    |\n"
                                 " |        |                       |          |\n"
@@ -36,6 +36,20 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|     |              \033[0mTomek    \033[0mElenor \033[38;5;240m\033[38;5;240m        |\n"
                                 "|     /               \033[0m||       -||-\033[38;5;240m            |\n"
                                 "|                               \033[0m\033[38;5;240m               |\n"
+                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                                      |     \\\n"
+                                "|     |              \033[0mTomek      \033[0mElenor \033[38;5;240m       |\n"
+                                "|     /               \033[0m||       -||-\033[38;5;240m           |\n"
+                                "|                               \033[0m\033[38;5;240m              |\n"
+                                "|                          /                  |\033[0m\n"
+                                "\033[38;5;240m##########\033[48;5;22m#####\033[0m\033[38;5;240m################################\033[0m"),
+        "miejsce treningowe3":("\033[38;5;240m           ________________________\n"
+                                " |    1   |                       |     2    |\n"
+                                " |        |                       |          |\n"
+                                " /\033[48;5;22m   \033[0m     ######################### \033[38;5;240m         \\\n"
+                                "/  \033[48;5;22m \\  \033[0m \033[38;5;240m                                       |     \\\n"
+                                "|     |              \033[0mTomek      \033[38;5;240m               |\n"
+                                "|     /               \033[0m||\033[38;5;240m                       |\n"
+                                "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),
         "miejsce treningowe3":("\033[38;5;240m           ________________________\n"
@@ -48,6 +62,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m")}
+                                "\033[38;5;240m##########\033[48;5;22m#####\033[0m\033[38;5;240m################################\033[0m")}
 zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"metalowa_zbroja":dodanie_stat("metalowa zbroja",500,0,0,100)}
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500)}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
@@ -338,3 +353,69 @@ def menu():
             samouczek()
             break
 print(mapa["miejsce treningowe3"])
+if pos3.relacje['Tomek']["atak"] == 0:
+    liczba_fabuły = 1
+elif pos3.relacje['Tomek']["atak"] == 1:
+    liczba_fabuły = 2
+elif pos3.relacje['Tomek']["atak"] >= 5:
+    liczba_fabuły = 3
+zapis = {"pos1":{"imie": pos1.imie, 
+                 "głód": pos1.głód, 
+                 "mgłód": pos1.mgłód, 
+                 "napojenie": pos1.napojenie, 
+                 "mnapojenie": pos1.mnapojenie, 
+                 "ciało": pos1.ciało, "atak": pos1.atak, 
+                 "obrona": pos1.obrona, 
+                 "zbroja": pos1.zbroja.nazwa, 
+                 "broń": pos1.bronie.nazwa, 
+                 "artefakty": pos1.artefakty, 
+                 "relacje": pos1.relacje, 
+                 "ekwipunek": pos1.ekwipunek},
+        "pos2":{"imie": pos2.imie, 
+                "głód": pos2.głód, 
+                "mgłód": pos2.mgłód, 
+                "napojenie": pos2.napojenie, 
+                "mnapojenie": pos2.mnapojenie, 
+                "ciało": pos2.ciało, 
+                "atak": pos2.atak, 
+                "obrona": pos2.obrona, 
+                "zbroja": pos2.zbroja.nazwa,
+                "broń": pos2.bronie.nazwa, 
+                "artefakty": pos2.artefakty, 
+                "relacje": pos2.relacje, 
+                "ekwipunek": pos2.ekwipunek},
+        "pos3":{"imie": pos3.imie, 
+                "głód": pos3.głód, 
+                "mgłód": pos3.mgłód, 
+                "napojenie": pos3.napojenie, 
+                "mnapojenie": pos3.mnapojenie, "ciało": 
+                pos3.ciało, "atak": pos3.atak, 
+                "obrona": pos3.obrona, 
+                "zbroja": pos3.zbroja.nazwa, 
+                "broń": pos3.bronie.nazwa, 
+                "artefakty": pos3.artefakty, 
+                "relacje": pos3.relacje, 
+                "ekwipunek": pos3.ekwipunek},
+        "pos4":{"imie": pos4.imie, 
+                "głód": pos4.głód, 
+                "mgłód": pos4.mgłód, 
+                "napojenie": pos4.napojenie, 
+                "mnapojenie": pos4.mnapojenie, 
+                "ciało": pos4.ciało, 
+                "atak": pos4.atak, 
+                "obrona": pos4.obrona, 
+                "zbroja": pos4.zbroja.nazwa, 
+                "broń": pos4.bronie.nazwa, 
+                "artefakty": pos4.artefakty, 
+                "relacje": pos4.relacje, 
+                "ekwipunek": pos4.ekwipunek},
+                "liczba_fabuły": liczba_fabuły}
+zapisz_gre(zapis, "zapis")
+def przygoda1():
+    global liczba_fabuły
+    if liczba_fabuły == 1:
+        print(mapa["miejsce treningowe2"])
+    elif liczba_fabuły == 2:
+        print(mapa["miejsce treningowe1"])
+    elif liczba_fabuły == 3:
+        print(mapa["miejsce treningowe3"])
