@@ -402,19 +402,29 @@ def przygoda1():
         print(mapa["miejsce treningowe1"])
     elif liczba_fabuły == 3:
         print(mapa["miejsce treningowe3"])
-    while True:
-        wybor = input("wybierz gdzie chcesz iść: ")
-        if wybor == 1:
-            if liczba_fabuły == 2:
-                input("dlaczego mnie zatakowałeś? bolało mnie to")
-                wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
-                if wybor == "1":
-                    input("Gracz: uderzyłem cie, bo mi kazałaś")
-                    input("Elenor: aha, czyli…… to moja wina że mnie uderzyłeś? to chyba nie jest w porządku")
-                    input("Tomek(myśli): dlaczego to powiedziała? przecież to nie prawda")
-                elif wybor == "2":
-                    input("Gracz: przepraszam")
-                    input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
-                    input("Tomek(myśli): wiem……, ale jak to nic nie powiedziałem?")
-                elif wybor == "3":
-                    input("Tomek:")
+    wybor = input("wybierz gdzie chcesz iść: ")
+    if wybor == 1:
+        if liczba_fabuły == 2:
+            input("dlaczego mnie zatakowałeś? bolało mnie to")
+            wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
+            if wybor == "1":
+                input("Gracz: uderzyłem cie, bo mi kazałaś")
+                input("Elenor: aha, czyli…… to moja wina że mnie uderzyłeś? to chyba nie jest w porządku")
+                input("Tomek(myśli): dlaczego to powiedziała? przecież to nie prawda")
+            elif wybor == "2":
+                input("Gracz: przepraszam")
+                input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
+                input("Tomek(myśli): wiem……, ale jak to nic nie powiedziałem?")
+            elif wybor == "3":
+                input("Tomek: coś mną sterowało. nie wiem co, ale to nie była moja wina")
+                input("Elenor: czyli to kogoś innego wina? ta napewno nie twoja")
+                input("Tomek(myśli): dlaczego to powiedziała? przecież to prawda")
+            elif wybor == "4":
+                input("Gracz: Elenor jesteś w grze i to wszystko jest zmyślone, a ty nie jesteś prawdziwa")
+                input("Elenor: co? to znaczy że to prawda? nie to nie możliwe. ja muszę być prawdziwa. tak?")
+                input("Tomek(myśli): co? jak to możliwe? ja nie istnieje? a co z Elenor?")
+                input("Elenor: nie mogę w to uwierzyć. muszę się stąd wydostać")
+                input("Gracz: Elenor jest to nie możliwe, bo jesteś częścią gry.")
+                input("niestety")
+            else:
+                pass
