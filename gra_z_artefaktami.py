@@ -416,10 +416,10 @@ zapis = {"pos1":{"imie": pos1.imie,
 def walka2():
     if liczba_fabuły == 3:
         while pos1.zyje():
-            pass
+            break
     else:
         while pos1.zyje() and pos2.zyje():
-            pass
+            break
 def przygoda1():
     global liczba_fabuły
     if liczba_fabuły == 1:
