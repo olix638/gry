@@ -471,4 +471,3 @@ def przygoda1():
                     input("biegniesz do wyjścia")
                     input("ale są za szybcy")
                     walka2()
-print(sum([200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000]))
