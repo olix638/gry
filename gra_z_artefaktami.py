@@ -182,16 +182,18 @@ class Postać:
             p1.drużyna.append(p2)
     
     def zaatakuj(self, wrog, jaka_czesc):
-        if self.bronie.tury > 0:
-            self.bronie.tury -= 1
-            return
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
                 return
+            if self.bronie.tury > 0:
+                self.bronie.tury -= 1
+                return
             if not hasattr(wrog, jaka_czesc):
                 print(f"nie ma części ciała: {jaka_czesc}")
                 return
+            if jaka_czesc == "głowa" and randint(1, 100) != 1:
+                print(f"{self.imie} chybił atak w głowę {wrog.imie}!")
             if self.bronie == bronie["włócznia"]:
                 for i in range(3):
                     obrazenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
@@ -202,7 +204,7 @@ class Postać:
                     wrog.ciało = max(0, wrog.ciało - rzeczywiste_obrazenia)
                     print(f"{wrog.imie} dostał {rzeczywiste_obrazenia} obrażeń w {jaka_czesc}!")
                     print(f"{wrog.imie} ma {nowe_hp} HP w {jaka_czesc}")
-                if not wrog.bronie.wytrzymałość == 0:
+                if not self.bronie.wytrzymałość == 0:
                     self.bronie.wytrzymałość = max(0,self.bronie.wytrzymałość - 1)
             else:
                 obrazenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
@@ -213,7 +215,7 @@ class Postać:
                 wrog.ciało = max(0, wrog.ciało - rzeczywiste_obrazenia)
                 print(f"{wrog.imie} dostał {rzeczywiste_obrazenia} obrażeń w {jaka_czesc}!")
                 print(f"{wrog.imie} ma {nowe_hp} HP w {jaka_czesc}")
-            if not wrog.bronie.wytrzymałość == 0:
+            if not self.bronie.wytrzymałość == 0:
                 self.bronie.wytrzymałość = max(0,self.bronie.wytrzymałość - 1)
         else:
             if not self.chce:
