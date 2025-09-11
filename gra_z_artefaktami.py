@@ -260,8 +260,8 @@ class Postać:
     def __str__(self):
         return f"{self.imie}({self.istota}):\n  Życie={self.ciało}\n  Atak={self.atak}\n  Obrona={self.obrona}\n  punkty oszczędzienia = {self.oszczędzenie}\n  broń: {self.bronie.nazwa}\n  zbroja: {self.zbroja.nazwa}"
 pos1 = Postać("człowiek", "Tomek", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175, 175, 100, 100, 100, 100, 10, 20,zbroje["brak_zbroi"], patyki['cięki_patyk'],True,False)
-pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 200,300, 50, 100, 0, 0, zbroje["brak_zbroi"], bronie["topur"],False,True)
-pos3 = Postać("elf", "Elenor", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
+pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0, 200,300, 50, 100, 0, 0, zbroje["brak_zbroi"], bronie["topur"],False,True)
+pos3 = Postać("elf", "Elenor", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0, 100,100, 10, 100, 5, 10, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
 pos4 = Postać("elf", "Romeo", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 50000, 100000, 100, 100,100, 100, 5, 10, zbroje["czarno_zbroja"], bronie["łuk"],True,False)
 pos5 = Postać("elf","Rukur",200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000, 175000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
