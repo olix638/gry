@@ -21,7 +21,7 @@ gobliny(ogień bez iskry z ciałem):
     1.rzadziej chce pić(punkty głodu się zmiejszają i picia czyli 0,15 punktów głodu w lato 0,05 i 5 punktów picia w lato 20). może tkać ogień
     2.ten goblin jest z popiołu, ale ma najmniej zdrowia (całe ciało ma 2000).
       Może się leczyć i teleportować przez bród. najszybciej się starzeje(żyje od 100 do 300 lat).
-      może tkać ziemie i ogień
+      może tkać ziemie,ogień,metal,magme i popiół
     3.ma lepszą obronę bo bardziejma twartszą skure(+ 200 obrony). może tkać ogień
     4.musi swego ognia się uczyć, bo ma ogon, ale jak się nauczy to ma najpoteżniejszy ogień z wszystkich goblinów
     (w pierwszej części jest to buzg)
