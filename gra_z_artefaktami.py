@@ -435,7 +435,7 @@ def walka2():
                 a = choice(pos1.części_ciała)
                 if not getattr(pos1, a) == 0:
                     break
-            pos5.zaatakuj(pos1,r)
+            pos5.zaatakuj(pos1,a)
     else:
         while pos1.zyje() and pos2.zyje():
             break
