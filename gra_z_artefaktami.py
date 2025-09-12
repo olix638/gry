@@ -264,6 +264,7 @@ pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 
 pos3 = Postać("elf", "Elenor", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0, 100,100, 10, 100, 5, 10, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
 pos4 = Postać("elf", "Romeo", 200000.0, 250000.0, 50000.0, 50000.0, 75000.0, 12500.0, 12500.0, 50000, 100000, 100, 100,100, 100, 5, 10, zbroje["czarno_zbroja"], bronie["łuk"],True,False)
 pos5 = Postać("elf","Rukur",200000.0, 250000.0, 50000.0, 50000.0, 25000.0, 12500.0, 12500.0, 175000, 125000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
+pos6 = Postać("elf","Rokil",100000.0, 250000.0, 50000.0, 50000.0, 25000.0, 12500.0, 12500.0, 175000, 125000, 100,100, 10, 100, 5, 10, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
 pos1.synchronizacja(3)
@@ -422,7 +423,7 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "liczba_fabuły": liczba_fabuły}
 def walka2():
     if liczba_fabuły == 3:
-        while pos1.zyje():
+        while pos1.zyje() or pos5.zyje() and pos6.zyje() or pos5.zyje() and not pos6.oszczędzony() or not pos5.oszczędzony() and pos6.zyje() or not pos5.oszczędzony() and not pos6.oszczędzony():
             wybor = input("1.zaatakuj\n2.czyn\n")
             if wybor == "1":
                 jaka_część = 0
