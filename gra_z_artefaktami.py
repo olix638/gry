@@ -423,7 +423,10 @@ zapis = {"pos1":{"imie": pos1.imie,
                 "liczba_fabuły": liczba_fabuły}
 def walka2():
     if liczba_fabuły == 3:
-        while pos1.zyje() or pos5.zyje() and pos6.zyje() or pos5.zyje() and not pos6.oszczędzony() or not pos5.oszczędzony() and pos6.zyje() or not pos5.oszczędzony() and not pos6.oszczędzony():
+        strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
+        strażnik2_aktywny = pos6.zyje() or not pos6.oszczędzony()
+
+        while strażnik1_aktywny or strażnik2_aktywny:
             wybor = input("1.zaatakuj\n2.czyn\n")
             if wybor == "1":
                 jaka_część = 0
