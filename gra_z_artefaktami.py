@@ -432,6 +432,11 @@ def walka2():
                 pos1.zaatakuj(pos2,jaka_część)
             elif wybor == "2":
                 wybor = input("1.porozmawiaj\n2.uciekaj\n3.proś go o litość\n")
+                if wybor == "1":
+                    input("Gracz: możemy porozmawiać?")
+                    input("Strażnik: nie ma mowy. muszę cię złapać jesteś celem rządów manreda")
+                    input("Gracz: co? dlaczego?")
+                    input("strażnik: kazðy człowiek jest celem. muszę cię złapać lub zabić(muwi to jagby chciałby przeprosić)")
             while True:
                 a = choice(pos1.części_ciała)
                 if not getattr(pos1, a) == 0:
