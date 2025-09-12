@@ -431,6 +431,7 @@ def walka2():
                 pos1.zaatakuj(pos2,jaka_część)
             elif wybor == "2":
                 wybor = input("1.porozmawiaj\n2.uciekaj\n3.proś go o litość\n")
+            pos5.zaatakuj(pos1, choice(pos1.części_ciała))
     else:
         while pos1.zyje() and pos2.zyje():
             break
