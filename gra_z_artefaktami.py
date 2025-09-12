@@ -429,7 +429,7 @@ def walka2():
                 jaka_część = 0
                 while not jaka_część in pos5.części_ciała:
                     jaka_część = input("napisz jaką część ciała chcesz zaatakować: ")
-                pos1.zaatakuj(pos2,jaka_część)
+                pos1.zaatakuj(pos5,jaka_część)
             elif wybor == "2":
                 wybor = input("1.porozmawiaj\n2.uciekaj\n3.proś go o litość\n")
                 if wybor == "1":
