@@ -423,7 +423,14 @@ zapis = {"pos1":{"imie": pos1.imie,
 def walka2():
     if liczba_fabuły == 3:
         while pos1.zyje():
-            break
+            wybor = input("1.zaatakuj\n2.czyn\n")
+            if wybor == "1":
+                jaka_część = 0
+                while not jaka_część in pos5.części_ciała:
+                    jaka_część = input("napisz jaką część ciała chcesz zaatakować: ")
+                pos1.zaatakuj(pos2,jaka_część)
+            elif wybor == "2":
+                wybor = input("1.porozmawiaj\n2.uciekaj\n3.proś go o litość\n")
     else:
         while pos1.zyje() and pos2.zyje():
             break
