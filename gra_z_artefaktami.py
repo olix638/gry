@@ -426,7 +426,7 @@ def walka2():
         strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
         strażnik2_aktywny = pos6.zyje() or not pos6.oszczędzony()
 
-        while pos1.zyje() or strażnik1_aktywny and strażnik2_aktywny:
+        while pos1.zyje() or (strażnik1_aktywny and strażnik2_aktywny):
             wybor = input("1.zaatakuj\n2.czyn\n")
             if wybor == "1":
                 jaka_część = 0
