@@ -445,6 +445,11 @@ def walka2():
                 if not getattr(pos1, a) == 0:
                     break
             pos5.zaatakuj(pos1,a)
+            while True:
+                b = choice(pos1.części_ciała)
+                if not getattr(pos1, b) == 0:
+                    break
+            pos6.zaatakuj(pos1,b)
     else:
         while pos1.zyje() and pos2.zyje():
             break
