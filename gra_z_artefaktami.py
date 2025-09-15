@@ -438,7 +438,7 @@ def walka2():
                     input("Gracz: możemy porozmawiać?")
                     input("Strażnik: nie ma mowy. muszę cię złapać jesteś celem rządów manreda")
                     input("Gracz: co? dlaczego?")
-                    input("strażnik: kazðy człowiek jest celem. muszę cię złapać lub zabić(muwi to jagby chciałby przeprosić)")
+                    input("strażnik: każdy człowiek jest celem. muszę cię złapać lub zabić(muwi to jagby chciałby przeprosić)")
             while True:
                 a = choice(pos1.części_ciała)
                 if not getattr(pos1, a) == 0:
