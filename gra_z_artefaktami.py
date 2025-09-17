@@ -1,16 +1,4 @@
 from random import *
-import json
-def zapisz_gre(stan_gry, plik):
-    with open(f"{plik}.json", "w") as f:
-        json.dump(stan_gry, f)
-    print("Gra zapisana!")
-def wczytaj_gre(plik):
-    try:
-        with open(f"{plik}.json", "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print("Brak zapisu gry.")
-        return None
 class dodanie_stat:
     def __init__(self, nazwa, obrona, atak, tury, wytrzymałość):
         self.nazwa = nazwa
@@ -280,95 +268,6 @@ pos2.ekwipunek["siekiera"] += 1
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos4.synchronizacja(3)
 pos5.synchronizacja(3)
-def walka1():
-    r = 0
-    while not pos3.oszczędzony():
-        if r == 0:
-            print("do na starcie nauczmy cię walczyć wręcz.\npo prostu mnie walnij.")
-            while not r == 1:
-                wybor = input("1.zaatakuj\n2.czyn\n")
-                if wybor == "1":
-                    jaka_cześć = 0
-                    while not jaka_cześć in pos3.części_ciała:
-                        jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
-                    pos1.zaatakuj(pos3,jaka_cześć)
-                    input("Elenor: Udało ci... ej, czekaj. Co? Dlaczego mnie? Przecież znamy się od urodzenia... No, nieważne — udało ci się, więc\ndobrze.")
-                    input("Tomek(myśli): Dlaczego ją uderzyłem...? Co jest ze mną nie tak?")
-                    pos3.relacje["Tomek"]["atak"] += 1
-                    r += 1
-                elif wybor == "2":
-                    print("Elenor:dziękuję że nie chcesz mnie uderzyć tylko porozmawiać, ale w tych czasach niestety trzeba")
-                    pos3.oszczędzanie(pos3.relacje["Tomek"]["zaufanie"] - pos3.relacje["Tomek"]["atak"])
-                    pos3.synchronizacja(5)
-                    while not r == 1:
-                        wybor = input("1.zaatakuj\n")
-                        if wybor == "1":
-                            jaka_cześć = 0
-                            while not jaka_cześć in pos3.części_ciała:
-                                jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
-                            pos1.zaatakuj(pos3,jaka_cześć)
-                            input("Elernor: udało ci się")
-                            r += 1
-        elif r == 1:
-            input("Elenor: no dobrze teraz naucze cię oszczędzać")
-            if not pos3.oszczędzenie == 0:
-                input("Tomek: przecież umiem")
-                input("Elenor: no tak to już nie musimy")
-                pos3.oszczędzanie(100)
-            else:
-                input("Tomek: dobra")
-                input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
-                input("Elenor: dobrze to teraz oszczędź mnie")
-                wybor = input("1.uderz\n2.czyn\n")
-                if wybor == "1":
-                    print("Elenor: jej dlacze znowu mnie uderzyłeś?")
-                    input("Tomek(myśli): dlaczego to zrobiłem? i ta tak odrazu?")
-                    input("Elenor: dobra już uciekam. pa(mówi to z żalem i nienawiścią).")
-                    pos3.relacje["Tomek"]["atak"] += 5
-                    break
-                elif wybor == "2":
-                    print("Elenor: brawo że mnie oszczędziłeś")
-                    pos3.oszczędzanie(100)
-                    pos3.synchronizacja(5)
-    pos3.oszczędzenie = 0
-def samouczek():
-    q = 0
-    input("Elenor: o już jesteś")
-    input("Tomek: tak jestem. Jak chcesz mi pomóc?")
-    input("Elenor: pokaże ci jak waczyć z wieloma wrogami, czyli walkę wrecz lub oszczędzenie")
-    while True:
-        q = input("Elenor: gotowy?\n1.tak\n2.nie\n")
-        if q == "1":
-            print("Elenor: dobrze")
-            walka1()
-            break
-        elif q == "2":
-            print("Elenor: jak to nie jesteś gotowy? boisz się(mówi to z troską).\n, ale musimy niestety")
-            pos3.oszczędzanie(pos3.relacje['Tomek']["zaufanie"] - pos3.relacje["Tomek"]["atak"])
-            walka1()
-            break
-def menu():
-    input("do Tomka Kowalskiego")
-    input("hej Tomek przyjdziesz do mojej wioski, bo w tych czasach jest trochę trudno.")
-    input("wiele się dzieje, ale wiem że to nie wasza wina")
-    input("i chcę ci pomóc w tych trudnych czasach.")
-    input("z umiłowaniem że to przeczytałeś:\nElenor\n")
-    while True:
-        men = input("1.sprawdź fabułę\n""2.wczytaj\n""3.rozpocznij gre\n")
-        if men == "1":
-            print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
-        elif men == "2":
-            print("jeszcze nie ma wczytywania")
-        elif men == "3":
-            samouczek()
-            break
-if pos3.relacje['Tomek']["atak"] == 0:
-    liczba_fabuły = 1
-elif pos3.relacje['Tomek']["atak"] == 1:
-    liczba_fabuły = 2
-elif pos3.relacje['Tomek']["atak"] >= 5:
-    liczba_fabuły = 3
-print(f"liczba fabuły: {liczba_fabuły}")
 def walka2():
     if liczba_fabuły == 3:
         strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
@@ -449,3 +348,97 @@ def przygoda1():
                     input("biegniesz do wyjścia")
                     input("ale są za szybcy")
                     walka2()
+
+def walka1():
+    r = 0
+    while not pos3.oszczędzony():
+        if r == 0:
+            print("do na starcie nauczmy cię walczyć wręcz.\npo prostu mnie walnij.")
+            while not r == 1:
+                wybor = input("1.zaatakuj\n2.czyn\n")
+                if wybor == "1":
+                    jaka_cześć = 0
+                    while not jaka_cześć in pos3.części_ciała:
+                        jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
+                    pos1.zaatakuj(pos3,jaka_cześć)
+                    input("Elenor: Udało ci... ej, czekaj. Co? Dlaczego mnie? Przecież znamy się od urodzenia... No, nieważne — udało ci się, więc\ndobrze.")
+                    input("Tomek(myśli): Dlaczego ją uderzyłem...? Co jest ze mną nie tak?")
+                    pos3.relacje["Tomek"]["atak"] += 1
+                    r += 1
+                elif wybor == "2":
+                    print("Elenor:dziękuję że nie chcesz mnie uderzyć tylko porozmawiać, ale w tych czasach niestety trzeba")
+                    pos3.oszczędzanie(pos3.relacje["Tomek"]["zaufanie"] - pos3.relacje["Tomek"]["atak"])
+                    pos3.synchronizacja(5)
+                    while not r == 1:
+                        wybor = input("1.zaatakuj\n")
+                        if wybor == "1":
+                            jaka_cześć = 0
+                            while not jaka_cześć in pos3.części_ciała:
+                                jaka_cześć = input("napisz jaką część ciała chcesz zaatakować: ")
+                            pos1.zaatakuj(pos3,jaka_cześć)
+                            input("Elernor: udało ci się")
+                            r += 1
+        elif r == 1:
+            input("Elenor: no dobrze teraz naucze cię oszczędzać")
+            if not pos3.oszczędzenie == 0:
+                input("Tomek: przecież umiem")
+                input("Elenor: no tak to już nie musimy")
+                pos3.oszczędzanie(100)
+            else:
+                input("Tomek: dobra")
+                input("Tomek(myśli): ale na pradę. dlaczego ją uderzyłem? i to tak odrazu?")
+                input("Elenor: dobrze to teraz oszczędź mnie")
+                wybor = input("1.uderz\n2.czyn\n")
+                if wybor == "1":
+                    print("Elenor: jej dlacze znowu mnie uderzyłeś?")
+                    input("Tomek(myśli): dlaczego to zrobiłem? i ta tak odrazu?")
+                    input("Elenor: dobra już uciekam. pa(mówi to z żalem i nienawiścią).")
+                    pos3.relacje["Tomek"]["atak"] += 5
+                    break
+                elif wybor == "2":
+                    print("Elenor: brawo że mnie oszczędziłeś")
+                    pos3.oszczędzanie(100)
+                    pos3.synchronizacja(5)
+    pos3.oszczędzenie = 0
+def samouczek():
+    q = 0
+    input("Elenor: o już jesteś")
+    input("Tomek: tak jestem. Jak chcesz mi pomóc?")
+    input("Elenor: pokaże ci jak waczyć z wieloma wrogami, czyli walkę wrecz lub oszczędzenie")
+    while True:
+        q = input("Elenor: gotowy?\n1.tak\n2.nie\n")
+        if q == "1":
+            print("Elenor: dobrze")
+            walka1()
+            break
+        elif q == "2":
+            print("Elenor: jak to nie jesteś gotowy? boisz się(mówi to z troską).\n, ale musimy niestety")
+            pos3.oszczędzanie(pos3.relacje['Tomek']["zaufanie"] - pos3.relacje["Tomek"]["atak"])
+            walka1()
+            break
+def menu():
+    input("do Tomka Kowalskiego")
+    input("hej Tomek przyjdziesz do mojej wioski, bo w tych czasach jest trochę trudno.")
+    input("wiele się dzieje, ale wiem że to nie wasza wina")
+    input("i chcę ci pomóc w tych trudnych czasach.")
+    input("z umiłowaniem że to przeczytałeś:\nElenor\n")
+    while True:
+        men = input("1.sprawdź fabułę\n""2.wczytaj\n""3.rozpocznij gre\n")
+        if men == "1":
+            print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
+        elif men == "2":
+            s = input("wpisz liczbę fabuły: ")
+            if s == "1":
+                liczba_fabuły = 1
+                przygoda1()
+                break
+        elif men == "3":
+            samouczek()
+            break
+if pos3.relacje['Tomek']["atak"] == 0:
+    liczba_fabuły = 1
+elif pos3.relacje['Tomek']["atak"] == 1:
+    liczba_fabuły = 2
+elif pos3.relacje['Tomek']["atak"] >= 5:
+    liczba_fabuły = 3
+print(f"liczba fabuły: {liczba_fabuły}")
