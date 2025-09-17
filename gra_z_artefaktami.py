@@ -441,4 +441,3 @@ elif pos3.relacje['Tomek']["atak"] == 1:
     liczba_fabuły = 2
 elif pos3.relacje['Tomek']["atak"] >= 5:
     liczba_fabuły = 3
-
