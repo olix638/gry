@@ -67,6 +67,7 @@ class Postać:
         self.nczęści_ciała = [self.głowa, self.klatka, self.lręka, self.pręka, self.brzuch, self.lrzebro, self.przebro,self.lnoga, self.pnoga]
         self.części_ciała = ["głowa", "klatka", "lręka", "pręka", "brzuch", "lrzebro", "przebro", "lnoga", "pnoga"]
         self.ogłuszony = False
+        self.czas_ogłuszenia = 0
         self.chce = chce_zatakować
         self.musi = musi
         self.tury = bronie.tury
@@ -74,7 +75,6 @@ class Postać:
         self.wrogowie = []
         self.ekwipunek = {"ciękie patyki": 0,"kamienie": 0,"kawałki metalu": 0,"siekiera":0}
         self.oszczędzenie = 0
-        self.dodatkowe_obrarzenia = 0
         self.relacje = {}
         # Do obsługi działania artefaktów
         self.wochuk_uses = {}  # przeciwnik: ile razy użyto
@@ -233,6 +233,7 @@ class Postać:
                 przeciwnik.ogłuszony = True
                 print(f"{przeciwnik.imie} został ogłuszony przez Wochuka!")
                 self.wochuk_uses[przeciwnik] = użycia + 1
+                self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
 
