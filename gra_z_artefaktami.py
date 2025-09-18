@@ -225,16 +225,14 @@ class Postać:
     def użyj_wochuk(self):
         if "wochuk" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Wochuk."
-        if przeciwnik not in self.wochuk_uses:
-            self.wochuk_uses[przeciwnik] = 0
-        użycia = self.wochuk_uses[przeciwnik]
-        szansa = 0.5 - (użycia * 0.1)
-        self.wochuk_uses[przeciwnik] += 1
-        if random() < szansa:
-            przeciwnik.ogłuszony = True
-            return f"{przeciwnik.imie} został ogłuszony przez Wochuka!"
-        else:
-            return f"{przeciwnik.imie} oparł się działaniu Wochuka."
+        for przeciwnik in self.wrogowie:
+            użycia = self.wochuk_uses[self.wrogowie[przewciwnik]]
+            szansa = 0.5 - (użycia * 0.1)
+            if random() < szansa:
+                przeciwnik.ogłuszony = True
+                print(f"{przeciwnik.imie} został ogłuszony przez Wochuka!")
+            else:
+                print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
     
     def użyj_cozwój(self, przeciwnik):
         if "cozwój" not in self.artefakty:
