@@ -223,17 +223,19 @@ class Postać:
         return nazwa in self.artefakty.values()
     
     def użyj_wochuk(self):
-        if "wochuk" not in self.artefakty:
+        if "wochuk" not in self.artefakty.values():
             return f"{self.imie} nie posiada artefaktu Wochuk."
-        for przeciwnik in range(self.wrogowie):
-            użycia = self.wochuk_uses[self.wrogowie[przewciwnik]]
-            szansa = 0.5 - (użycia * 0.1)
+        
+        for przeciwnik in self.wrogowie:
+            użycia = self.wochuk_uses.get(przeciwnik, 0)
+            szansa = max(0.5 - (użycia * 0.1), 0)
             if random() < szansa:
                 przeciwnik.ogłuszony = True
                 print(f"{przeciwnik.imie} został ogłuszony przez Wochuka!")
+                self.wochuk_uses[przeciwnik] = użycia + 1
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-    
+
     def użyj_cozwój(self, przeciwnik):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
