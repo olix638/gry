@@ -225,7 +225,7 @@ class Postać:
     def użyj_wochuk(self):
         if "wochuk" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Wochuk."
-        for przeciwnik in self.wrogowie:
+        for przeciwnik in range(self.wrogowie):
             użycia = self.wochuk_uses[self.wrogowie[przewciwnik]]
             szansa = 0.5 - (użycia * 0.1)
             if random() < szansa:
