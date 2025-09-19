@@ -223,7 +223,7 @@ class Postać:
         return nazwa in self.artefakty.values()
     
     def użyj_wochuk(self):
-        if "wochuk" not in self.artefakty.values():
+        if not ma_artefakt("wochuk"):
             return f"{self.imie} nie posiada artefaktu Wochuk."
         
         for przeciwnik in self.wrogowie:
