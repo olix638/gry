@@ -349,7 +349,6 @@ def przygoda1():
                     input("biegniesz do wyjścia")
                     input("ale są za szybcy")
                     walka2()
-
 def walka1():
     r = 0
     while not pos3.oszczędzony():
