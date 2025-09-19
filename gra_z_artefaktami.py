@@ -306,7 +306,6 @@ def walka2():
         while pos1.zyje() and pos2.zyje():
             break
 def przygoda1():
-    global liczba_fabuły
     if liczba_fabuły == 1:
         print(mapa["miejsce treningowe2"])
     elif liczba_fabuły == 2:
@@ -430,6 +429,14 @@ def menu():
             s = input("wpisz liczbę fabuły: ")
             if s == "1":
                 liczba_fabuły = 1
+                przygoda1()
+                break
+            elif s == "2":
+                liczba_fabuły = 2
+                przygoda1()
+                break
+            elif s == "3":
+                liczba_fabuły = 3
                 przygoda1()
                 break
         elif men == "3":
