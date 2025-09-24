@@ -178,8 +178,8 @@ class Postać:
             elif self.bronie.tury > 0:
                 self.bronie.tury -= 1
                 return
-            elif not hasattr(wrog, jaka_czesc):
-                print(f"nie ma części ciała: {jaka_czesc}")
+            if self.bronie.wytrzymałość == 0:
+                print(f"{self.imie} nie może zaatakować, ponieważ jego broń {self.bronie.nazwa} jest stępiona!")
                 return
             elif jaka_czesc == "głowa" and randint(1, 100) != 1:
                 print(f"{self.imie} chybił atak w głowę {wrog.imie}!")
@@ -199,6 +199,9 @@ class Postać:
                     print(f"{wrog.imie} ma {nowe_hp} HP w {jaka_czesc}")
                 if not self.bronie.wytrzymałość == 0:
                     self.bronie.wytrzymałość = max(0,self.bronie.wytrzymałość - 1)
+                if self.bronie.wytrzymałość == 0:
+                    print(f"{self.imie} nie może zaatakować, ponieważ jego broń {self.bronie.nazwa} jest stępiona!")
+                    return
             else:
                 obrazenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
                 aktualne_hp = getattr(wrog, jaka_czesc)
