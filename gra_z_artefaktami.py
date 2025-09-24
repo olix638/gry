@@ -79,6 +79,7 @@ class Postać:
         # Do obsługi działania artefaktów
         self.wochuk_uses = {}  # przeciwnik: ile razy użyto
         self.cozwoj_uses = 0
+
     def sprawdź_ekwipunek(self):
         print(f"ekwipunek postaci: {self.imie}")
         for przedmiot, ilość in self.ekwipunek.items():
