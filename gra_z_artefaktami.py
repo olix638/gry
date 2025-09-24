@@ -179,7 +179,7 @@ class Postać:
                 self.bronie.tury -= 1
                 return
             elif self.bronie.wytrzymałość == 0:
-                print(f"{self.imie} nie może zaatakować, ponieważ jego broń {self.bronie.nazwa} jest stępiona!")
+                print(f"{self.imie} nie może zaatakować, bo {self.bronie.nazwa} jest stępiona!")
                 return
             elif jaka_czesc == "głowa" and randint(1, 100) != 1:
                 print(f"{self.imie} chybił atak w głowę {wrog.imie}!")
