@@ -178,7 +178,7 @@ class Postać:
             elif self.bronie.tury > 0:
                 self.bronie.tury -= 1
                 return
-            if self.bronie.wytrzymałość == 0:
+            elif self.bronie.wytrzymałość == 0:
                 print(f"{self.imie} nie może zaatakować, ponieważ jego broń {self.bronie.nazwa} jest stępiona!")
                 return
             elif jaka_czesc == "głowa" and randint(1, 100) != 1:
