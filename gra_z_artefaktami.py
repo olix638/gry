@@ -1,4 +1,5 @@
 from random import *
+liczba_fabuły = 0
 class dodanie_stat:
     def __init__(self, nazwa, obrona, atak, tury, wytrzymałość):
         self.nazwa = nazwa
