@@ -200,7 +200,7 @@ class Postać:
                 if not self.bronie.wytrzymałość == 0:
                     self.bronie.wytrzymałość = max(0,self.bronie.wytrzymałość - 1)
                 if self.bronie.wytrzymałość == 0:
-                    print(f"{self.imie} nie może zaatakować, ponieważ jego broń {self.bronie.nazwa} jest stępiona!")
+                    print(f"{self.imie} nie może zaatakować, ponieważ {self.bronie.nazwa} jest stępiona!")
                     return
             else:
                 obrazenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
