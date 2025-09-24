@@ -309,12 +309,12 @@ def walka2():
     else:
         while pos1.zyje() and pos2.zyje():
             break
-def przygoda1():
-    if liczba_fabuły == 1:
+def przygoda1(f):
+    if f == 1:
         print(mapa["miejsce treningowe2"])
-    elif liczba_fabuły == 2:
+    elif f == 2:
         print(mapa["miejsce treningowe1"])
-    elif liczba_fabuły == 3:
+    elif f == 3:
         print(mapa["miejsce treningowe3"])
     wybor = input("wybierz gdzie chcesz iść: ")
     if wybor == 1:
@@ -432,16 +432,13 @@ def menu():
         elif men == "2":
             s = input("wpisz liczbę fabuły: ")
             if s == "1":
-                liczba_fabuły = 1
-                przygoda1()
+                przygoda1(1)
                 break
             elif s == "2":
-                liczba_fabuły = 2
-                przygoda1()
+                przygoda1(2)
                 break
             elif s == "3":
-                liczba_fabuły = 3
-                przygoda1()
+                przygoda1(3)
                 break
         elif men == "3":
             samouczek()
