@@ -92,7 +92,7 @@ class Postać:
         setattr(self, jaka_część, getattr(self, jaka_część) - ile)
 
     def dodaj_relacje(self, postac, staty_relacji):
-        if postac in self.relacje:
+        if postac in self.relacje.values():
             self.relacje[postac] += staty_relacji
         else:
             self.relacje[postac] = staty_relacji
