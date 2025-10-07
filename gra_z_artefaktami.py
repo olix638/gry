@@ -1,5 +1,16 @@
 from random import *
-liczba_fabuły = 0
+import json
+def zapisz_gre(stan_gry, plik):
+    with open(f"{plik}.json", "w") as f:
+        json.dump(stan_gry, f)
+    print("Gra zapisana!")
+def wczytaj_gre(plik):
+    try:
+        with open(f"{plik}.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("Brak zapisu gry.")
+        return None
 class dodanie_stat:
     def __init__(self, nazwa, obrona, atak, tury, wytrzymałość):
         self.nazwa = nazwa
@@ -274,8 +285,8 @@ pos2.ekwipunek["siekiera"] += 1
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos4.synchronizacja(3)
 pos5.synchronizacja(3)
-def walka2():
-    if liczba_fabuły == 3:
+def walka2(f):
+    if f == 3:
         strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
         strażnik2_aktywny = pos6.zyje() or not pos6.oszczędzony()
         while pos1.zyje() or (strażnik1_aktywny and strażnik2_aktywny):
@@ -319,7 +330,7 @@ def przygoda1(f):
         print(mapa["miejsce treningowe3"])
     wybor = input("wybierz gdzie chcesz iść: ")
     if wybor == 1:
-        if liczba_fabuły == 2:
+        if f == 2:
             input("dlaczego mnie zatakowałeś? bolało mnie to")
             wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
             if wybor == "1":
@@ -444,9 +455,3 @@ def menu():
         elif men == "3":
             samouczek()
             break
-if pos3.relacje['Tomek']["atak"] == 0:
-    liczba_fabuły = 1
-elif pos3.relacje['Tomek']["atak"] == 1:
-    liczba_fabuły = 2
-elif pos3.relacje['Tomek']["atak"] == 2:
-    liczba_fabuły = 3
