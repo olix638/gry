@@ -432,13 +432,13 @@ def menu():
             print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
         elif men == "2":
             s = input("wpisz liczbę fabuły: ")
-            if s == "1":
+            if s == "p1":
                 przygoda1(1)
                 break
-            elif s == "2":
+            elif s == "p2":
                 przygoda1(2)
                 break
-            elif s == "3":
+            elif s == "p3":
                 przygoda1(3)
                 break
         elif men == "3":
