@@ -339,7 +339,7 @@ def przygoda1(f):
                 input("Elenor: co? to znaczy że to prawda? nie to nie możliwe. ja muszę być prawdziwa. tak?")
                 input("Tomek(myśli): co? jak to możliwe? ja nie istnieje? a co z Elenor?")
                 input("Elenor: nie mogę w to uwierzyć. muszę się stąd wydostać")
-                input("Gracz: Elenor jest to nie możliwe, bo jesteś częścią gry.",end=" ")
+                input("Gracz: Elenor jest to nie możliwe, bo jesteś częścią gry.")
                 input("niestety")
         else:
             print("jesteś przy ścianie i masz opcje")
