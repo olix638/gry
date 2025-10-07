@@ -442,16 +442,8 @@ def menu():
         if men == "1":
             print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
         elif men == "2":
-            s = input("wpisz liczbę fabuły: ")
-            if s == "p1":
-                przygoda1(1)
-                break
-            elif s == "p2":
-                przygoda1(2)
-                break
-            elif s == "p3":
-                przygoda1(3)
-                break
+            q = input("podaj nazwę pliku z którego chcesz wczytać gre: ")
+            wczytaj_gre(q)
         elif men == "3":
             samouczek()
             break
