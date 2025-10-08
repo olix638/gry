@@ -504,4 +504,4 @@ zapis = {"pos1":pos1.po(),
         "pos5":pos5.po(),
         "pos6":pos6.po(),
         "liczba_fabuły": liczba_fabuły}
-zapisz_gre(zapis, "save1")
+zapisz_gre(zapis, "save")
