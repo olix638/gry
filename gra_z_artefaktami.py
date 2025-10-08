@@ -486,11 +486,14 @@ def menu():
         if men == "1":
             print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
         elif men == "2":
-            q = input("podaj nazwę pliku z którego chcesz wczytać gre: ")
-            wczytaj_gre(q)
+            we = wczytaj_gre("save")
+            if we["liczba_fabuły"] <= 3:
+                przygoda1(we["liczba_fabuły"])
+                
         elif men == "3":
             samouczek()
             break
+menu()
 if pos3.relacje["Tomek"]["atak"] == 0:
     liczba_fabuły = 1
 elif pos3.relacje["Tomek"]["atak"] == 1:
@@ -505,3 +508,4 @@ zapis = {"pos1":pos1.po(),
         "pos6":pos6.po(),
         "liczba_fabuły": liczba_fabuły}
 zapisz_gre(zapis, "save")
+przygoda1(liczba_fabuły)
