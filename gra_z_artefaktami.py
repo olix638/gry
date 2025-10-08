@@ -495,4 +495,8 @@ zapis = {"pos1":pos1.po(),
         "pos2":pos2.po(),
         "pos3":pos3.po(),
         "pos4":pos4.po(),
+        "pos5":pos5.po(),
+        "pos6":pos6.po(),
         "liczba_fabuły": liczba_fabuły}
+zapisz_gre("save1", zapis)
+menu()
