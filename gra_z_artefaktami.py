@@ -495,4 +495,4 @@ zapis = {"pos1":pos1.po(),
         "pos2":pos2.po(),
         "pos3":pos3.po(),
         "pos4":pos4.po(),
-                "liczba_fabuły": liczba_fabuły}
+        "liczba_fabuły": liczba_fabuły}
