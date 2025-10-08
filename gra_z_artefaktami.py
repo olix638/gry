@@ -487,9 +487,15 @@ def menu():
             print("Fabularna tajemnica! Nie dostaniesz spoilerów tak łatwo 😉")
         elif men == "2":
             we = wczytaj_gre("save")
-            if we["liczba_fabuły"] <= 3:
-                przygoda1(we["liczba_fabuły"])
-                
+            global pos1, pos2, pos3, pos4, pos5, pos6, liczba_fabuły
+            pos1 = Postać(**we["pos1"])
+            pos2 = Postać(**we["pos2"])
+            pos3 = Postać(**we["pos3"])
+            pos4 = Postać(**we["pos4"])
+            pos5 = Postać(**we["pos5"])
+            pos6 = Postać(**we["pos6"])
+            liczba_fabuły = we["liczba_fabuły"]
+            break
         elif men == "3":
             samouczek()
             break
