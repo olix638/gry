@@ -18,6 +18,12 @@ class dodanie_stat:
         self.atak = atak
         self.tury = tury
         self.wytrzymałość = wytrzymałość
+    def po(self):   
+        return {"nazwa":self.nazwa,     
+                "obroną":self.obrona,
+                "atak":self.atak,
+                "tury":self.tury,
+                "wytrzymałość":self.wytrzymałość}
 mapa = {"miejsce treningowe1": ("\033[38;5;240m           ________________________\n"
                                 " |    2   |                       |     3    |\n"
                                 " |        |                       |          |\n"
@@ -112,8 +118,8 @@ class Postać:
                 "za_obrona":self.za_obrona,
                 "atak":self.atak,
                 "obrona":self.obrona,
-                "zbroja":self.zbroja,
-                "bronie":self.bronie,
+                "zbroja":self.zbroja.po(),
+                "bronie":self.bronie.po(),
                 "umiejętności":self.umiejętności,
                 "ciało":self.ciało,
                 "nczęści_ciała":self.nczęści_ciała,
@@ -498,5 +504,4 @@ zapis = {"pos1":pos1.po(),
         "pos5":pos5.po(),
         "pos6":pos6.po(),
         "liczba_fabuły": liczba_fabuły}
-zapisz_gre("save1", zapis)
-menu()
+zapisz_gre(zapis, "save1")
