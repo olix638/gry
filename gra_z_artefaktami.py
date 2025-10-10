@@ -1,6 +1,7 @@
 from random import *
 import json
 from turtle import pos
+from types import NoneType
 def zapisz_gre(stan_gry, plik):
     with open(f"{plik}.json", "w") as f:
         json.dump(stan_gry, f)
