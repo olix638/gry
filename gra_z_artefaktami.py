@@ -110,7 +110,7 @@ class Postać:
                 "mgłód":self.mgłód,
                 "napojenie":self.napojenie,
                 "mnapojenie":self.mnapojenie,
-                "napojenie":self.istota,
+                "istota":self.istota,
                 "głowa":self.głowa,
                 "klatka":self.klatka,
                 "lręka":self.lręka,  
