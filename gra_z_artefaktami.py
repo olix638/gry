@@ -19,8 +19,8 @@ class dodanie_stat:
         self.atak = atak
         self.tury = tury
         self.wytrzymałość = wytrzymałość
-    def po(self):   
-        return {"nazwa":self.nazwa,     
+    def po(self):
+        return {"nazwa":self.nazwa,
                 "obrona":self.obrona,
                 "atak":self.atak,
                 "tury":self.tury,
@@ -116,10 +116,10 @@ class Postać:
                 "lręka":self.lręka,  
                 "pręka":self.pręka,
                 "brzuch":self.brzuch,
-                "brzuch":self.lrzebro,
+                "lrzebro":self.lrzebro,
                 "przebro":self.przebro,
                 "lnoga":self.lnoga,
-                "lnoga":self.pnoga,
+                "pnoga":self.pnoga,
                 "artefakty":self.artefakty,
                 "za_atak":self.za_atak,
                 "za_obrona":self.za_obrona,
