@@ -20,10 +20,16 @@ class dodanie_stat:
         self.wytrzymałość = wytrzymałość
     def po(self):   
         return {"nazwa":self.nazwa,     
-                "obroną":self.obrona,
+                "obrona":self.obrona,
                 "atak":self.atak,
                 "tury":self.tury,
                 "wytrzymałość":self.wytrzymałość}
+    def wczytaj(self,wnazwa,wobrona,watak,wtury,wwytrzymałość):
+        self.nazwa = wnazwa
+        self.obrona = wobrona
+        self.atak = watak
+        self.tury = wtury
+        self.wytrzymałość = wwytrzymałość
 mapa = {"miejsce treningowe1": ("\033[38;5;240m           ________________________\n"
                                 " |    2   |                       |     3    |\n"
                                 " |        |                       |          |\n"
@@ -136,6 +142,45 @@ class Postać:
                 "relacje":self.relacje,
                 "wochuk_uses":self.wochuk_uses,
                 "cozwoj_uses":self.cozwoj_uses}
+    def wczytaj(self,wimie,wgłód,wmgłód,wnapojenie,wmnapojenie,wistota,wgłowa,wklatka,wlręka,wpręka,wbrzuch,wlrzebro,wprzebro,wlnoga,wpnoga,wartefakty,wza_atak,wza_obrona,watak,wobrona,wzbroja,wbronie,wumiejętności,wciało,wnczęści_ciała,wczęści_ciała,wogłuszony,wczas_ogłuszenia,wchce,wmusi,wtury,wdrużyna,wwrogowie,wekwipunek,woszczędzenie,wrelacje,wwochuk_uses,wcozwoj_uses):
+        self.imie = wimie
+        self.głód = wgłód
+        self.mgłód = wmgłód
+        self.napojenie = wnapojenie
+        self.mnapojenie = wmnapojenie
+        self.istota = wistota
+        self.głód = wgłowa
+        self.klatka = wklatka
+        self.lręka = wlręka
+        self.pręka = wpręka
+        self.brzuch = wbrzuch
+        self.lrzebro = wlrzebro
+        self.przebro = wprzebro
+        self.lnoga = wlnoga
+        self.pnoga = wpnoga
+        self.artefakty = wartefakty
+        self.za_atak = wza_atak
+        self.za_obrona = wza_obrona
+        self.atak = watak
+        self.obrona = wobrona
+        self.zbroja = self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
+        self.bronie = self.bronie.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
+        self.umiejętności = wumiejętności
+        self.ciało = wciało
+        self.nczęści_ciała = wnczęści_ciała
+        self.części_ciała = wczęści_ciała
+        self.ogłuszony = wogłuszony
+        self.czas_ogłuszenia = wczas_ogłuszenia
+        self.chce = wchce
+        self.musi = wmusi
+        self.tury = wtury
+        self.drużyna = wdrużyna
+        self.wrogowie = wwrogowie
+        self.ekwipunek = wekwipunek
+        self.oszczędzenie = woszczędzenie
+        self.relacje = wrelacje
+        self.wochuk_uses = wwochuk_uses
+        self.cozwoj_uses = wcozwoj_uses
     def sprawdź_ekwipunek(self):
         print(f"ekwipunek postaci: {self.imie}")
         for przedmiot, ilość in self.ekwipunek.items():
