@@ -64,7 +64,7 @@ zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 1
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 20,0,randint(100,200)),"ostra_włócznia": dodanie_stat("ostra włócznia", 0, 50,0,randint(100,150)),}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
 class Postać:
-    def __init__(self, istota, imie, głowa, klatka, lręka, pręka, brzuch, lrzebro, przebro, lnoga, pnoga, napojenie,mnapojenie, głód, mgłód, atak, obrona, zbroja, bronie,chce_zatakować,musi):
+    def __init__(self, istota, imie, głowa, klatka, lręka, pręka, brzuch, lrzebro, przebro, lnoga, pnoga, napojenie,mnapojenie, głód, mgłód, atak, obrona, zbroja, broń,chce_zatakować,musi):
         self.imie = imie
         self.głód = głód
         self.mgłód = mgłód
@@ -86,7 +86,7 @@ class Postać:
         self.atak = atak
         self.obrona = obrona
         self.zbroja = zbroja
-        self.bronie = bronie
+        self.broń = broń
         self.umiejętności = []
         self.ciało = głowa + klatka + lręka + pręka + brzuch + lrzebro + przebro + lnoga + pnoga
         self.nczęści_ciała = [self.głowa, self.klatka, self.lręka, self.pręka, self.brzuch, self.lrzebro, self.przebro,self.lnoga, self.pnoga]
@@ -126,7 +126,7 @@ class Postać:
                 "atak":self.atak,
                 "obrona":self.obrona,
                 "zbroja":self.zbroja.po(),
-                "bronie":self.bronie.po(),
+                "broń":self.broń.po(),
                 "umiejętności":self.umiejętności,
                 "ciało":self.ciało,
                 "nczęści_ciała":self.nczęści_ciała,
@@ -150,7 +150,7 @@ class Postać:
         self.napojenie = wnapojenie
         self.mnapojenie = wmnapojenie
         self.istota = wistota
-        self.głód = wgłowa
+        self.głowa = wgłowa
         self.klatka = wklatka
         self.lręka = wlręka
         self.pręka = wpręka
@@ -165,7 +165,7 @@ class Postać:
         self.atak = watak
         self.obrona = wobrona
         self.zbroja = self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
-        self.bronie = self.bronie.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
+        self.broń = self.broń.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
         self.umiejętności = wumiejętności
         self.ciało = wciało
         self.nczęści_ciała = wnczęści_ciała
