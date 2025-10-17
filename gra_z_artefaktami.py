@@ -555,9 +555,9 @@ if not gra.men == "2":
     if pos3.relacje["Tomek"]["atak"] == 0:
         liczba_fabuły = 1
     elif pos3.relacje["Tomek"]["atak"] == 1:
-            liczba_fabuły = 2
+        liczba_fabuły = 2
     elif pos3.relacje["Tomek"]["atak"] >= 2:
-            liczba_fabuły = 3
+        liczba_fabuły = 3
     zapis = {"pos1":pos1.po(),
             "pos2":pos2.po(),
             "pos3":pos3.po(),
