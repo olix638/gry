@@ -9,7 +9,7 @@ def wczytaj_gre(plik):
         with open(f"{plik}.json", "r") as f:
             return json.load(f)
     except FileNotFoundError:
-        "Brak zapisu gry."
+        print("Brak zapisu gry.")
         return None
 class dodanie_stat:
     def __init__(self, nazwa, obrona, atak, tury, wytrzymałość):
