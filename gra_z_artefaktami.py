@@ -9,7 +9,7 @@ def wczytaj_gre(plik):
         with open(f"{plik}.json", "r") as f:
             return json.load(f)
     except FileNotFoundError:
-        print("Brak zapisu gry.")
+        "Brak zapisu gry."
         return None
 class dodanie_stat:
     def __init__(self, nazwa, obrona, atak, tury, wytrzymałość):
@@ -536,6 +536,8 @@ class Gra:
             elif self.men == "2":
                 wcz = input("jak nazywa się zapis?")
                 we = wczytaj_gre(wcz)
+                if we is None:
+                    continue
                 global pos1, pos2, pos3, pos4, pos5, pos6, liczba_fabuły
                 pos1.wczytaj(we["pos1"]["imie"],we["pos1"]["głód"],we["pos1"]["mgłód"],we["pos1"]["napojenie"],we["pos1"]["mnapojenie"],we["pos1"]["istota"],we["pos1"]["głowa"],we["pos1"]["klatka"],we["pos1"]["lręka"],we["pos1"]["pręka"],we["pos1"]["brzuch"],we["pos1"]["lrzebro"],we["pos1"]["przebro"],we["pos1"]["lnoga"],we["pos1"]["pnoga"],we["pos1"]["artefakty"],we["pos1"]["za_atak"],we["pos1"]["za_obrona"],we["pos1"]["atak"],we["pos1"]["obrona"],we["pos1"]["zbroja"],we["pos1"]["broń"],we["pos1"]["umiejętności"],we["pos1"]["ciało"],we["pos1"]["nczęści_ciała"],we["pos1"]["części_ciała"],we["pos1"]["ogłuszony"],we["pos1"]["czas_ogłuszenia"],we["pos1"]["chce"],we["pos1"]["musi"],we["pos1"]["tury"],we["pos1"]["drużyna"],we["pos1"]["wrogowie"],we["pos1"]["ekwipunek"],we["pos1"]["oszczędzenie"],we["pos1"]["relacje"],we["pos1"]["wochuk_uses"],we["pos1"]["cozwoj_uses"])
                 pos2.wczytaj(we["pos2"]["imie"],we["pos2"]["głód"],we["pos2"]["mgłód"],we["pos2"]["napojenie"],we["pos2"]["mnapojenie"],we["pos2"]["istota"],we["pos2"]["głowa"],we["pos2"]["klatka"],we["pos2"]["lręka"],we["pos2"]["pręka"],we["pos2"]["brzuch"],we["pos2"]["lrzebro"],we["pos2"]["przebro"],we["pos2"]["lnoga"],we["pos2"]["pnoga"],we["pos2"]["artefakty"],we["pos2"]["za_atak"],we["pos2"]["za_obrona"],we["pos2"]["atak"],we["pos2"]["obrona"],we["pos2"]["zbroja"],we["pos2"]["broń"],we["pos2"]["umiejętności"],we["pos2"]["ciało"],we["pos2"]["nczęści_ciała"],we["pos2"]["części_ciała"],we["pos2"]["ogłuszony"],we["pos2"]["czas_ogłuszenia"],we["pos2"]["chce"],we["pos2"]["musi"],we["pos2"]["tury"],we["pos2"]["drużyna"],we["pos2"]["wrogowie"],we["pos2"]["ekwipunek"],we["pos2"]["oszczędzenie"],we["pos2"]["relacje"],we["pos2"]["wochuk_uses"],we["pos2"]["cozwoj_uses"])
