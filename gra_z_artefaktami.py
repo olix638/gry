@@ -377,7 +377,7 @@ pos5.synchronizacja(3)
 class Gra:
     def __init__(self):
         pass
-    def walka2(f2):
+    def walka2(self,f2):
         if f2 == 3:
             strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
             strażnik2_aktywny = pos6.zyje() or not pos6.oszczędzony()
