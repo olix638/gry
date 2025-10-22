@@ -181,6 +181,19 @@ class Postać:
         self.relacje = wrelacje
         self.wochuk_uses = wwochuk_uses
         self.cozwoj_uses = wcozwoj_uses
+    def napraw_zbroje(self,ilość):
+        if self.zbroja is None or self.zbroja.wytrzymałość == 0:
+            print(f"{self.imie} nie ma zbroi do naprawy.")
+            return
+        if self.zbroja == zbroje["metalowa_zbroja"] or self.zbroja == zbroje["sdz_metalowa_zbroja"]:
+            if self.ekwipunek.get("kawałki metalu", 0) < ilość:
+                print(f"{self.imie} nie ma wystarczająco materiału do naprawy.")
+                return
+            self.ekwipunek["kawałki metalu"] -= ilość
+            naprawa = 10 * ilość
+            stara_wytrzymałość = self.zbroja.wytrzymałość
+            self.zbroja.wytrzymałość = min(self.zbroja.wytrzymałość + naprawa, 150)
+            print(f"{self.imie} naprawił zbroję o {naprawa} punktów wytrzymałości({stara_wytrzymałość} → {self.zbroja.wytrzymałość}).")
     def sprawdź_ekwipunek(self):
         print(f"ekwipunek postaci: {self.imie}")
         for przedmiot, ilość in self.ekwipunek.items():
