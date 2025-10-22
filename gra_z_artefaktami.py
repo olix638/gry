@@ -549,4 +549,5 @@ if not gra.men == "2":
     zapisz_gre(zapis, save)
 else:
     pass
-gra.przygoda1()
+if liczba_fabuły <= 3:
+    gra.przygoda1()
