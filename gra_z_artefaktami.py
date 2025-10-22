@@ -59,7 +59,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),}
-zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",50,0,0,randint(10,50)),"metalowa_zbroja":dodanie_stat("metalowa zbroja",100,0,0,randint(100,150))}
+zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",50,0,0,randint(10,50)),"metalowa_zbroja":dodanie_stat("metalowa zbroja",100,0,0,randint(100,150))}#sdz = szybka do zrobienia
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 20,0,randint(100,200)),"ostra_włócznia": dodanie_stat("ostra włócznia", 0, 50,0,randint(100,150)),}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
 class Postać:
@@ -186,26 +186,19 @@ class Postać:
         for przedmiot, ilość in self.ekwipunek.items():
             if ilość > 0:
                 print(f"{przedmiot}: {ilość}")
-
-
     def zadaj_obrażenia(self, jaka_część, ile):
         setattr(self, jaka_część, getattr(self, jaka_część) - ile)
-
     def dodaj_relacje(self, postac, staty_relacji):
         if postac in self.relacje.values():
             self.relacje[postac] += staty_relacji
         else:
             self.relacje[postac] = staty_relacji
-    
     def dodaj_wroga(self, wróg):
         self.wrogowie.append(wróg)
-    
     def oszczędzanie(self, o_ile):
         self.oszczędzenie += o_ile
-    
     def oszczędzony(self):
         return self.oszczędzenie > 100
-    
     def synchronizacja(self, protokuł):
         if protokuł == 4:
             self.ciało = sum(self.nczęści_ciała)
@@ -245,18 +238,15 @@ class Postać:
                         self.atak += self.broń.atak + 20
                     else:
                         self.atak += self.broń.atak
-    
     def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
-    
     def dodaj_osobę_do_drużyny_oficjalnie(self, p1, p2):
         if p1 not in self.drużyna:
             p2.drużyna.append(p1)
             p1.drużyna.append(p2)
         else:
             print("już jest")
-    
     def dodaj_osoby_do_drużyny_oficjalnie(self, p1, p2, p3):
         if p1 not in p2.drużyna:
             p2.drużyna.append(p1)
@@ -270,7 +260,6 @@ class Postać:
             p1.drużyna.append(p3)
         if p2 not in p1.drużyna:
             p1.drużyna.append(p2)
-    
     def zaatakuj(self, wrog, jaka_czesc):
         if self.chce or self.musi:
             if wrog in self.drużyna:
@@ -317,20 +306,15 @@ class Postać:
         else:
             if not self.chce:
                 print("nie chcę atakować")
-    
     def zyje(self):
         return self.ciało > 0 or self.głowa > 0
-    
     def dodaj_artefakt(self, nazwa, wymuszony_slot):
             self.artefakty[wymuszony_slot] = nazwa
-
     def ma_artefakt(self, nazwa):
         return nazwa in self.artefakty.values()
-    
     def użyj_wochuk(self):
         if not self.ma_artefakt("wochuk"):
             return f"{self.imie} nie posiada artefaktu Wochuk."
-        
         for przeciwnik in self.wrogowie:
             użycia = self.wochuk_uses.get(przeciwnik, 0)
             szansa = max(0.5 - (użycia * 0.1), 0)
@@ -341,7 +325,6 @@ class Postać:
                 self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-
     def użyj_cozwój(self, przeciwnik):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
