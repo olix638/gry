@@ -304,7 +304,7 @@ class Postać:
                     print(f"{self.imie} nie może zaatakować, ponieważ {self.broń.nazwa} jest stępiona!")
                     return
             else:
-                obrazenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
+                obrazenia = max(0, randint(int(self.atak - 20), int(self.atak)) - wrog.obrona)
                 aktualne_hp = getattr(wrog, jaka_czesc)
                 nowe_hp = max(0, aktualne_hp - obrazenia)
                 setattr(wrog, jaka_czesc, nowe_hp)
