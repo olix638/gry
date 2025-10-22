@@ -377,8 +377,9 @@ pos5.synchronizacja(3)
 class Gra:
     def __init__(self):
         pass
-    def walka2(self,f2):
-        if f2 == 3:
+    def walka2(self):
+        global liczba_fabuły
+        if liczba_fabuły == 3:
             strażnik1_aktywny = pos5.zyje() or not pos5.oszczędzony()
             strażnik2_aktywny = pos6.zyje() or not pos6.oszczędzony()
             while pos1.zyje() or (strażnik1_aktywny and strażnik2_aktywny):
@@ -413,16 +414,17 @@ class Gra:
         else:
             while pos1.zyje() and pos2.zyje():
                 break
-    def przygoda1(self,f1):
-        if f1 == 1:
+    def przygoda1(self):
+        global liczba_fabuły
+        if liczba_fabuły == 1:
             print(mapa["miejsce treningowe2"])
-        elif f1 == 2:
+        elif liczba_fabuły == 2:
             print(mapa["miejsce treningowe1"])
-        elif f1 == 3:
+        elif liczba_fabuły == 3:
             print(mapa["miejsce treningowe3"])
         wybor = input("wybierz gdzie chcesz iść: ")
         if wybor == "1":
-            if f1 == 2:
+            if liczba_fabuły == 2:
                 input("dlaczego mnie zatakowałeś? bolało mnie to")
                 wybor = input("1.uderzyłem cie, bo mi kazałaś\n2.przepraszam\n3.pozwól Tomkowi powiedzieć\n4.powiedz w prost że Elenor jest w grze\n")
                 if wybor == "1":
@@ -455,7 +457,7 @@ class Gra:
                         input("strażnik: hej ty! gdzie idziesz?")
                         input("biegniesz do wyjścia")
                         input("ale są za szybcy")
-                        self.walka2(f1)
+                        self.walka2()
     def walka1(self):
         r = 0
         while not pos3.oszczędzony():
@@ -564,4 +566,4 @@ if not gra.men == "2":
     zapisz_gre(zapis, save)
 else:
     pass
-gra.przygoda1(liczba_fabuły)
+gra.przygoda1()
