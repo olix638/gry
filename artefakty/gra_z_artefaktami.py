@@ -1,5 +1,12 @@
 from random import *
 import json
+import os
+def usun_plik(plik):
+    try:
+        os.remove(plik)  # nazwa pliku do usunięcia
+        print("Plik został usunięty.")
+    except FileNotFoundError:
+        print("Plik nie istnieje.")
 def zapisz_gre(stan_gry, plik):
     with open(f"{plik}.json", "w") as f:
         json.dump(stan_gry, f)
