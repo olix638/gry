@@ -3,7 +3,7 @@ import json
 import os
 def usun_plik(plik):
     try:
-        os.remove(plik)  # nazwa pliku do usunięcia
+        os.remove(plik)
         print("Plik został usunięty.")
     except FileNotFoundError:
         print("Plik nie istnieje.")
