@@ -48,6 +48,8 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
     wybor = input("Wybierz opcję: ")
     if wybor == "0":
         zapis = wczytaj_gre("gry/zapis_gry")
+        if zapis is None:
+            continue
         karol.imie = zapis["imie"]
         karol.glod = zapis["glod"]
         karol.zadowolenie = zapis["zadowolenie"]
