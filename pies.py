@@ -1,4 +1,12 @@
 import json
+import os
+def usun_plik(plik):
+    try:
+        os.remove(plik)  # nazwa pliku do usunięcia
+        print("Plik został usunięty.")
+    except FileNotFoundError:
+        print("Plik nie istnieje.")
+
 def zapisz_gre(stan_gry, plik):
     with open(f"{plik}.json", "w") as f:
         json.dump(stan_gry, f)
@@ -60,3 +68,5 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
         break
     else:
         print("Nieprawidłowy wybór, spróbuj ponownie.")
+if karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
+    usun_plik("gry/zapis_gry.json")
