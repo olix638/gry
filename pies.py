@@ -18,7 +18,7 @@ class Zwierzak:
     def stan(self):
         return f"Imie:{self.imie}, Głód:{self.glod}, Zadowolenie:{self.zadowolenie}, Zmęczenie:{self.zmęczenie}"
 karol = Zwierzak("Karol",5,5,0)
-while karol.glod < 10 or karol.zadowolenie > 0 or karol.zmęczenie < 10:
+while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
     print(karol.stan())
     print("1. Nakarm zwierzaka")
     print("2. Baw się ze zwierzakiem")
