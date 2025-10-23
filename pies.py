@@ -1,3 +1,15 @@
+import json
+def zapisz_gre(stan_gry, plik):
+    with open(f"{plik}.json", "w") as f:
+        json.dump(stan_gry, f)
+    print("Gra zapisana!")
+def wczytaj_gre(plik):
+    try:
+        with open(f"{plik}.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("Brak zapisu gry.")
+        return None
 class Zwierzak:
     def __init__(self,imie,glod,zadowolenie,zmęczenie):
         self.imie = imie
@@ -20,15 +32,31 @@ class Zwierzak:
 karol = Zwierzak("Karol",5,5,0)
 while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
     print(karol.stan())
+    print("0. wczytaj gre")
     print("1. Nakarm zwierzaka")
     print("2. Baw się ze zwierzakiem")
     print("3. Daj zwierzakowi spać")
+    print("4.zapisz gre i skończ gre")
     wybor = input("Wybierz opcję: ")
+    if wybor == "0":
+        zapis = wczytaj_gre("gry/zapis_gry")
+        karol.imie = zapis["imie"]
+        karol.glod = zapis["glod"]
+        karol.zadowolenie = zapis["zadowolenie"]
+        karol.zmęczenie = zapis["zmęczenie"]
     if wybor == "1":
         karol.nakarm()
     elif wybor == "2":
         karol.baw_sie()
     elif wybor == "3":
         karol.daj_spać()
+    elif wybor == "4":
+        zapisz_gre({
+            "imie": karol.imie,
+            "glod": karol.glod,
+            "zadowolenie": karol.zadowolenie,
+            "zmęczenie": karol.zmęczenie
+        }, "gry/zapis_gry")
+        break
     else:
         print("Nieprawidłowy wybór, spróbuj ponownie.")
