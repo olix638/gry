@@ -25,12 +25,12 @@ class Zwierzak:
         self.zadowolenie = zadowolenie
         self.zmęczenie = zmęczenie
     def nakarm(self):
-        self.glod += 1
+        self.glod -= 3
         self.zadowolenie -= 1
         self.zmęczenie += 0.5
     def baw_sie(self):
         self.zadowolenie += 1
-        self.glod -= 1
+        self.glod += 1
         self.zmęczenie += 5
     def daj_spać(self):
         self.zmęczenie -= 5
@@ -47,7 +47,7 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
     print("4.zapisz gre i skończ gre")
     wybor = input("Wybierz opcję: ")
     if wybor == "0":
-        zapis = wczytaj_gre("gry/zapis_gry")
+        zapis = wczytaj_gre("gry/zwierzak/zapis_gry")
         if zapis is None:
             continue
         karol.imie = zapis["imie"]
@@ -66,9 +66,9 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
             "glod": karol.glod,
             "zadowolenie": karol.zadowolenie,
             "zmęczenie": karol.zmęczenie
-        }, "gry/zapis_gry")
+        }, "gry/zwierzak/zapis_gry")
         break
-    else:
+    elif wybor not in ["0","1","2","3","4"]:
         print("Nieprawidłowy wybór, spróbuj ponownie.")
-if karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
-    usun_plik("gry/zapis_gry.json")
+if karol.glod >=10 and karol.zadowolenie <= 0 and karol.zmęczenie >= 10:
+    usun_plik("gry/zwierzak/zapis_gry.json")
