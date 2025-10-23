@@ -8,7 +8,7 @@ def usun_plik(plik):
         print("Plik nie istnieje.")
 
 def zapisz_gre(stan_gry, plik):
-    with open(f"{plik}.json", "w") as f:
+    with open(f"gry/zwierzak/saves/{plik}.json", "w") as f:
         json.dump(stan_gry, f)
     print("Gra zapisana!")
 def wczytaj_gre(plik):

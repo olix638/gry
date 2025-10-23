@@ -13,7 +13,7 @@ def zapisz_gre(stan_gry, plik):
     print("Gra zapisana!")
 def wczytaj_gre(plik):
     try:
-        with open(f"{plik}.json", "r") as f:
+        with open(f"gry/artefakty/saves/{plik}.json", "r") as f:
             return json.load(f)
     except FileNotFoundError:
         print("Brak zapisu gry.")
