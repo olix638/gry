@@ -25,20 +25,20 @@ class Zwierzak:
         self.zadowolenie = zadowolenie
         self.zmęczenie = zmęczenie
     def nakarm(self):
-        self.glod -= 3
-        self.zadowolenie -= 1
-        self.zmęczenie += 0.5
+        self.glod =max(0,self.glod - 3) 
+        self.zadowolenie = max(self.zadowolenie -1)
+        self.zmęczenie = max(self.zmęczenie-0.5)
     def baw_sie(self):
-        self.zadowolenie += 1
-        self.glod += 1
-        self.zmęczenie += 5
+        self.zadowolenie = max(0,self.zadowolenie + 3)
+        self.glod = max(0,self.glod - 1)
+        self.zmęczenie =max(0,self.zmęczenie + 5)
     def daj_spać(self):
-        self.zmęczenie -= 5
-        self.glod += 1
+        self.zmęczenie =max(0,self.zmęczenie - 5)
+        self.glod = max(0,self.glod + 1)
     def stan(self):
         return f"Imie:{self.imie}, Głód:{self.glod}, Zadowolenie:{self.zadowolenie}, Zmęczenie:{self.zmęczenie}"
 karol = Zwierzak("Karol",5,5,0)
-while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
+while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 20:
     print(karol.stan())
     print("0. wczytaj gre")
     print("1. Nakarm zwierzaka")
@@ -70,5 +70,5 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 10:
         break
     elif wybor not in ["0","1","2","3","4"]:
         print("Nieprawidłowy wybór, spróbuj ponownie.")
-if karol.glod >=10 and karol.zadowolenie <= 0 and karol.zmęczenie >= 10:
+if karol.glod >=10 and karol.zadowolenie <= 0 and karol.zmęczenie >= 20:
     usun_plik("gry/zwierzak/zapis_gry.json")
