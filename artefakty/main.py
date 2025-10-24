@@ -1,7 +1,7 @@
 from random import *
 import json
 import os
-def usun_plik(plik):
+def usuń_plik(plik):
     try:
         os.remove(plik)
         print("Plik został usunięty.")
