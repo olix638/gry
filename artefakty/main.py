@@ -110,45 +110,6 @@ class Postać:
         # Do obsługi działania artefaktów
         self.wochuk_uses = {}  # przeciwnik: ile razy użyto
         self.cozwoj_uses = 0
-    def po(self):
-       return {"imie":self.imie,
-                "głód":self.głód,
-                "mgłód":self.mgłód,
-                "napojenie":self.napojenie,
-                "mnapojenie":self.mnapojenie,
-                "istota":self.istota,
-                "głowa":self.głowa,
-                "klatka":self.klatka,
-                "lręka":self.lręka,  
-                "pręka":self.pręka,
-                "brzuch":self.brzuch,
-                "lrzebro":self.lrzebro,
-                "przebro":self.przebro,
-                "lnoga":self.lnoga,
-                "pnoga":self.pnoga,
-                "artefakty":self.artefakty,
-                "za_atak":self.za_atak,
-                "za_obrona":self.za_obrona,
-                "atak":self.atak,
-                "obrona":self.obrona,
-                "zbroja":self.zbroja.po(),
-                "broń":self.broń.po(),
-                "umiejętności":self.umiejętności,
-                "ciało":self.ciało,
-                "nczęści_ciała":self.nczęści_ciała,
-                "części_ciała":self.części_ciała,
-                "ogłuszony":self.ogłuszony,
-                "czas_ogłuszenia":self.czas_ogłuszenia,
-                "chce":self.chce,
-                "musi":self.musi,
-                "tury":self.tury,
-                "drużyna":self.drużyna,
-                "wrogowie":self.wrogowie,
-                "ekwipunek":self.ekwipunek,
-                "oszczędzenie":self.oszczędzenie,
-                "relacje":self.relacje,
-                "wochuk_uses":self.wochuk_uses,
-                "cozwoj_uses":self.cozwoj_uses}
     def wczytaj(self,wimie,wgłód,wmgłód,wnapojenie,wmnapojenie,wistota,wgłowa,wklatka,wlręka,wpręka,wbrzuch,wlrzebro,wprzebro,wlnoga,wpnoga,wartefakty,wza_atak,wza_obrona,watak,wobrona,wzbroja,wbronie,wumiejętności,wciało,wnczęści_ciała,wczęści_ciała,wogłuszony,wczas_ogłuszenia,wchce,wmusi,wtury,wdrużyna,wwrogowie,wekwipunek,woszczędzenie,wrelacje,wwochuk_uses,wcozwoj_uses):
         self.imie = wimie
         self.głód = wgłód
@@ -564,7 +525,7 @@ if not gra.men == "2":
         liczba_fabuły = 2
     elif pos3.relacje["Tomek"]["atak"] >= 2:
         liczba_fabuły = 3
-    zapis = {"pos1":pos1.po(),"pos2":pos2.po(),"pos3":pos3.po(),"pos4":pos4.po(),"pos5":pos5.po(),"pos6":pos6.po(),"liczba_fabuły": liczba_fabuły}
+    zapis = {"pos1":pos1.__dict__,"pos2":pos2.__dict__,"pos3":pos3.__dict__,"pos4":pos4.__dict__,"pos5":pos5.__dict__,"pos6":pos6.__dict__,"liczba_fabuły": liczba_fabuły}
     save = input("jak nazwać zapis? (domyślnie 'save') ")
     zapisz_gre(zapis, save)
 else:
