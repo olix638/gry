@@ -187,7 +187,7 @@ class Czolag:
 
 # --- GRA ---
 if __name__ == "__main__":
-    p1 = Czolag("Pancernik (G1)", 610, 100, 60, 20, 2.0, 20, 70, 2, H//2, 'P', 2)
+    p1 = Czolag("Pancernik (G1)", 610, 100, 60, 20, 2.0, 20, 70, 2, H//2, 'P', 3)
     p2 = Czolag("Niszczyciel (G2)", 200, 5, 30, 120, 1.5, 90, 90, W-3, H//2, 'E', 5)
 
     blokady = losuj_przeszkody(LICZBA_PRZESZKOD, {(p1.x,p1.y),(p2.x,p2.y)})
