@@ -1,207 +1,274 @@
-# Gra: czołgi z przeszkodami (#) które blokują ruch i ostrzał (linia strzału)
-from random import randint, choice, seed
+# 2-graczy hot-seat — auto-celowanie, AP/HE, blokady ruchu i strzał "zza przeszkody" (peek)
+from random import randint
 import math
 import os
 
-W, H = 13, 11                 # rozmiar planszy
-LICZBA_PRZESZKOD = 18         # ile losowych blokad postawić
+# --- USTAWIENIA ---
+W, H = 13, 11          # rozmiar planszy
+LICZBA_PRZESZKOD = 18  # ile losowych blokad
+OBSTACLE_RESIST = 50   # odporność blokady na przebicie AP
 
+# Kary/bonusy dla "wychylenia" (peek)
+PEEK_ACC_PENALTY = 12     # -12 punktów procentowych do trafienia
+PEEK_DMG_FACTOR  = 0.85   # obrażenia x0.85
+
+# --- POMOCNICZE ---
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def bresenham(x0, y0, x1, y1):
-    """Zwraca punkty na prostej między (x0,y0) a (x1,y1), bez końców (start, cel)."""
-    points = []
-    dx = abs(x1 - x0)
-    dy = -abs(y1 - y0)
-    sx = 1 if x0 < x1 else -1
-    sy = 1 if y0 < y1 else -1
-    err = dx + dy
-    x, y = x0, y0
-    while True:
-        if x == x1 and y == y1:
-            break
-        e2 = 2 * err
-        if e2 >= dy:
-            err += dy
-            x += sx
-        if e2 <= dx:
-            err += dx
-            y += sy
-        # nie dodawaj punktu celu ani startu
-        if not (x == x1 and y == y1) and not (x == x0 and y == y0):
-            points.append((x, y))
-    return points
+def sign(x):
+    return 0 if x == 0 else (1 if x > 0 else -1)
 
-class Czołg:
-    def __init__(self, nazwa, zdrowie, pancerz, celność,
-                 kaliber, ostrość_pocisku, prędkość_pojazdu, prędkość_pocisku,
-                 x=0, y=0):
-        self.nazwa = nazwa
-        self.zdrowie = zdrowie
-        self.pancerz = pancerz
-        self.celność = celność
-        self.kaliber = kaliber
-        self.ostrość_pocisku = ostrość_pocisku
-        self.siła_ognia = kaliber * ostrość_pocisku
-        self.prędkość_pojazdu = prędkość_pojazdu
-        self.prędkość_pocisku = prędkość_pocisku
-        self.x = x
-        self.y = y
+def adjacent(ax, ay, bx, by):
+    # sąsiad po królu (8 kierunków)
+    return max(abs(ax - bx), abs(ay - by)) == 1
 
-    def żyje(self):
-        return self.zdrowie > 0
-
-    def dystans_do(self, inny):
-        return math.hypot(self.x - inny.x, self.y - inny.y)
-
-    def linia_czysta(self, cel, przeszkody):
-        """Sprawdza, czy między czołgami nie ma przeszkody (#)."""
-        for px, py in bresenham(self.x, self.y, cel.x, cel.y):
-            if (px, py) in przeszkody:
-                return False
-        return True
-
-    def policz_szanse(self, cel):
-        # bazowo i modyfikatory
-        sz = 50 + self.celność * 0.4 + self.prędkość_pocisku * 0.15 - cel.prędkość_pojazdu * 0.25
-        # kara za dystans
-        sz -= self.dystans_do(cel) * 2
-        return max(5, min(95, int(sz)))
-
-    def policz_obrażenia(self, cel):
-        # spadek obrażeń z dystansem (prosty model)
-        optimal = 3.0
-        dist = self.dystans_do(cel)
-        if dist <= optimal:
-            factor = 1.0
-        else:
-            factor = max(0.3, 1.0 - (dist - optimal) * 0.15)
-        dmg = max(0, int(self.siła_ognia * factor - cel.pancerz))
-        return dmg, dist, factor
-
-    def atakuj(self, cel, przeszkody):
-        # sprawdź linię strzału najpierw
-        if not self.linia_czysta(cel, przeszkody):
-            print(f"{self.nazwa}: strzał ZABLOKOWANY przez przeszkodę!")
-            return False, 0, None, None, self.dystans_do(cel), None
-
-        szansa = self.policz_szanse(cel)
-        rzut = randint(1, 100)
-        if rzut <= szansa:
-            dmg, dist, factor = self.policz_obrażenia(cel)
-            cel.zdrowie -= dmg
-            print(f"{self.nazwa} TRAFIA {cel.nazwa} (szansa {szansa}%, rzut {rzut}) "
-                  f"odl {dist:.2f}, mnożnik {factor:.2f} → {dmg} dmg. HP {cel.nazwa}={max(0,cel.zdrowie)}")
-            return True, dmg, szansa, rzut, dist, factor
-        else:
-            print(f"{self.nazwa} CHYBIŁ (szansa {szansa}%, rzut {rzut}). Odległość {self.dystans_do(cel):.2f}")
-            return False, 0, szansa, rzut, self.dystans_do(cel), None
-
-    def rusz(self, kierunek, przeszkody):
-        nx, ny = self.x, self.y
-        if kierunek == 'w' and self.y > 0:
-            ny -= 1
-        elif kierunek == 's' and self.y < H - 1:
-            ny += 1
-        elif kierunek == 'a' and self.x > 0:
-            nx -= 1
-        elif kierunek == 'd' and self.x < W - 1:
-            nx += 1
-        # nie wchodź na przeszkodę
-        if (nx, ny) not in przeszkody:
-            self.x, self.y = nx, ny
-
-def generuj_przeszkody(ile, zajęte):
-    przeszkody = set()
-    próby = 0
-    while len(przeszkody) < ile and próby < 10000:
-        próby += 1
-        x = randint(0, W - 1)
-        y = randint(0, H - 1)
-        if (x, y) in zajęte:
+def losuj_przeszkody(ile, zajete):
+    blokady = set()
+    proby = 0
+    while len(blokady) < ile and proby < 20000:
+        proby += 1
+        x = randint(0, W-1)
+        y = randint(0, H-1)
+        if (x, y) in zajete:
             continue
-        przeszkody.add((x, y))
-    return przeszkody
+        blokady.add((x, y))
+    return blokady
 
-def rysuj(plr, enemy, przeszkody):
+def rysuj(p1, p2, blokady, komunikat=""):
     clear()
     board = [['.' for _ in range(W)] for __ in range(H)]
-    for (ox, oy) in przeszkody:
-        board[oy][ox] = '#'
-    board[plr.y][plr.x] = 'P'
-    board[enemy.y][enemy.x] = 'E'
+    for (bx, by) in blokady:
+        board[by][bx] = '#'
+    if 0 <= p1.x < W and 0 <= p1.y < H:
+        board[p1.y][p1.x] = p1.symbol
+    if 0 <= p2.x < W and 0 <= p2.y < H:
+        board[p2.y][p2.x] = p2.symbol
     for y in range(H):
         print(''.join(board[y]))
-    print(f"\n{plr.nazwa}: HP={plr.zdrowie}  Pos=({plr.x},{plr.y})")
-    print(f"{enemy.nazwa}: HP={enemy.zdrowie}  Pos=({enemy.x},{enemy.y})")
+    print()
+    print("Strzał automatycznie celuje w przeciwnika. Typy: ap (przebija), he (eksplozja za blokadą).")
+    print(f"{p1.nazwa}({p1.symbol}): HP={p1.hp}  Pos=({p1.x},{p1.y})")
+    print(f"{p2.nazwa}({p2.symbol}): HP={p2.hp}  Pos=({p2.x},{p2.y})")
+    if komunikat:
+        print("\n" + komunikat)
 
-def ai_action(enemy, plr, przeszkody):
-    # jeśli jest czysta linia i szansa sensowna → strzel
-    if enemy.linia_czysta(plr, przeszkody):
-        sz = enemy.policz_szanse(plr)
-        if sz >= 30 and randint(1, 100) <= 80:
-            return 'fire'
+# --- LOGIKA CZOŁGU ---
+class Czolag:
+    def __init__(self, nazwa, hp, pancerz, celnosc, kaliber, ostrosc,
+                 v_poj, v_poc, x=0, y=0, symbol='P'):
+        self.nazwa = nazwa
+        self.hp = hp
+        self.pancerz = pancerz
+        self.celnosc = celnosc     # 0-100
+        self.kaliber = kaliber     # mm
+        self.ostrosc = ostrosc
+        self.sila_ognia = kaliber * ostrosc
+        self.v_poj = v_poj
+        self.v_poc = v_poc
+        self.x = x
+        self.y = y
+        self.symbol = symbol
 
-    # spróbuj zbliżyć się redukując dystans, omijając # (proste heurystyki)
-    kierunki = []
-    if enemy.x < plr.x: kierunki.append('d')
-    if enemy.x > plr.x: kierunki.append('a')
-    if enemy.y < plr.y: kierunki.append('s')
-    if enemy.y > plr.y: kierunki.append('w')
+    def zyje(self):
+        return self.hp > 0
 
-    # przetasuj priorytet (losowy wybór z „dobrych”)
-    for k in kierunki + ['w','a','s','d']:
-        nx, ny = enemy.x, enemy.y
-        if k == 'w': ny -= 1
-        if k == 's': ny += 1
-        if k == 'a': nx -= 1
-        if k == 'd': nx += 1
-        if 0 <= nx < W and 0 <= ny < H and (nx, ny) not in przeszkody:
-            return k
-    return choice(['w','a','s','d'])
+    def dystans_do(self, inx, iny):
+        return math.hypot(self.x - inx, self.y - iny)
 
-# --- Gra ---
+    def moze_wejsc(self, nx, ny, blokady, pozycja_drugiego):
+        if not (0 <= nx < W and 0 <= ny < H):
+            return False
+        if (nx, ny) in blokady:
+            return False
+        if (nx, ny) == pozycja_drugiego:
+            return False
+        return True
+
+    def rusz(self, kierunek, blokady, pozycja_drugiego):
+        nx, ny = self.x, self.y
+        if kierunek == 'w': ny -= 1
+        elif kierunek == 's': ny += 1
+        elif kierunek == 'a': nx -= 1
+        elif kierunek == 'd': nx += 1
+        elif kierunek == 'i': ny -= 1
+        elif kierunek == 'k': ny += 1
+        elif kierunek == 'j': nx -= 1
+        elif kierunek == 'l': nx += 1
+        else:
+            return
+        if self.moze_wejsc(nx, ny, blokady, pozycja_drugiego):
+            self.x, self.y = nx, ny
+
+    def szansa_trafienia(self, target, dist):
+        # bazowa + modyfikatory statystyk
+        sz = 50 + self.celnosc * 0.4 + self.v_poc * 0.15 - target.v_poj * 0.25
+        sz -= dist * 2  # kara za dystans
+        return max(5, min(95, int(sz)))
+
+    def policz_obrazenia(self, target, dist, dmg_factor=1.0):
+        # spadek obrażeń z dystansem (poza zasięgiem optymalnym)
+        optimal = 3.0
+        if dist <= optimal:
+            range_factor = 1.0
+        else:
+            range_factor = max(0.3, 1.0 - (dist - optimal) * 0.15)
+        dmg = max(0, int(self.sila_ognia * range_factor * dmg_factor - target.pancerz))
+        return dmg
+
+    def strzel_w_cel(self, target, blokady, typ='ap'):
+        """
+        Auto-celowanie w przeciwnika. Pocisk idzie wektorowo (dx=sign, dy=sign).
+        Mechanika 'peek': jeśli pierwsza napotkana przeszkoda # jest TUŻ OBOK strzelca,
+        ignorujemy ją (tylko tę jedną) z karą do celności i obrażeń.
+        Dalsze przeszkody: AP próbuje przebić, HE eksploduje (obszar za przeszkodą).
+        """
+        dx = sign(target.x - self.x)
+        dy = sign(target.y - self.y)
+        if dx == 0 and dy == 0:
+            print(f"{self.nazwa}: Cel na tej samej pozycji — brak strzału.")
+            return False
+
+        x, y = self.x + dx, self.y + dy
+        peek_used = False        # czy wykorzystano „wychylenie”
+        extra_acc_penalty = 0    # kara do trafienia z peek
+        extra_dmg_factor  = 1.0  # redukcja obrażeń z peek
+
+        while 0 <= x < W and 0 <= y < H:
+            # trafienie w cel (jeśli doszliśmy do jego pola)
+            if (x, y) == (target.x, target.y):
+                dist = self.dystans_do(x, y)
+                sz = self.szansa_trafienia(target, dist) - extra_acc_penalty
+                sz = max(5, min(95, sz))
+                r = randint(1, 100)
+                if r <= sz:
+                    dmg = self.policz_obrazenia(target, dist, dmg_factor=extra_dmg_factor)
+                    target.hp -= dmg
+                    info_peek = " (peek)" if peek_used else ""
+                    print(f"{self.nazwa} TRAFIA {target.nazwa}{info_peek} (odl {dist:.2f}, sz {sz}%) → {dmg} dmg. HP {target.nazwa}={max(0,target.hp)}")
+                    return True
+                else:
+                    info_peek = " z peek" if peek_used else ""
+                    print(f"{self.nazwa} chybił{info_peek} (sz {sz}%, rzut {r}).")
+                    return False
+
+            # przeszkoda na torze
+            if (x, y) in blokady:
+                # 1) Peek: jeśli to PIERWSZA przeszkoda i jest sąsiednia do strzelającego
+                if not peek_used and adjacent(self.x, self.y, x, y):
+                    peek_used = True
+                    extra_acc_penalty += PEEK_ACC_PENALTY
+                    extra_dmg_factor  *= PEEK_DMG_FACTOR
+                    # "przejdź" przez tę jedną przeszkodę
+                    x += dx
+                    y += dy
+                    continue
+
+                # 2) Dalsze przeszkody — normalna logika AP/HE
+                if typ == 'ap':
+                    penetracja = self.sila_ognia * (0.8 + randint(0, 40) / 100.0)  # 0.8–1.2x
+                    if penetracja >= OBSTACLE_RESIST:
+                        print(f"AP przebił przeszkodę na ({x},{y}) (pen {penetracja:.1f} ≥ {OBSTACLE_RESIST}).")
+                        x += dx; y += dy
+                        continue
+                    else:
+                        print(f"AP zablokowany na ({x},{y}) (pen {penetracja:.1f} < {OBSTACLE_RESIST}).")
+                        return False
+
+                elif typ == 'he':
+                    print(f"HE eksploduje przy przeszkodzie na ({x},{y}).")
+                    # centrum eksplozji: pole ZA przeszkodą
+                    cx, cy = x + dx, y + dy
+                    dmg_any = 0
+                    for ex in range(cx-1, cx+2):
+                        for ey in range(cy-1, cy+2):
+                            if (ex, ey) == (target.x, target.y):
+                                dist_center = self.dystans_do(ex, ey)
+                                dmg = self.policz_obrazenia(target, dist_center, dmg_factor=0.6 * extra_dmg_factor)
+                                if dmg > 0:
+                                    target.hp -= dmg
+                                    dmg_any += dmg
+                    if dmg_any > 0:
+                        print(f"HE zraniło cel zza przeszkody o {dmg_any} dmg. HP {target.nazwa}={max(0,target.hp)}")
+                        return True
+                    else:
+                        print("HE eksplozja nie dosięgła celu.")
+                        return False
+
+                else:
+                    print("Nieznany typ amunicji. Użyj 'ap' lub 'he'.")
+                    return False
+
+            # brak przeszkody — leć dalej
+            x += dx
+            y += dy
+
+        print("Pocisk opuścił planszę bez trafienia.")
+        return False
+
+# --- GRA ---
 if __name__ == "__main__":
-    # seed(0)  # opcjonalnie stała losowość
-    gracz = Czołg("Pancernik", 610, 100, 60, 20, 2.0, 20, 70, x=2, y=5)
-    wróg   = Czołg("Niszczyciel", 200, 5, 30, 120, 1.5, 90, 90, x=W-3, y=5)
+    # Przykładowe statystyki dwóch różnych czołgów
+    p1 = Czolag("Gracz 1", hp=610, pancerz=100, celnosc=60, kaliber=20,  ostrosc=2.0,
+                v_poj=20, v_poc=70, x=2,    y=H//2, symbol='P')
+    p2 = Czolag("Gracz 2", hp=200, pancerz=5,   celnosc=30, kaliber=120, ostrosc=1.5,
+                v_poj=90, v_poc=90, x=W-3,  y=H//2, symbol='E')
 
-    # wygeneruj przeszkody, nie stawiaj na pozycjach czołgów
-    zajęte = {(gracz.x, gracz.y), (wróg.x, wróg.y)}
-    przeszkody = generuj_przeszkody(LICZBA_PRZESZKOD, zajęte)
+    blokady = losuj_przeszkody(LICZBA_PRZESZKOD, {(p1.x, p1.y), (p2.x, p2.y)})
 
-    tura = 1
-    while gracz.żyje() and wróg.żyje():
-        rysuj(gracz, wróg, przeszkody)
-        print(f"\nTura {tura}. Komendy: w/a/s/d=ruch, f=ogień, q=wyjście")
-        cmd = input("> ").strip().lower()
-        if cmd == 'q':
-            print("Koniec gry.")
-            break
-        if cmd in ('w', 'a', 's', 'd'):
-            gracz.rusz(cmd, przeszkody)
-        elif cmd == 'f':
-            gracz.atakuj(wróg, przeszkody)
+    tura_p1 = True
+    komunikat = ""
+    while p1.zyje() and p2.zyje():
+        rysuj(p1, p2, blokady, komunikat)
+        if tura_p1:
+            print("\nTura: Gracz 1 [ruch: w/a/s/d, strzał: f [ap|he], wyjście: q]")
+            wej = input("> ").strip().lower().split()
+            if not wej:
+                komunikat = "Brak komendy."
+                continue
+            cmd = wej[0]
+            if cmd == 'q':
+                print("Koniec gry.")
+                break
+            if cmd in ('w','a','s','d'):
+                p1.rusz(cmd, blokady, (p2.x, p2.y))
+                komunikat = "Gracz 1 ruszył się."
+            elif cmd == 'f':
+                typ = 'ap' if len(wej) < 2 else ('he' if wej[1] == 'he' else 'ap')
+                p1.strzel_w_cel(p2, blokady, typ=typ)
+                komunikat = f"Gracz 1 strzelił typ={typ}."
+                tura_p1 = False
+            else:
+                komunikat = "Nieznana komenda Gracza 1."
         else:
-            print("Nieznana komenda.")
+            print("\nTura: Gracz 2 [ruch: i/j/k/l, strzał: h [ap|he], wyjście: q]")
+            wej = input("> ").strip().lower().split()
+            if not wej:
+                komunikat = "Brak komendy."
+                continue
+            cmd = wej[0]
+            if cmd == 'q':
+                print("Koniec gry.")
+                break
+            if cmd in ('i','j','k','l'):
+                p2.rusz(cmd, blokady, (p1.x, p1.y))
+                komunikat = "Gracz 2 ruszył się."
+            elif cmd == 'h':
+                typ = 'ap' if len(wej) < 2 else ('he' if wej[1] == 'he' else 'ap')
+                p2.strzel_w_cel(p1, blokady, typ=typ)
+                komunikat = f"Gracz 2 strzelił typ={typ}."
+                tura_p1 = True
+            else:
+                komunikat = "Nieznana komenda Gracza 2."
 
-        if not wróg.żyje():
-            print("\nWróg zniszczony! Wygrałeś.")
+        # sprawdzenie zwycięstwa
+        if not p2.zyje():
+            rysuj(p1, p2, blokady)
+            print("\nGracz 2 zniszczony! Wygrywa Gracz 1.")
             break
-
-        # Ruch/akcja wroga
-        akcja = ai_action(wróg, gracz, przeszkody)
-        if akcja == 'fire':
-            wróg.atakuj(gracz, przeszkody)
-        else:
-            wróg.rusz(akcja, przeszkody)
-
-        if not gracz.żyje():
-            print("\nTwój czołg został zniszczony. Przegrana.")
+        if not p1.zyje():
+            rysuj(p1, p2, blokady)
+            print("\nGracz 1 zniszczony! Wygrywa Gracz 2.")
             break
-
-        input("Enter, aby kontynuować...")
-        tura += 1
 
     print("\nKONIEC BITWY.")
