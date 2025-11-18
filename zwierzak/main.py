@@ -47,7 +47,7 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 20:
     print("4.zapisz gre i skończ gre")
     wybor = input("Wybierz opcję: ")
     if wybor == "0":
-        zapis = wczytaj_gre("gry/zwierzak/zapis_gry")
+        zapis = wczytaj_gre("zapis_gry")
         if zapis is None:
             continue
         karol.imie = zapis["imie"]
