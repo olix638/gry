@@ -25,9 +25,9 @@ class Zwierzak:
         self.zadowolenie = zadowolenie
         self.zmęczenie = zmęczenie
     def nakarm(self):
-        self.glod =max(0,self.glod - 3.0) 
-        self.zadowolenie = max(self.zadowolenie - 1.0)
-        self.zmęczenie = max(self.zmęczenie-0.5)
+        self.glod =max(0,self.glod - 3) 
+        self.zadowolenie = max(0,self.zadowolenie - 1)
+        self.zmęczenie = max(0,self.zmęczenie-0.5)
     def baw_sie(self):
         self.zadowolenie = max(0,self.zadowolenie + 3.0)
         self.glod = max(0,self.glod - 1.0)
