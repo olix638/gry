@@ -66,7 +66,7 @@ while karol.glod < 10 and karol.zadowolenie > 0 and karol.zmęczenie < 20:
             "glod": karol.glod,
             "zadowolenie": karol.zadowolenie,
             "zmęczenie": karol.zmęczenie
-        }, "gry/zwierzak/zapis_gry")
+        }, "zapis_gry")
         break
     elif wybor not in ["0","1","2","3","4"]:
         print("Nieprawidłowy wybór, spróbuj ponownie.")
