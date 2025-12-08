@@ -19,7 +19,7 @@ class Postać:
         self.zdrowie = zdrowie
         self.mzdrowie = zdrowie
         self.co = []
-        self.pzedmioty = []
+        self.przedmioty = []
         self.niezakajdankowany = True
     def strzel(self, cel):
         if naboje[0] == "ostry":
@@ -132,13 +132,25 @@ while not r == 4:
     pusty_naboj +=1
     print(f"takie są naboje w strzelbie na tę rundę: ostre_naboje: {ostry_naboj},puste_naboje: {pusty_naboj}")
     while not len(naboje) == 0:
-        if r == 1:
-            akcja = input("strzel: ")
-            if akcja == "strzel":
-                akcja =  int(input("1) w siebie\n2) w DEALERA"))
-                if akcja == "w siebie":
-                    gracz1.strzel(gracz1)
-                elif akcja == "w DEALERA":
-                    gracz1.strzel(gracz2)
+        q = randint(1,5)
+        for i in range(q):
+            e1 = choice(przedmioty)
+            e2 = choice(przedmioty)
+            gracz1.przedmioty.append(e1)
+            print(f"{gracz1.nazwa} dostał {e1}")
+            gracz2.przedmioty.append(e2)
+            print(f"{gracz2.nazwa} dostał {e2}")
+            while True:
+                akcja1 = input("strzel\\użyj przedmiotów: ")
+                if akcja1 == "strzel":
+                    akcja2 =  input(" w siebie\n w DEALERA")
+                    if akcja2 == "w siebie":
+                        gracz1.strzel(gracz1)
+                    elif akcja2 == "w DEALERA":
+                        gracz1.strzel(gracz2)
+                elif akcja1 == "użyj przedmiotów":
+                    for i in range(len(gracz1.przedmioty)):
+                        print(f"{gracz1.przedmioty[i]}")
+                    akcja3 = input("")
         break
     break
