@@ -132,5 +132,13 @@ while not r == 4:
     pusty_naboj +=1
     print(f"takie są naboje w strzelbie na tę rundę: ostre_naboje: {ostry_naboj},puste_naboje: {pusty_naboj}")
     while not len(naboje) == 0:
+        if r == 1:
+            akcja = input("strzel: ")
+            if akcja == "strzel":
+                akcja =  int(input("1) w siebie\n2) w DEALERA"))
+                if akcja == "w siebie":
+                    gracz1.strzel(gracz1)
+                elif akcja == "w DEALERA":
+                    gracz1.strzel(gracz2)
         break
     break
