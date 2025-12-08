@@ -17,6 +17,7 @@ class Postać:
     def __init__(self, nazwa, zdrowie):
         self.nazwa = nazwa
         self.zdrowie = zdrowie
+        self.mzdrowie = zdrowie
         self.co = []
         self.pzedmioty = []
         self.niezakajdankowany = True
@@ -40,6 +41,8 @@ class Postać:
             print(f"{self.nazwa} zapalił papierosa, więc odzyskał 1 zdrowie.")
             self.zdrowie += 1
             self.pzedmioty.remove("papierosy")
+            if self.zdrowie > self.mzdrowie:
+                self.zdrowie = self.mzdrowie
         else:
             print(f"{self.nazwa} nie ma papierosów, więc nie może zapalić.")
     def lupa(self):
@@ -103,10 +106,17 @@ class Postać:
         for i in range(len(self.co)):
             self.co.pop(i)
 jak = input("jak chcesz mieć nick: ")
-gracz1 = Postać(jak, 5)
-gracz2 = Postać("DEALER", 5)
-r = 0
+r = 1
 while not r == 4:
+    if r == 1:
+        gracz1 = Postać(jak, 3)
+        gracz2 = Postać("DEALER", 3)
+    if r == 2:
+        gracz1 = Postać(jak,4)
+        gracz2 = Postać("DEALER",4)
+    if r == 3:
+        gracz1 = Postać(jak,5)
+        gracz2 = Postać("DEALER",5)
     r1 = randint(1,6)
     for i in range(r1):
         r = randint(1,2)
@@ -120,9 +130,7 @@ while not r == 4:
     ostry_naboj += 1
     naboje.append("pusty")
     pusty_naboj +=1
-    gracz1.pzedmioty.append("telefon jednorazowy")
-    gracz1.pzedmioty.append("telefon jednorazowy")
     print(f"takie są naboje w strzelbie na tę rundę: ostre_naboje: {ostry_naboj},puste_naboje: {pusty_naboj}")
-    gracz1.telefon()
-    gracz1.telefon()
+    while not len(naboje) == 0:
+        break
     break
