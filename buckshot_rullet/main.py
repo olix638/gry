@@ -25,45 +25,47 @@ class Postać:
         if naboje[0] == "ostry":
             cel.zdrowie -= 1
             naboje.pop(0)
+            o += 1
             print(f"{self.nazwa} strzelił do {cel.nazwa} ostrym nabojem! Zdrowie {cel.nazwa} wynosi teraz {cel.zdrowie}.")
         else:
             naboje.pop(0)
             print(f"{self.nazwa} próbował strzelić do {cel.nazwa}, ale nabój był pusty!")
+            return None
     def piwo(self):
-        if "piwo" in self.pzedmioty:
+        if "piwo" in self.przedmioty:
             print(f"{self.nazwa} wypił piwo, dlatego przeładował strzelbe i wyrzucił{naboje[0]}.")
-            self.pzedmioty.remove("piwo")
+            self.przedmioty.remove("piwo")
             naboje.pop(0)
         else:
             print(f"{self.nazwa} nie ma piwa, więc nie może przeładować strzelby.")
             return None
     def papierosy(self):
-        if "papierosy" in self.pzedmioty:
+        if "papierosy" in self.przedmioty:
             print(f"{self.nazwa} zapalił papierosa, więc odzyskał 1 zdrowie.")
             self.zdrowie += 1
-            self.pzedmioty.remove("papierosy")
+            self.przedmioty.remove("papierosy")
             if self.zdrowie > self.mzdrowie:
                 self.zdrowie = self.mzdrowie
         else:
             print(f"{self.nazwa} nie ma papierosów, więc nie może zapalić.")
             return None
     def lupa(self):
-        if "lupa" in self.pzedmioty:
+        if "lupa" in self.przedmioty:
             print(f"lupa {self.nazwa} pozwala mu zobaczyć, że nabój to {naboje[0]}.")
         else:
             print(f"{self.nazwa} nie ma lupy, więc nie może sprawdzić naboju.")
             return None
     def adrenalina(self, cel, rzecz):
-        if "andrenalina" in self.pzedmioty:
+        if "andrenalina" in self.przedmioty:
             cel.przedmioty.remove(rzecz)
             print(f"{self.nazwa} użył adrenaliny, aby zabrać {rzecz} od {cel.nazwa}.")
-            self.pzedmioty.append(rzecz)
-            self.pzedmioty.remove("andrenalina")
+            self.przedmioty.append(rzecz)
+            self.przedmioty.remove("andrenalina")
         else:
             print(f"{self.nazwa} nie ma adrenaliny, więc nie może zabrać przedmiotu.")
             return None
     def inwenter(self):
-        if "inwenter" in self.pzedmioty:
+        if "inwenter" in self.przedmioty:
             if naboje[0] == "ostry":
                 naboje[0] = "pusty"
             elif naboje[0] == "pusty":
@@ -72,18 +74,18 @@ class Postać:
             print(f"{self.nazwa} nie ma inwentera, więc nie może zmienić naboju.")
             return None
     def telefon(self):
-        if "telefon jednorazowy" in self.pzedmioty:
+        if "telefon jednorazowy" in self.przedmioty:
             lo = randint(1,len(naboje)-1)
             while lo in self.co:
                 lo = randint(1,len(naboje)-1)
             self.co.append(lo)
             print(f"Tajemniczy głos mówi do {self.nazwa}: {lo+1+o} nabój to {naboje[lo]} nabój.")
-            self.pzedmioty.remove("telefon jednorazowy")
+            self.przedmioty.remove("telefon jednorazowy")
         else:
             print(f"{self.nazwa} nie ma telefonu, więc tajemniczy głos nie może powiedzieć")
             return None
     def tabletki(self):
-        if "przeterminowane tabletki" in self.pzedmioty:
+        if "przeterminowane tabletki" in self.przedmioty:
             szansa = randint(1,100)
             if szansa <= 75:
                 self.zdrowie -= 1
@@ -91,21 +93,21 @@ class Postać:
             else:
                 self.zdrowie += 2
                 print(f"{self.nazwa} wziął przeterminowane tabletki i wyzdrowiał! Zyskał 2 zdrowia.")
-            self.pzedmioty.remove("przeterminowane tabletki")
+            self.przedmioty.remove("przeterminowane tabletki")
         else:
             print(f"{self.nazwa} nie ma przeterminowanych tabletek, więc nie może ich wziąć.")
             return
     def kajdanki(self, cel):
-        if "kajdanki" in self.pzedmioty:
+        if "kajdanki" in self.przedmioty:
             print(f"{self.nazwa} użył kajdanek, aby unieruchomić {cel.nazwa} na 2 tury.")
-            self.pzedmioty.remove("kajdanki")
+            self.przedmioty.remove("kajdanki")
             cel.niezakajdankowany = False
         else:
             print(f"{self.nazwa} nie ma kajdanek, więc nie może unieruchomić przeciwnika.")
             return None
     def pokaz_przedmioty(self):
-        if self.pzedmioty:
-            print(f"{self.nazwa} ma następujące przedmioty: {', '.join(self.pzedmioty)}")
+        if self.przedmioty:
+            print(f"{self.nazwa} ma następujące przedmioty: {', '.join(self.przedmioty)}")
         else:
             print(f"{self.nazwa} nie ma żadnych przedmiotów.")
             return None
@@ -162,7 +164,23 @@ while not r == 4:
                 elif akcja1 == "użyj przedmiotów":
                     while True:
                         for i in range(len(gracz1.przedmioty)):
-                            print(f"{gracz1.przedmioty[i]}")
+                            print({gracz1.przedmioty[i]})
                         akcja3 = input("")
+                        match akcja3:
+                            case "piwo" if not gracz1.piwo() == None:
+                                gracz1.piwo()
+                            case "papierosy" if not gracz1.papierosy() == None:
+                                gracz1.papierosy()
+                            case "adrenalina" if not gracz1.adrenalina() == None:
+                                for i in range(len(gracz2.przedmioty)):
+                                    print(gracz2.przedmioty[i])
+                                jaką = input("jaką rzecz chcesz ukraść: ")
+                                gracz1.adrenalina(gracz2,jaką)
+                            case "lupa" if not gracz1.lupa() == None:
+                                gracz1.lupa()
+                            case "inwenter" if not gracz1.inwenter() == None:
+                                gracz1.inwenter()
+                            case "telefon jednorazowy" if not gracz1.telefon() == None:
+                                gracz1.telefon()
         break
     break
