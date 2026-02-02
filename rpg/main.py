@@ -1,49 +1,104 @@
-from random import *
+import pygame
+import sys
+
+# ---------- POSTAĆ ----------
 class Postać:
-    def __init__(self, imie, życie, atak, obrona):
+    def __init__(self, imie, zdrowie, pancerz, charyzma, siła, inteligencja, zręczność, Mądrość, ruch, biegłość, dla_kogo: list):
         self.imie = imie
-        self.życie = życie
-        self.atak = int(atak * (90/100))
-        self.atak_obrony = int(atak * (10/100))
-        self.obrona = obrona
+        self.siła = siła
+        self.zręczność = zręczność
+        self.inteligencja = inteligencja
+        self.Mądrość = Mądrość
+        self.charyzma = charyzma
+        self.ruch = ruch
+        self.biegłość = biegłość
+        self.pancerz = pancerz
+        self.zdrowie = zdrowie
 
-    def zaatakuj(self, wrog):
-        obrażenia = max(0, randint(self.atak - 20, self.atak) - wrog.obrona)
-        obrażenia_obrony = max(0,wrog.obrona - randint(self.atak_obrony - 5, self.atak_obrony))
-        wrog.życie -= obrażenia
-        wrog.obrona -= obrażenia_obrony
-        print(f"{self.imie} zadaje {obrażenia} obrażeń {wrog.imie}!")
+        self.akrobatyka = zręczność + (biegłość if "akrobatyka" in dla_kogo else 0)
+        self.perswazja = charyzma + (biegłość if "perswazja" in dla_kogo else 0)
+        self.Percepcja = Mądrość + (biegłość if "percepcja" in dla_kogo else 0)
 
-    def żyje(self):
-        return self.życie > 0
+        self.naajedzenie = 10
+        self.nawodnienie = 10
+        self.sen = 8
 
-    def zwiększ_obronę(self, o_ile):
-        self.obrona += o_ile
 
-    def zmiejsz_obronę(self, o_ile):
-        self.obrona -= o_ile
+# ---------- GRACZ ----------
+class GraczSprite:
+    def __init__(self, postac):
+        self.postac = postac
+        self.x = 400
+        self.y = 300
+        self.size = 32
 
-    def zwiększ_atak(self, o_ile):
-        self.atak += o_ile
+    def ruch(self, keys):
+        if keys[pygame.K_a]:
+            self.x -= self.postac.ruch
+        if keys[pygame.K_d]:
+            self.x += self.postac.ruch
+        if keys[pygame.K_w]:
+            self.y -= self.postac.ruch
+        if keys[pygame.K_s]:
+            self.y += self.postac.ruch
 
-    def zmiejsz_atak(self, o_ile):
-        self.atak -= o_ile
+    def rysuj(self, screen):
+        pygame.draw.rect(screen, (0, 150, 255),
+                         (self.x, self.y, self.size, self.size))
 
-    def zwiększ_życie(self, o_ile):
-        self.życie += o_ile
 
-    def zmiejsz_życie(self, o_ile):
-        self.życie -= o_ile
+# ---------- INIT ----------
+pygame.init()
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("RPG 2D – Prototype")
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 24)
 
-    def __str__(self):
-        return f"{self.imie}: Życie={self.życie}, Atak={self.atak}, Obrona={self.obrona}"
+# ---------- POSTAĆ GRACZA ----------
+gracz = Postać(
+    imie="Aren",
+    zdrowie=100,
+    pancerz=12,
+    charyzma=3,
+    siła=4,
+    inteligencja=2,
+    zręczność=5,
+    Mądrość=3,
+    ruch=5,
+    biegłość=2,
+    dla_kogo=["percepcja", "akrobatyka", "perswazja"]
+)
 
-Tehar = Postać("Tehar", 100, 10, 0)
-Hocrona = Postać("Hocrona", 100, 50, 50)
+sprite = GraczSprite(gracz)
 
-# Przykładowa tura
-Tehar.zaatakuj(Hocrona)
-Hocrona.zaatakuj(Tehar)
+# ---------- HUD ----------
+def rysuj_hud():
+    teksty = [
+        f"Imię: {gracz.imie}",
+        f"Zdrowie: {gracz.zdrowie}",
+        f"Pancerz: {gracz.pancerz}",
+        f"Percepcja: {gracz.Percepcja}",
+        f"Perswazja: {gracz.perswazja}"
+    ]
+    for i, txt in enumerate(teksty):
+        surface = font.render(txt, True, (255, 255, 255))
+        screen.blit(surface, (10, 10 + i * 22))
 
-print(Tehar)
-print(Hocrona)
+
+# ---------- PĘTLA GRY ----------
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    keys = pygame.key.get_pressed()
+    sprite.ruch(keys)
+
+    screen.fill((30, 30, 30))
+    sprite.rysuj(screen)
+    rysuj_hud()
+
+    pygame.display.flip()
+    clock.tick(60)
