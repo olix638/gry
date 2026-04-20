@@ -182,5 +182,8 @@ while not r == 4:
                                 gracz1.inwenter()
                             case "telefon jednorazowy" if not gracz1.telefon() == None:
                                 gracz1.telefon()
+                        break
+                break
+            break
         break
     break
