@@ -306,7 +306,7 @@ class Postać:
                 self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-    def użyj_cozwój(self, przeciwnik):
+    def użyj_cozwój(self, przeciwnik: Postać):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
         if self.cozwoj_uses >= 10:
