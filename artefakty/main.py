@@ -65,11 +65,37 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|     /               \033[0m||\033[38;5;240m                       |\n"
                                 "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
-                                "\033[38;5;240m###############################################\033[0m"),}
-print(mapa["miejsce treningowe3"])
-zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",50,0,0,randint(10,50)),"metalowa_zbroja":dodanie_stat("metalowa zbroja",100,0,0,randint(100,150))}#sdz = szybka do zrobienia
-bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 20,0,randint(100,200)),"ostra_włócznia": dodanie_stat("ostra włócznia", 0, 50,0,randint(100,150)),}
-patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
+                                "\033[38;5;240m###############################################\033[0m")
+}
+print(mapa["miejsce treningowe1"])
+zbroje_def = {
+    "czarno_zbroja": ("czarno zbroja", 20, 10, 0, (100, 150)),
+    "brak_zbroi": ("brak zbroi", 0, 0, 0, (0, 0)),
+    "jasno_zbroja": ("jasno zbroja", 20, 0, 0, (100, 120)),
+    "łuska_smoka": ("łuska smoka", 500, 500, 0, (500, 500)),
+    "sdz_metalowa_zbroja": ("sdz metalowa zbroja", 50, 0, 0, (10, 50)),
+    "metalowa_zbroja": ("metalowa zbroja", 100, 0, 0, (100, 150)),
+}
+bronie_def = {
+    "brak_broni": ("brak broni", 0, 0, 0, (0, 0)),
+    "łuk": ("łuk", 0, 50, 0, (50, 100)),
+    "topur": ("topur", 0, 500, 3, (500, 500)),
+    "włócznia": ("włócznia", 0, 20, 0, (100, 200)),
+    "ostra_włócznia": ("ostra włócznia", 0, 50, 0, (100, 150)),
+}
+patyki_def = {
+    "cięki_patyk": ("cięki patyk", 0, 10, 0, (1, 15))
+}
+def stworz_przedmiot(definicja):
+    nazwa, obrona, atak, tury, (min_w, max_w) = definicja
+    wartosc = randint(min_w, max_w)
+    return dodanie_stat(nazwa, obrona, atak, tury, wartosc)
+def daj_zbroje(nazwa):
+    return stworz_przedmiot(zbroje_def[nazwa])
+def daj_bron(nazwa):
+    return stworz_przedmiot(bronie_def[nazwa])
+def daj_patyk(nazwa):
+    return stworz_przedmiot(patyki_def[nazwa])
 class Postać:
     def __init__(self, istota, imie, głowa, klatka, lręka, pręka, brzuch, lrzebro, przebro, lnoga, pnoga, napojenie,mnapojenie, głód, mgłód, atak, obrona, zbroja, broń,chce_zatakować,musi):
         self.imie = imie
@@ -154,7 +180,7 @@ class Postać:
         if self.zbroja is None or self.zbroja.wytrzymałość == 0:
             print(f"{self.imie} nie ma zbroi do naprawy.")
             return
-        if self.zbroja == zbroje["metalowa_zbroja"] or self.zbroja == zbroje["sdz_metalowa_zbroja"]:
+        if self.zbroja.nazwa in ["metalowa zbroja", "sdz metalowa zbroja"]:
             if self.ekwipunek.get("kawałki metalu", 0) < ilość:
                 print(f"{self.imie} nie ma wystarczająco materiału do naprawy.")
                 return
@@ -210,16 +236,17 @@ class Postać:
             if protokuł == 3:
                 self.obrona = self.za_obrona
                 self.atak = self.za_atak
-                if self.zbroja != zbroje["łuska_smoka"]:
+                if self.zbroja.nazwa != "łuska smoka":
                     self.obrona += self.zbroja.obrona
                     self.atak += self.zbroja.atak
                 else:
                     print("Chcesz dać komuś innemu niż goblinowi łuskę smoka. Co jest z tobą nie tak?")
                 if self.broń in bronie.values() or patyki.values():
-                    if self.broń == bronie["łuk"] and self.istota == "elf":
-                        self.atak += self.broń.atak + 20
-                    else:
-                        self.atak += self.broń.atak
+                    if self.broń is not None:
+                        if self.broń.nazwa == "łuk" and self.istota == "elf":
+                            self.atak += self.broń.atak + 20
+                        else:
+                            self.atak += self.broń.atak
     def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
@@ -259,7 +286,7 @@ class Postać:
             elif wrog.istota == "goblin" and jaka_czesc == "głowa" and randint(1, 1000) != 1:
                 print(f"{self.imie} chybił atak w głowę goblina o imieniu {wrog.imie}!")
                 return
-            elif self.broń == bronie["włócznia"] or bronie["ostra_włócznia"]:
+            elif self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                 for i in range(3):
                     obrazenia = max(0, randint(int(self.atak - 20), int(self.atak)) - wrog.obrona)
                     aktualne_hp = getattr(wrog, jaka_czesc)
@@ -318,12 +345,65 @@ class Postać:
         return f"{przeciwnik.imie} został cofnięty do epoki kamienia łupanego!"
     def __str__(self):
         return f"{self.imie}({self.istota}):\n  Życie={self.ciało}\n  Atak={self.atak}\n  Obrona={self.obrona}\n  punkty oszczędzienia = {self.oszczędzenie}\n  broń: {self.bronie.nazwa}\n  zbroja: {self.zbroja.nazwa}"
-pos1 = Postać("człowiek", "Tomek", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0, 100.0, 100.0, 100.0, 100.0, 10.0, 20.0,zbroje["brak_zbroi"], patyki['cięki_patyk'],True,False)
-pos2 = Postać("goblin", "Buzg", 200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0, 200.0,300.0, 50.0, 100, 0.0, 0.0, zbroje["brak_zbroi"], bronie["topur"],False,True)
-pos3 = Postać("elf","Elenor",  200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0, 100.0,100.0, 10.0, 100.0, 5.0, 60.0, zbroje["brak_zbroi"], bronie["brak_broni"],False,False)
-pos4 = Postać("elf", "Romeo",  200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0, 100.0, 100.0,100.0, 100.0, 5.0, 60.0, zbroje["czarno_zbroja"], bronie["łuk"],True,False)
-pos5 = Postać("elf","Rukur", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0, 100.0,100.0, 10.0, 100.0, 5.0, 60.0, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
-pos6 = Postać("elf","Rokil", 200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0, 100.0,100.0, 10.0, 100.0, 5.0, 60.0, zbroje["metalowa_zbroja"],bronie["włócznia"],False,True)
+pos1 = Postać(
+    "człowiek", "Tomek",
+    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    100.0, 100.0, 100.0, 100.0,
+    10.0, 20.0,
+    daj_zbroje("brak_zbroi"),
+    daj_patyk("cięki_patyk"),
+    True, False
+)
+
+pos2 = Postać(
+    "goblin", "Buzg",
+    200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0,
+    200.0, 300.0, 50.0, 100,
+    0.0, 0.0,
+    daj_zbroje("brak_zbroi"),
+    daj_bron("topur"),
+    False, True
+)
+
+pos3 = Postać(
+    "elf", "Elenor",
+    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    100.0, 100.0, 10.0, 100.0,
+    5.0, 60.0,
+    daj_zbroje("brak_zbroi"),
+    daj_bron("brak_broni"),
+    False, False
+)
+
+pos4 = Postać(
+    "elf", "Romeo",
+    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    100.0, 100.0, 100.0, 100.0,
+    5.0, 60.0,
+    daj_zbroje("czarno_zbroja"),
+    daj_bron("łuk"),
+    True, False
+)
+
+pos5 = Postać(
+    "elf", "Rukur",
+    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    100.0, 100.0, 10.0, 100.0,
+    5.0, 60.0,
+    daj_zbroje("metalowa_zbroja"),
+    daj_bron("włócznia"),
+    False, True
+)
+
+pos6 = Postać(
+    "elf", "Rokil",
+    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    100.0, 100.0, 10.0, 100.0,
+    5.0, 60.0,
+    daj_zbroje("metalowa_zbroja"),
+    daj_bron("włócznia"),
+    False, True
+)
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
 pos1.synchronizacja(3)
