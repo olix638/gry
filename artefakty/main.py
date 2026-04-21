@@ -66,6 +66,7 @@ mapa = {"miejsce treningowe1": ("\033[38;5;240m           ______________________
                                 "|                                              |\n"
                                 "|                          /                   |\033[0m\n"
                                 "\033[38;5;240m###############################################\033[0m"),}
+print(mapa["miejsce treningowe3"])
 zbroje = {"czarno_zbroja": dodanie_stat("czarno zbroja", 20, 10,0,randint(100, 150)), "brak_zbroi": dodanie_stat("brak zbroi", 0, 0,0,0),"jasno_zbroja": dodanie_stat("jasno zbroja", 20, 0,0,randint(100, 120)), "łuska_smoka": dodanie_stat("łuska smoka", 500, 500,0,500),"sdz_metalowa_zbroja":dodanie_stat("sdz metalowa zbroja",50,0,0,randint(10,50)),"metalowa_zbroja":dodanie_stat("metalowa zbroja",100,0,0,randint(100,150))}#sdz = szybka do zrobienia
 bronie = {"brak_broni": dodanie_stat("brak broni", 0, 0,0,0), "łuk": dodanie_stat("łuk",0,50,0,randint(50, 100)),"topur": dodanie_stat("topur", 0, 500,3,500),"włócznia": dodanie_stat("włócznia", 0, 20,0,randint(100,200)),"ostra_włócznia": dodanie_stat("ostra włócznia", 0, 50,0,randint(100,150)),}
 patyki = {"cięki_patyk":dodanie_stat("cięki patyk", 0, 10, 0, randint(1, 15))}
@@ -395,14 +396,21 @@ class Gra:
                     input("Gracz: uderzyłem cie, bo mi kazałaś")
                     input("Elenor: aha, czyli…… to moja wina że mnie uderzyłeś? to chyba nie jest w porządku")
                     input("Tomek(myśli): dlaczego to powiedziała? przecież to nie prawda")
+                    liczba_fabuły = 5
                 elif wybor == "2":
                     input("Gracz: przepraszam")
                     input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
                     input("Tomek(myśli): wiem……, ale jak to nic nie powiedziałem?")
+                    liczba_fabuły = 3
                 elif wybor == "3":
                     input("Tomek: coś mną sterowało. nie wiem co, ale to nie była moja wina")
                     input("Elenor: czyli to kogoś innego wina? ta napewno nie twoja")
-                    input("Tomek(myśli): dlaczego to powiedziała? przecież to prawda")
+                    input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
+                    input("Gracz: przepraszam")
+                    input("Elenor: przeprosiny nic nie zmienią. to co zrobiłeś było złe")
+                    input("wiem……, ale na serio byłem kontrolowany")
+                    input("mówisz to na serio? nie mogę tego zaprzeczyć, ale to twoje ciało, a nie kogoś(mówi jakby powiętpywała samiej sobie)")
+                    liczba_fabuły = 6
                 elif wybor == "4":
                     input("Gracz: Elenor jesteś w grze i to wszystko jest zmyślone, a ty nie jesteś prawdziwa")
                     input("Elenor: co? to znaczy że to prawda? nie to nie możliwe. ja muszę być prawdziwa. tak?")
@@ -410,6 +418,7 @@ class Gra:
                     input("Elenor: nie mogę w to uwierzyć. muszę się stąd wydostać")
                     input("Gracz: Elenor jest to nie możliwe, bo jesteś częścią gry.")
                     input("niestety")
+                    liczba_fabuły = 4
             else:
                 print("jesteś przy ścianie i masz opcje")
                 wybor = input("1.nasłuchuj\n2.idź do wyjścia\n3.poczekaj\n")
@@ -495,6 +504,7 @@ class Gra:
         input("wiele się dzieje, ale wiem że to nie wasza wina")
         input("i chcę ci pomóc w tych trudnych czasach.")
         input("z umiłowaniem że to przeczytałeś:\nElenor\n")
+        
         while True:
             self.men = input("1.sprawdź fabułę\n""2.wczytaj\n""3.rozpocznij gre\n")
             if self.men == "1":
