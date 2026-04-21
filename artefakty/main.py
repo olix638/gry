@@ -463,7 +463,7 @@ class Gra:
                     input("Elenor: dobrze to teraz oszczędź mnie")
                     wybor = input("1.uderz\n2.czyn\n")
                     if wybor == "1":
-                        print("Elenor: jej dlacze znowu mnie uderzyłeś?")
+                        print("Elenor: jej dlaczego znowu mnie uderzyłeś?")
                         input("Tomek(myśli): dlaczego to zrobiłem? i ta tak odrazu?")
                         input("Elenor: dobra już uciekam. pa(mówi to z żalem i nienawiścią).")
                         pos3.relacje["Tomek"]["atak"] += 1
