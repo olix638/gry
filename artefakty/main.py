@@ -222,16 +222,16 @@ class Postać:
             elif protokuł == 3:
                 self.obrona = self.za_obrona
                 self.atak = self.za_atak
-                if self.zbroja != zbroje["łuska_smoka"]:
-                    if self.zbroja == zbroje["brak_zbroi"]:
+                if self.zbroja.nazwa != "łuska smoka":
+                    if self.zbroja.nazwa == "brak_zbroi":
                         pass
                     else:
                         print("Nie da się dać na goblina oprócz łuski smoka")
                 else:
                     self.obrona += self.zbroja.obrona
                     self.atak += self.zbroja.atak
-                if self.broń in bronie.values() or patyki.values():
-                    self.atak += self.broń.atak
+                    if self.broń and self.broń.nazwa in [b[0] for b in bronie_def.values()] + [p[0] for p in patyki_def.values()]:
+                        self.atak += self.broń.atak
         else:
             if protokuł == 3:
                 self.obrona = self.za_obrona
@@ -241,7 +241,7 @@ class Postać:
                     self.atak += self.zbroja.atak
                 else:
                     print("Chcesz dać komuś innemu niż goblinowi łuskę smoka. Co jest z tobą nie tak?")
-                if self.broń in bronie.values() or patyki.values():
+                if self.broń and self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                     if self.broń is not None:
                         if self.broń.nazwa == "łuk" and self.istota == "elf":
                             self.atak += self.broń.atak + 20
