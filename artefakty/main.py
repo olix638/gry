@@ -176,7 +176,7 @@ class Postać:
         self.relacje = wrelacje
         self.wochuk_uses = wwochuk_uses
         self.cozwoj_uses = wcozwoj_uses
-    def napraw_zbroje(self,ilość):
+    def napraw_zbroje(self,ilość: int):
         if self.zbroja is None or self.zbroja.wytrzymałość == 0:
             print(f"{self.imie} nie ma zbroi do naprawy.")
             return
@@ -194,20 +194,20 @@ class Postać:
         for przedmiot, ilość in self.ekwipunek.items():
             if ilość > 0:
                 print(f"{przedmiot}: {ilość}")
-    def zadaj_obrażenia(self, jaka_część, ile):
+    def zadaj_obrażenia(self, jaka_część: str, ile: int):
         setattr(self, jaka_część, getattr(self, jaka_część) - ile)
-    def dodaj_relacje(self, postac, staty_relacji):
+    def dodaj_relacje(self, postac: Postać, staty_relacji: int):
         if postac in self.relacje.values():
             self.relacje[postac] += staty_relacji
         else:
             self.relacje[postac] = staty_relacji
-    def dodaj_wroga(self, wróg):
+    def dodaj_wroga(self, wróg: Postać):
         self.wrogowie.append(wróg)
-    def oszczędzanie(self, o_ile):
+    def oszczędzanie(self, o_ile: float):
         self.oszczędzenie += o_ile
     def oszczędzony(self):
         return self.oszczędzenie > 100
-    def synchronizacja(self, protokuł):
+    def synchronizacja(self, protokuł: int):
         if protokuł == 4:
             self.ciało = sum(self.nczęści_ciała)
         elif protokuł == 5:
@@ -247,16 +247,16 @@ class Postać:
                             self.atak += self.broń.atak + 20
                         else:
                             self.atak += self.broń.atak
-    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
+    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1: Postać):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
-    def dodaj_osobę_do_drużyny_oficjalnie(self, p1, p2):
+    def dodaj_osobę_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać):
         if p1 not in self.drużyna:
             p2.drużyna.append(p1)
             p1.drużyna.append(p2)
         else:
             print("już jest")
-    def dodaj_osoby_do_drużyny_oficjalnie(self, p1, p2, p3):
+    def dodaj_osoby_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać, p3: Postać):
         if p1 not in p2.drużyna:
             p2.drużyna.append(p1)
         if p3 not in p2.drużyna:
@@ -319,7 +319,7 @@ class Postać:
         return self.ciało > 0 or self.głowa > 0
     def dodaj_artefakt(self, nazwa, wymuszony_slot):
             self.artefakty[wymuszony_slot] = nazwa
-    def ma_artefakt(self, nazwa):
+    def ma_artefakt(self, nazwa: str):
         return nazwa in self.artefakty.values()
     def użyj_wochuk(self):
         if not self.ma_artefakt("wochuk"):
@@ -334,7 +334,7 @@ class Postać:
                 self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-    def użyj_cozwój(self, przeciwnik):
+    def użyj_cozwój(self, przeciwnik: Postać):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
         if self.cozwoj_uses >= 10:
