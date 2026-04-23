@@ -269,7 +269,7 @@ class Postać:
             p1.drużyna.append(p3)
         if p2 not in p1.drużyna:
             p1.drużyna.append(p2)
-    def zaatakuj(self, wrog, jaka_czesc):
+    def zaatakuj(self, wrog: Postać, jaka_czesc: str):
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
