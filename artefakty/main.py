@@ -196,12 +196,12 @@ class Postać:
                 print(f"{przedmiot}: {ilość}")
     def zadaj_obrażenia(self, jaka_część: str, ile: int):
         setattr(self, jaka_część, getattr(self, jaka_część) - ile)
-    def dodaj_relacje(self, postac: Postać, staty_relacji: int):
+    def dodaj_relacje(self, postac, staty_relacji: int):
         if postac in self.relacje.values():
             self.relacje[postac] += staty_relacji
         else:
             self.relacje[postac] = staty_relacji
-    def dodaj_wroga(self, wróg: Postać):
+    def dodaj_wroga(self, wróg):
         self.wrogowie.append(wróg)
     def oszczędzanie(self, o_ile: float):
         self.oszczędzenie += o_ile
@@ -247,16 +247,16 @@ class Postać:
                             self.atak += self.broń.atak + 20
                         else:
                             self.atak += self.broń.atak
-    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1: Postać):
+    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
-    def dodaj_osobę_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać):
+    def dodaj_osobę_do_drużyny_oficjalnie(self, p1, p2):
         if p1 not in self.drużyna:
             p2.drużyna.append(p1)
             p1.drużyna.append(p2)
         else:
             print("już jest")
-    def dodaj_osoby_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać, p3: Postać):
+    def dodaj_osoby_do_drużyny_oficjalnie(self, p1, p2, p3):
         if p1 not in p2.drużyna:
             p2.drużyna.append(p1)
         if p3 not in p2.drużyna:
@@ -269,7 +269,7 @@ class Postać:
             p1.drużyna.append(p3)
         if p2 not in p1.drużyna:
             p1.drużyna.append(p2)
-    def zaatakuj(self, wrog: Postać, jaka_czesc: str):
+    def zaatakuj(self, wrog, jaka_czesc: str):
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
@@ -334,7 +334,7 @@ class Postać:
                 self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-    def użyj_cozwój(self, przeciwnik: Postać):
+    def użyj_cozwój(self, przeciwnik):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
         if self.cozwoj_uses >= 10:
