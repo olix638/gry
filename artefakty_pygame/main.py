@@ -235,7 +235,7 @@ class Postać:
                 self.obrona = self.za_obrona
                 self.atak = self.za_atak
                 if self.zbroja.nazwa != "łuska smoka":
-                    if self.zbroja.nazwa == "brak_zbroi":
+                    if self.zbroja.nazwa == "brak zbroi":
                         pass
                     else:
                         print("Nie da się dać na goblina oprócz łuski smoka")
