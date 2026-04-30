@@ -159,8 +159,8 @@ class Postać:
         self.za_obrona = wza_obrona
         self.atak = watak
         self.obrona = wobrona
-        self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
-        self.broń.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
+        self.zbroja = self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
+        self.broń = self.broń.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
         self.umiejętności = wumiejętności
         self.ciało = wciało
         self.nczęści_ciała = wnczęści_ciała
@@ -177,58 +177,6 @@ class Postać:
         self.relacje = wrelacje
         self.wochuk_uses = wwochuk_uses
         self.cozwoj_uses = wcozwoj_uses
-    def po(self):
-        return {
-            "imie": self.imie,
-            "głód": self.głód,
-            "mgłód": self.mgłód,
-            "napojenie": self.napojenie,
-            "mnapojenie": self.mnapojenie,
-            "istota": self.istota,
-
-            "głowa": self.głowa,
-            "klatka": self.klatka,
-            "lręka": self.lręka,
-            "pręka": self.pręka,
-            "brzuch": self.brzuch,
-            "lrzebro": self.lrzebro,
-            "przebro": self.przebro,
-            "lnoga": self.lnoga,
-            "pnoga": self.pnoga,
-
-            "artefakty": self.artefakty,
-
-            "za_atak": self.za_atak,
-            "za_obrona": self.za_obrona,
-            "atak": self.atak,
-            "obrona": self.obrona,
-
-            "zbroja": self.zbroja.po() if self.zbroja else None,
-            "broń": self.broń.po() if self.broń else None,
-
-            "umiejętności": self.umiejętności,
-            "ciało": self.ciało,
-
-            "nczęści_ciała": self.nczęści_ciała,
-            "części_ciała": self.części_ciała,
-
-            "ogłuszony": self.ogłuszony,
-            "czas_ogłuszenia": self.czas_ogłuszenia,
-
-            "chce": self.chce,
-            "musi": self.musi,
-            "tury": self.tury,
-
-            "drużyna": self.drużyna,
-            "wrogowie": self.wrogowie,
-
-            "ekwipunek": self.ekwipunek,
-            "oszczędzenie": self.oszczędzenie,
-            "relacje": self.relacje,
-
-            "wochuk_uses": self.wochuk_uses,
-            "cozwoj_uses": self.cozwoj_uses
-        }
     def napraw_zbroje(self,ilość: int):
         if self.zbroja is None or self.zbroja.wytrzymałość == 0:
             print(f"{self.imie} nie ma zbroi do naprawy.")
@@ -249,12 +197,12 @@ class Postać:
                 print(f"{przedmiot}: {ilość}")
     def zadaj_obrażenia(self, jaka_część: str, ile: int):
         setattr(self, jaka_część, getattr(self, jaka_część) - ile)
-    def dodaj_relacje(self, postac, staty_relacji: int):
+    def dodaj_relacje(self, postac: Postać, staty_relacji: int):
         if postac in self.relacje.values():
             self.relacje[postac] += staty_relacji
         else:
             self.relacje[postac] = staty_relacji
-    def dodaj_wroga(self, wróg):
+    def dodaj_wroga(self, wróg: Postać):
         self.wrogowie.append(wróg)
     def oszczędzanie(self, o_ile: float):
         self.oszczędzenie += o_ile
@@ -300,16 +248,16 @@ class Postać:
                             self.atak += self.broń.atak + 20
                         else:
                             self.atak += self.broń.atak
-    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
+    def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1: Postać):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
-    def dodaj_osobę_do_drużyny_oficjalnie(self, p1, p2):
+    def dodaj_osobę_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać):
         if p1 not in self.drużyna:
             p2.drużyna.append(p1)
             p1.drużyna.append(p2)
         else:
             print("już jest")
-    def dodaj_osoby_do_drużyny_oficjalnie(self, p1, p2, p3):
+    def dodaj_osoby_do_drużyny_oficjalnie(self, p1: Postać, p2: Postać, p3: Postać):
         if p1 not in p2.drużyna:
             p2.drużyna.append(p1)
         if p3 not in p2.drużyna:
@@ -322,7 +270,7 @@ class Postać:
             p1.drużyna.append(p3)
         if p2 not in p1.drużyna:
             p1.drużyna.append(p2)
-    def zaatakuj(self, wrog, jaka_czesc: str):
+    def zaatakuj(self, wrog: Postać, jaka_czesc: str):
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
@@ -341,7 +289,7 @@ class Postać:
                 return
             elif self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                 for i in range(3):
-                    obrazenia = max(0, randint(int(self.atak - (self.atak *0.1)), int(self.atak)) - wrog.obrona)
+                    obrazenia = max(0, randint(int(self.atak - (self.atak*0.1)), int(self.atak)) - wrog.obrona)
                     aktualne_hp = getattr(wrog, jaka_czesc)
                     nowe_hp = max(0, aktualne_hp - obrazenia)
                     setattr(wrog, jaka_czesc, nowe_hp)
@@ -387,7 +335,7 @@ class Postać:
                 self.czas_ogłuszenia = 3
             else:
                 print(f"{przeciwnik.imie} oparł się działaniu Wochuka.")
-    def użyj_cozwój(self, przeciwnik):
+    def użyj_cozwój(self, przeciwnik: Postać):
         if "cozwój" not in self.artefakty:
             return f"{self.imie} nie posiada artefaktu Cozwój."
         if self.cozwoj_uses >= 10:

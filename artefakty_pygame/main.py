@@ -253,12 +253,11 @@ class Postać:
                     self.atak += self.zbroja.atak
                 else:
                     print("Chcesz dać komuś innemu niż goblinowi łuskę smoka. Co jest z tobą nie tak?")
-                if self.broń and self.broń.nazwa in ["włócznia", "ostra włócznia"]:
-                    if self.broń is not None:
-                        if self.broń.nazwa == "łuk" and self.istota == "elf":
-                            self.atak += self.broń.atak + 20
-                        else:
-                            self.atak += self.broń.atak
+                if self.broń is not None:
+                    if self.broń.nazwa == "łuk" and self.istota == "elf":
+                        self.atak += self.broń.atak + 20
+                    else:
+                        self.atak += self.broń.atak
     def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
@@ -427,8 +426,6 @@ pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos4.synchronizacja(3)
 pos5.synchronizacja(3)
 pygame.init()
-import pygame
-pygame.init()
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
 x = 100
@@ -436,7 +433,7 @@ y = 100
 speed = 3  # pixel po pixelu
 stamina = 100
 player = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
-player = pygame.transform.scale(player, (100, 100))
+player = pygame.transform.scale(player, (200, 200))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -460,7 +457,7 @@ while True:
     elif not keys[pygame.K_LSHIFT] or stamina <= 0:
         speed = 3
         stamina += 0.1
-    screen.fill((0, 0, 0))
+    screen.fill((0, 255, 0))
     screen.blit(player, (x, y))
     pygame.display.update()
     clock.tick(60)
