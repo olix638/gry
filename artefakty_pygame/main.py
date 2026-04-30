@@ -155,7 +155,6 @@ class Postać:
             "napojenie": self.napojenie,
             "mnapojenie": self.mnapojenie,
             "istota": self.istota,
-
             "głowa": self.głowa,
             "klatka": self.klatka,
             "lręka": self.lręka,
@@ -165,37 +164,27 @@ class Postać:
             "przebro": self.przebro,
             "lnoga": self.lnoga,
             "pnoga": self.pnoga,
-
             "artefakty": self.artefakty,
-
             "za_atak": self.za_atak,
             "za_obrona": self.za_obrona,
             "atak": self.atak,
             "obrona": self.obrona,
-
             "zbroja": self.zbroja.po() if self.zbroja else None,
             "broń": self.broń.po() if self.broń else None,
-
             "umiejętności": self.umiejętności,
             "ciało": self.ciało,
-
             "nczęści_ciała": self.nczęści_ciała,
             "części_ciała": self.części_ciała,
-
             "ogłuszony": self.ogłuszony,
             "czas_ogłuszenia": self.czas_ogłuszenia,
-
             "chce": self.chce,
             "musi": self.musi,
             "tury": self.tury,
-
             "drużyna": self.drużyna,
             "wrogowie": self.wrogowie,
-
             "ekwipunek": self.ekwipunek,
             "oszczędzenie": self.oszczędzenie,
             "relacje": self.relacje,
-
             "wochuk_uses": self.wochuk_uses,
             "cozwoj_uses": self.cozwoj_uses
         }
@@ -377,7 +366,6 @@ pos1 = Postać(
     daj_patyk("cięki_patyk"),
     True, False
 )
-
 pos2 = Postać(
     "goblin", "Buzg",
     200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0,
@@ -387,7 +375,6 @@ pos2 = Postać(
     daj_bron("topur"),
     False, True
 )
-
 pos3 = Postać(
     "elf", "Elenor",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
@@ -397,7 +384,6 @@ pos3 = Postać(
     daj_bron("brak_broni"),
     False, False
 )
-
 pos4 = Postać(
     "elf", "Romeo",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
@@ -407,7 +393,6 @@ pos4 = Postać(
     daj_bron("łuk"),
     True, False
 )
-
 pos5 = Postać(
     "elf", "Rukur",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
@@ -417,7 +402,6 @@ pos5 = Postać(
     daj_bron("włócznia"),
     False, True
 )
-
 pos6 = Postać(
     "elf", "Rokil",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
@@ -444,30 +428,21 @@ pos4.synchronizacja(3)
 pos5.synchronizacja(3)
 pygame.init()
 import pygame
-
 pygame.init()
-
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
-
-# 🔹 pozycja gracza
 x = 100
 y = 100
 speed = 3  # pixel po pixelu
 stamina = 100
 player = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
-
-# opcjonalnie skalowanie (jeśli sprite jest mały)
 player = pygame.transform.scale(player, (100, 100))
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-
     keys = pygame.key.get_pressed()
-
     if keys[pygame.K_w]:
         y -= speed
     if keys[pygame.K_s]:
