@@ -45,6 +45,7 @@ zbroje_def = {
     "łuska_smoka": ("łuska smoka", 500, 500, 0, (500, 500)),
     "sdz_metalowa_zbroja": ("sdz metalowa zbroja", 50, 0, 0, (10, 50)),
     "metalowa_zbroja": ("metalowa zbroja", 100, 0, 0, (100, 150)),
+    "zbroja z błota i liści": ("zbroja z błota i liści",5,0,0,(10,20))
 }
 bronie_def = {
     "brak_broni": ("brak broni", 0, 0, 0, (0, 0)),
@@ -310,7 +311,7 @@ class Postać:
                 return
             elif self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                 for i in range(3):
-                    obrazenia = max(0, randint(int(self.atak - 20), int(self.atak)) - wrog.obrona)
+                    obrazenia = max(0, randint(int(self.atak - (self.atak*0.1)), int(self.atak)) - wrog.obrona)
                     aktualne_hp = getattr(wrog, jaka_czesc)
                     nowe_hp = max(0, aktualne_hp - obrazenia)
                     setattr(wrog, jaka_czesc, nowe_hp)
@@ -372,7 +373,7 @@ pos1 = Postać(
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
     10.0, 20.0,
-    daj_zbroje("brak_zbroi"),
+    daj_zbroje("zbroja z błota i liści"),
     daj_patyk("cięki_patyk"),
     True, False
 )
@@ -441,3 +442,50 @@ pos2.ekwipunek["siekiera"] += 1
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos4.synchronizacja(3)
 pos5.synchronizacja(3)
+pygame.init()
+import pygame
+
+pygame.init()
+
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+# 🔹 pozycja gracza
+x = 100
+y = 100
+speed = 3  # pixel po pixelu
+stamina = 100
+player = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
+
+# opcjonalnie skalowanie (jeśli sprite jest mały)
+player = pygame.transform.scale(player, (100, 100))
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_w]:
+        y -= speed
+    if keys[pygame.K_s]:
+        y += speed
+    if keys[pygame.K_a]:
+        x -= speed
+    if keys[pygame.K_d]:
+        x += speed
+    if keys[pygame.K_q]:
+        pygame.quit()
+        exit()
+    if keys[pygame.K_LSHIFT] and not stamina <= 0:
+        speed = 8
+        stamina -= 1
+    elif not keys[pygame.K_LSHIFT] or stamina <= 0:
+        speed = 3
+        stamina += 0.1
+    screen.fill((0, 0, 0))
+    screen.blit(player, (x, y))
+    pygame.display.update()
+    clock.tick(60)

@@ -75,6 +75,7 @@ zbroje_def = {
     "łuska_smoka": ("łuska smoka", 500, 500, 0, (500, 500)),
     "sdz_metalowa_zbroja": ("sdz metalowa zbroja", 50, 0, 0, (10, 50)),
     "metalowa_zbroja": ("metalowa zbroja", 100, 0, 0, (100, 150)),
+    "zbroja z błota i liści": ("zbroja z błota i liści",5,0,0,(10,20))
 }
 bronie_def = {
     "brak_broni": ("brak broni", 0, 0, 0, (0, 0)),
@@ -158,8 +159,8 @@ class Postać:
         self.za_obrona = wza_obrona
         self.atak = watak
         self.obrona = wobrona
-        self.zbroja = self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
-        self.broń = self.broń.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
+        self.zbroja.wczytaj(wzbroja["nazwa"],wzbroja["obrona"],wzbroja["obrona"],wzbroja["tury"],wzbroja["wytrzymałość"])
+        self.broń.wczytaj(wbronie["nazwa"],wbronie["obrona"],wbronie["obrona"],wbronie["tury"],wbronie["wytrzymałość"])
         self.umiejętności = wumiejętności
         self.ciało = wciało
         self.nczęści_ciała = wnczęści_ciała
@@ -176,6 +177,58 @@ class Postać:
         self.relacje = wrelacje
         self.wochuk_uses = wwochuk_uses
         self.cozwoj_uses = wcozwoj_uses
+    def po(self):
+        return {
+            "imie": self.imie,
+            "głód": self.głód,
+            "mgłód": self.mgłód,
+            "napojenie": self.napojenie,
+            "mnapojenie": self.mnapojenie,
+            "istota": self.istota,
+
+            "głowa": self.głowa,
+            "klatka": self.klatka,
+            "lręka": self.lręka,
+            "pręka": self.pręka,
+            "brzuch": self.brzuch,
+            "lrzebro": self.lrzebro,
+            "przebro": self.przebro,
+            "lnoga": self.lnoga,
+            "pnoga": self.pnoga,
+
+            "artefakty": self.artefakty,
+
+            "za_atak": self.za_atak,
+            "za_obrona": self.za_obrona,
+            "atak": self.atak,
+            "obrona": self.obrona,
+
+            "zbroja": self.zbroja.po() if self.zbroja else None,
+            "broń": self.broń.po() if self.broń else None,
+
+            "umiejętności": self.umiejętności,
+            "ciało": self.ciało,
+
+            "nczęści_ciała": self.nczęści_ciała,
+            "części_ciała": self.części_ciała,
+
+            "ogłuszony": self.ogłuszony,
+            "czas_ogłuszenia": self.czas_ogłuszenia,
+
+            "chce": self.chce,
+            "musi": self.musi,
+            "tury": self.tury,
+
+            "drużyna": self.drużyna,
+            "wrogowie": self.wrogowie,
+
+            "ekwipunek": self.ekwipunek,
+            "oszczędzenie": self.oszczędzenie,
+            "relacje": self.relacje,
+
+            "wochuk_uses": self.wochuk_uses,
+            "cozwoj_uses": self.cozwoj_uses
+        }
     def napraw_zbroje(self,ilość: int):
         if self.zbroja is None or self.zbroja.wytrzymałość == 0:
             print(f"{self.imie} nie ma zbroi do naprawy.")
@@ -288,7 +341,7 @@ class Postać:
                 return
             elif self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                 for i in range(3):
-                    obrazenia = max(0, randint(int(self.atak - 20), int(self.atak)) - wrog.obrona)
+                    obrazenia = max(0, randint(int(self.atak - (self.atak *0.1)), int(self.atak)) - wrog.obrona)
                     aktualne_hp = getattr(wrog, jaka_czesc)
                     nowe_hp = max(0, aktualne_hp - obrazenia)
                     setattr(wrog, jaka_czesc, nowe_hp)
@@ -302,7 +355,7 @@ class Postać:
                     print(f"{self.imie} nie może zaatakować, ponieważ {self.broń.nazwa} jest stępiona!")
                     return
             else:
-                obrazenia = max(0, randint(int(self.atak - 20), int(self.atak)) - wrog.obrona)
+                obrazenia = max(0, randint(int(self.atak - (self.atak*0.1)), int(self.atak)) - wrog.obrona)
                 aktualne_hp = getattr(wrog, jaka_czesc)
                 nowe_hp = max(0, aktualne_hp - obrazenia)
                 setattr(wrog, jaka_czesc, nowe_hp)
@@ -350,7 +403,7 @@ pos1 = Postać(
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
     10.0, 20.0,
-    daj_zbroje("brak_zbroi"),
+    daj_zbroje("zbroja z błota i liści"),
     daj_patyk("cięki_patyk"),
     True, False
 )
