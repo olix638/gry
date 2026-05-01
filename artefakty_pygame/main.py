@@ -238,7 +238,7 @@ class Postać:
                     if self.zbroja.nazwa == "brak zbroi":
                         pass
                     else:
-                        print("Nie da się dać na goblina oprócz łuski smoka")
+                        return "Nie da się dać na goblina oprócz łuski smoka"
                 else:
                     self.obrona += self.zbroja.obrona
                     self.atak += self.zbroja.atak
@@ -440,7 +440,7 @@ while True:
             pygame.quit()
             exit()
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
+    if keys[pygame.K_w] or keys[pygame.K_UP]:
         y -= speed
     if keys[pygame.K_s]:
         y += speed
@@ -454,7 +454,7 @@ while True:
     if keys[pygame.K_LSHIFT] and not stamina <= 0:
         speed = 8
         stamina -= 1
-    elif not keys[pygame.K_LSHIFT] or stamina <= 0:
+    elif (not keys[pygame.K_LSHIFT] or stamina <= 0) and any(keys):
         speed = 3
         stamina += 0.1
     screen.fill((0, 255, 0))
