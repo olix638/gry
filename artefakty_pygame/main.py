@@ -442,26 +442,38 @@ player_idle = pygame.transform.scale(player_idle, (200, 200))
 player_walk1 = pygame.transform.scale(player_walk1, (200, 200))
 player_walk2 = pygame.transform.scale(player_walk2, (200, 200))
 font = pygame.font.SysFont(None, 36)
-
 while True:
+    keys = pygame.key.get_pressed()
+    lista = [keys[pygame.K_w],keys[pygame.K_UP],keys[pygame.K_s],keys[pygame.K_DOWN],keys[pygame.K_a],keys[pygame.K_RIGHT],keys[pygame.K_d],keys[pygame.K_LEFT]]
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-    keys = pygame.key.get_pressed()
-    if not any(keys):
+    if not any(lista):
         frame = 0
         player = player_idle
     if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-        time.sleep(0.07)
         y += speed
 
         frame += 1
 
-        if frame == 1:
+        if frame < 5:
             player = player_walk1
-        elif frame == 2:
+        elif frame > 5:
             player = player_walk2
+        if frame >= 10:
+            frame = 0
+    elif keys[pygame.K_w] or keys[pygame.K_UP]:
+        y -= speed
+
+        frame += 1
+
+        if frame < 5:
+            player = player_walk1
+        elif frame > 5:
+            player = player_walk2
+        elif frame >= 10:
+            player = player_walk1
             frame = 0
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         x -= speed
@@ -474,12 +486,9 @@ while True:
         stamina = 100
     if stamina <= 0:
         stamina = 0
-    lista = [keys[pygame.K_w],keys[pygame.K_UP],keys[pygame.K_s],keys[pygame.K_DOWN],keys[pygame.K_a],keys[pygame.K_RIGHT],keys[pygame.K_d],keys[pygame.K_LEFT]]
-    for i in range(len(lista)):
-        if keys[pygame.K_LSHIFT] and stamina > 0 and lista[i]:
-            speed = 8
-            stamina -= 1
-            break
+    if keys[pygame.K_LSHIFT] and stamina > 0 and any(lista):
+        speed = 8
+        stamina -= 1
     if (not keys[pygame.K_LSHIFT] or stamina <= 0):
         speed = 3
         stamina += 1
@@ -492,3 +501,4 @@ while True:
     pygame.draw.rect(screen, (0, 0, 255), (10, 50, 2 * stamina, 20))
     pygame.display.update()
     clock.tick(60)
+    print(frame)
