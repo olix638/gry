@@ -2,6 +2,7 @@ from random import *
 import json
 import os
 import pygame
+import time
 def usuń_plik(plik):
     try:
         os.remove(plik)
@@ -432,32 +433,62 @@ x = 100
 y = 100
 speed = 3  # pixel po pixelu
 stamina = 100
-player = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
-player = pygame.transform.scale(player, (200, 200))
+frame = 0
+player_idle = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
+player_walk1 = pygame.image.load("gry/artefakty_pygame/Tomek1.png").convert_alpha()
+player_walk2 = pygame.image.load("gry/artefakty_pygame/Tomek2.png").convert_alpha()
+
+player_idle = pygame.transform.scale(player_idle, (200, 200))
+player_walk1 = pygame.transform.scale(player_walk1, (200, 200))
+player_walk2 = pygame.transform.scale(player_walk2, (200, 200))
+font = pygame.font.SysFont(None, 36)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] or keys[pygame.K_UP]:
-        y -= speed
-    if keys[pygame.K_s]:
+    if not any(keys):
+        frame = 0
+        player = player_idle
+    if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+        time.sleep(0.07)
         y += speed
-    if keys[pygame.K_a]:
+
+        frame += 1
+
+        if frame == 1:
+            player = player_walk1
+        elif frame == 2:
+            player = player_walk2
+            frame = 0
+    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         x -= speed
-    if keys[pygame.K_d]:
+    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         x += speed
     if keys[pygame.K_q]:
         pygame.quit()
         exit()
-    if keys[pygame.K_LSHIFT] and not stamina <= 0:
-        speed = 8
-        stamina -= 1
-    elif (not keys[pygame.K_LSHIFT] or stamina <= 0) and any(keys):
+    if stamina >= 100:
+        stamina = 100
+    if stamina <= 0:
+        stamina = 0
+    lista = [keys[pygame.K_w],keys[pygame.K_UP],keys[pygame.K_s],keys[pygame.K_DOWN],keys[pygame.K_a],keys[pygame.K_RIGHT],keys[pygame.K_d],keys[pygame.K_LEFT]]
+    for i in range(len(lista)):
+        if keys[pygame.K_LSHIFT] and stamina > 0 and lista[i]:
+            speed = 8
+            stamina -= 1
+            break
+    if (not keys[pygame.K_LSHIFT] or stamina <= 0):
         speed = 3
-        stamina += 0.1
+        stamina += 1
     screen.fill((0, 255, 0))
     screen.blit(player, (x, y))
+    # tło paska
+    pygame.draw.rect(screen,(100, 100, 100), (10, 50, 200, 20))
+
+    # aktualna stamina
+    pygame.draw.rect(screen, (0, 0, 255), (10, 50, 2 * stamina, 20))
     pygame.display.update()
     clock.tick(60)
