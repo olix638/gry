@@ -459,7 +459,7 @@ while True:
 
         if frame < 5:
             player = player_walk1
-        elif frame > 5:
+        if frame > 5:
             player = player_walk2
         if frame >= 10:
             frame = 0
@@ -470,9 +470,9 @@ while True:
 
         if frame < 5:
             player = player_walk1
-        elif frame > 5:
+        if frame > 5:
             player = player_walk2
-        elif frame >= 10:
+        if frame >= 10:
             player = player_walk1
             frame = 0
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
