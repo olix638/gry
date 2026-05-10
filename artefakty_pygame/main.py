@@ -40,23 +40,21 @@ class dodanie_stat:
         self.tury = wtury
         self.wytrzymałość = wwytrzymałość
 zbroje_def = {
-    "czarno_zbroja": ("czarno zbroja", 20, 10, 0, (100, 150)),
-    "brak_zbroi": ("brak zbroi", 0, 0, 0, (0, 0)),
-    "jasno_zbroja": ("jasno zbroja", 20, 0, 0, (100, 120)),
-    "łuska_smoka": ("łuska smoka", 500, 500, 0, (500, 500)),
-    "sdz_metalowa_zbroja": ("sdz metalowa zbroja", 50, 0, 0, (10, 50)),
-    "metalowa_zbroja": ("metalowa zbroja", 100, 0, 0, (100, 150)),
-    "zbroja z błota i liści": ("zbroja z błota i liści",5,0,0,(10,20))
+    "czarno_zbroja": ("czarno zbroja", {"głowa":0, "klatka":20, "lręka":5, "pręka":5, "brzuch":20, "lrzebro":10, "przebro":10, "lnoga":0, "pnoga":0}, 10, 0, (100, 150)),
+    "brak_zbroi": ("brak zbroi", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 0, (0, 0)),
+    "jasno_zbroja": ("jasno zbroja", {"głowa":20, "klatka":20, "lręka":10, "pręka":10, "brzuch":30, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 0, (100, 120)),
+    "łuska_smoka": ("łuska smoka", {"głowa":0, "klatka":300, "lręka":0, "pręka":0, "brzuch":500, "lrzebro":50, "przebro":50, "lnoga":0, "pnoga":0}, 500, 0, (500, 500)),
+    "sdz_metalowa_zbroja": ("sdz metalowa zbroja", {"głowa":40, "klatka":50, "lręka":10, "pręka":10, "brzuch":50, "lrzebro":40, "przebro":40, "lnoga":60, "pnoga":60}, 0, 0, (10, 50)),
+    "metalowa_zbroja": ("metalowa zbroja", {"głowa":50, "klatka":100, "lręka":70, "pręka":70, "brzuch":120, "lrzebro":100, "przebro":100, "lnoga":80, "pnoga":80}, 0, 0, (100, 150)),
+    "zbroja_z_błota_i_liści": ("zbroja z błota i liści", {"głowa":0, "klatka":5, "lręka":0, "pręka":0, "brzuch":10, "lrzebro":1, "przebro":1, "lnoga":5, "pnoga":5}, 0, 0, (10, 20))
 }
 bronie_def = {
-    "brak_broni": ("brak broni", 0, 0, 0, (0, 0)),
-    "łuk": ("łuk", 0, 50, 0, (50, 100)),
-    "topur": ("topur", 0, 500, 3, (500, 500)),
-    "włócznia": ("włócznia", 0, 20, 0, (100, 200)),
-    "ostra_włócznia": ("ostra włócznia", 0, 50, 0, (100, 150)),
-}
-patyki_def = {
-    "cięki_patyk": ("cięki patyk", 0, 10, 0, (1, 15))
+    "brak_broni": ("brak broni", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 0, (0, 0)),
+    "łuk": ("łuk", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 50, 0, (50, 100)),
+    "topur": ("topur", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 500, (500, 500)),
+    "włócznia": ("włócznia", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 20, (100, 200)),
+    "ostra_włócznia": ("ostra włócznia", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 50, (100, 150)),
+    "cięki_patyk": ("cięki patyk", {"głowa":0, "klatka":0, "lręka":0, "pręka":0, "brzuch":0, "lrzebro":0, "przebro":0, "lnoga":0, "pnoga":0}, 0, 10, (10, 20))
 }
 def stworz_przedmiot(definicja):
     nazwa, obrona, atak, tury, (min_w, max_w) = definicja
@@ -66,8 +64,6 @@ def daj_zbroje(nazwa):
     return stworz_przedmiot(zbroje_def[nazwa])
 def daj_bron(nazwa):
     return stworz_przedmiot(bronie_def[nazwa])
-def daj_patyk(nazwa):
-    return stworz_przedmiot(patyki_def[nazwa])
 class Postać:
     def __init__(self, istota, imie, głowa, klatka, lręka, pręka, brzuch, lrzebro, przebro, lnoga, pnoga, napojenie,mnapojenie, głód, mgłód, atak, obrona, zbroja, broń,chce_zatakować,musi):
         self.imie = imie
@@ -221,44 +217,52 @@ class Postać:
     def oszczędzony(self):
         return self.oszczędzenie > 100
     def synchronizacja(self, protokuł: int):
-        if protokuł == 4:
+
+        # synchronizacja hp
+        if protokuł == 3:
             self.ciało = sum(self.nczęści_ciała)
-        elif protokuł == 5:
+
+        # limity głodu/staminy
+        elif protokuł == 2:
             self.głód = max(0, min(self.głód, self.mgłód))
             self.napojenie = max(0, min(self.napojenie, self.mnapojenie))
-            self.oszczędzenie = max(0,min(self.oszczędzenie,100))
-        elif self.istota == "goblin":
-            if protokuł == 1:
-                self.obrona = self.atak
-            elif protokuł == 2:
-                self.atak = self.obrona
-            elif protokuł == 3:
-                self.obrona = self.za_obrona
-                self.atak = self.za_atak
-                if self.zbroja.nazwa != "łuska smoka":
-                    if self.zbroja.nazwa == "brak zbroi":
-                        pass
-                    else:
-                        return "Nie da się dać na goblina oprócz łuski smoka"
+            self.oszczędzenie = max(0, min(self.oszczędzenie, 100))
+
+        # statystyki
+        elif protokuł == 1:
+
+            # reset
+            self.obrona = self.za_obrona.copy()
+            self.atak = self.za_atak
+
+            # goblin
+            if self.istota == "goblin":
+
+                if self.zbroja.nazwa not in ["łuska smoka", "brak zbroi"]:
+                    print("Goblin może mieć tylko łuskę smoka!")
+                    return
+
+            else:
+
+                if self.zbroja.nazwa == "łuska smoka":
+                    print("Tylko goblin może nosić łuskę smoka!")
+                    return
+
+            # dodanie obrony zbroi
+            if self.zbroja is not None:
+
+                for część in self.obrona:
+                    self.obrona[część] += self.zbroja.obrona.get(część, 0)
+
+                self.atak += self.zbroja.atak
+
+            # dodanie ataku broni
+            if self.broń is not None:
+
+                if self.broń.nazwa == "łuk" and self.istota == "elf":
+                    self.atak += self.broń.atak + 20
                 else:
-                    self.obrona += self.zbroja.obrona
-                    self.atak += self.zbroja.atak
-                    if self.broń and self.broń.nazwa in [b[0] for b in bronie_def.values()] + [p[0] for p in patyki_def.values()]:
-                        self.atak += self.broń.atak
-        else:
-            if protokuł == 3:
-                self.obrona = self.za_obrona
-                self.atak = self.za_atak
-                if self.zbroja.nazwa != "łuska smoka":
-                    self.obrona += self.zbroja.obrona
-                    self.atak += self.zbroja.atak
-                else:
-                    print("Chcesz dać komuś innemu niż goblinowi łuskę smoka. Co jest z tobą nie tak?")
-                if self.broń is not None:
-                    if self.broń.nazwa == "łuk" and self.istota == "elf":
-                        self.atak += self.broń.atak + 20
-                    else:
-                        self.atak += self.broń.atak
+                    self.atak += self.broń.atak
     def dodaj_osobę_do_drużyny_nieoficjalnie(self, p1):
         if p1 not in self.drużyna:
             self.drużyna.append(p1)
@@ -282,6 +286,7 @@ class Postać:
         if p2 not in p1.drużyna:
             p1.drużyna.append(p2)
     def zaatakuj(self, wrog, jaka_czesc: str):
+        obrona_czesci = wrog.obrona[jaka_czesc]
         if self.chce or self.musi:
             if wrog in self.drużyna:
                 print("chcesz zatakować swojego? co jest z tabą nie tak")
@@ -300,7 +305,9 @@ class Postać:
                 return
             elif self.broń.nazwa in ["włócznia", "ostra włócznia"]:
                 for i in range(3):
-                    obrazenia = max(0, randint(int(self.atak - (self.atak*0.1)), int(self.atak)) - wrog.obrona)
+                    obrazenia = max(0, randint(int(self.atak - (self.atak*0.1)), int(self.atak)) - obrona_czesci)
+                    obrażenia_obrony = obrona_czesci*0.1
+                    self.obrona[jaka_czesc] = max(0, self.obrona[jaka_czesc] - obrażenia_obrony)
                     aktualne_hp = getattr(wrog, jaka_czesc)
                     nowe_hp = max(0, aktualne_hp - obrazenia)
                     setattr(wrog, jaka_czesc, nowe_hp)
@@ -314,7 +321,9 @@ class Postać:
                     print(f"{self.imie} nie może zaatakować, ponieważ {self.broń.nazwa} jest stępiona!")
                     return
             else:
-                obrazenia = max(0, randint(int(self.atak - (self.atak * 0.1)), int(self.atak)) - wrog.obrona)
+                obrazenia = max(0, randint(int(self.atak - (self.atak * 0.1)), int(self.atak)) - obrona_czesci)
+                obrażenia_obrony = obrona_czesci*0.1
+                self.obrona[jaka_czesc] = max(0, self.obrona[jaka_czesc] - obrażenia_obrony)
                 aktualne_hp = getattr(wrog, jaka_czesc)
                 nowe_hp = max(0, aktualne_hp - obrazenia)
                 setattr(wrog, jaka_czesc, nowe_hp)
@@ -359,18 +368,18 @@ class Postać:
         return f"{self.imie}({self.istota}):\n  Życie={self.ciało}\n  Atak={self.atak}\n  Obrona={self.obrona}\n  punkty oszczędzienia = {self.oszczędzenie}\n  broń: {self.bronie.nazwa}\n  zbroja: {self.zbroja.nazwa}"
 pos1 = Postać(
     "człowiek", "Tomek",
-    200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
+    200.0, 250.0, 50.0, 10.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
-    10.0, 20.0,
-    daj_zbroje("zbroja z błota i liści"),
-    daj_patyk("cięki_patyk"),
+    10.0, {"głowa": 10, "klatka": 10, "lręka": 5, "pręka": 0, "brzuch": 10, "lrzebro": 10, "przebro": 10, "lnoga": 5, "pnoga": 5},
+    daj_zbroje("zbroja_z_błota_i_liści"),
+    daj_bron("cięki_patyk"),
     True, False
 )
 pos2 = Postać(
     "goblin", "Buzg",
     200000.0, 250000.0, 44800.0, 50000.0, 75000.0, 12500.0, 12500.0, 175000.0, 175000.0,
     200.0, 300.0, 50.0, 100,
-    0.0, 0.0,
+    0.0, {"głowa": 100, "klatka": 200, "lręka": 150, "pręka": 150, "brzuch": 200, "lrzebro": 50, "przebro": 50, "lnoga": 300, "pnoga": 300, "ogon": 500},
     daj_zbroje("brak_zbroi"),
     daj_bron("topur"),
     False, True
@@ -379,7 +388,7 @@ pos3 = Postać(
     "elf", "Elenor",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
-    5.0, 60.0,
+    5.0, {"głowa": 1, "klatka": 5, "lręka": 2, "pręka": 2, "brzuch": 10, "lrzebro": 5, "przebro": 5, "lnoga": 5, "pnoga": 5},
     daj_zbroje("brak_zbroi"),
     daj_bron("brak_broni"),
     False, False
@@ -388,7 +397,7 @@ pos4 = Postać(
     "elf", "Romeo",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
-    5.0, 60.0,
+    5.0, {"głowa": 1, "klatka": 5, "lręka": 2, "pręka": 2, "brzuch": 10, "lrzebro": 5, "przebro": 5, "lnoga": 5, "pnoga": 5},
     daj_zbroje("czarno_zbroja"),
     daj_bron("łuk"),
     True, False
@@ -397,7 +406,7 @@ pos5 = Postać(
     "elf", "Rukur",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
-    5.0, 60.0,
+    5.0, {"głowa": 1, "klatka": 5, "lręka": 2, "pręka": 2, "brzuch": 10, "lrzebro": 5, "przebro": 5, "lnoga": 5, "pnoga": 5},
     daj_zbroje("metalowa_zbroja"),
     daj_bron("włócznia"),
     False, True
@@ -406,99 +415,111 @@ pos6 = Postać(
     "elf", "Rokil",
     200.0, 250.0, 50.0, 50.0, 75.0, 12.5, 12.5, 175.0, 175.0,
     100.0, 100.0, 100.0, 100.0,
-    5.0, 60.0,
+    5.0, {"głowa": 1, "klatka": 5, "lręka": 2, "pręka": 2, "brzuch": 10, "lrzebro": 5, "przebro": 5, "lnoga": 5, "pnoga": 5},
     daj_zbroje("metalowa_zbroja"),
     daj_bron("włócznia"),
     False, True
 )
 pos1.dodaj_relacje(pos3.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
 pos1.dodaj_relacje("gracz", {"zaufanie": 0, "decyzje": []})
-pos1.synchronizacja(3)
+pos1.synchronizacja(1)
 pos1.ekwipunek["ciękie patyki"] += 1
 pos1.ekwipunek["kawałki metalu"] += 10
 pos2.ogon = 1000000.0
 pos2.części_ciała.append("ogon")
 pos2.nczęści_ciała.append(pos2.ogon)
-pos2.synchronizacja(4)
 pos2.synchronizacja(3)
 pos2.synchronizacja(1)
 pos2.ekwipunek["siekiera"] += 1
 pos3.dodaj_relacje(pos1.imie, {"zaufanie": 20, "atak": 0, "decyzje": []})
-pos4.synchronizacja(3)
-pos5.synchronizacja(3)
-pygame.init()
-screen = pygame.display.set_mode((800, 600))
-clock = pygame.time.Clock()
-x = 100
-y = 100
-speed = 3  # pixel po pixelu
-stamina = 100
-frame = 0
-player_idle = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
-player_walk1 = pygame.image.load("gry/artefakty_pygame/Tomek1.png").convert_alpha()
-player_walk2 = pygame.image.load("gry/artefakty_pygame/Tomek2.png").convert_alpha()
+pos4.synchronizacja(1)
+pos5.synchronizacja(1)
+pos6.synchronizacja(1)
+def gra():
+    pygame.init()
+    screen = pygame.display.set_mode((800, 600))
+    clock = pygame.time.Clock()
+    x = 100
+    y = 100
+    speed = 3  # pixel po pixelu
+    stamina = 100
+    frame = 0
+    player_idle1 = pygame.image.load("gry/artefakty_pygame/Tomek.png").convert_alpha()
+    player_idle2 = pygame.image.load("gry/artefakty_pygame/Tomek5.png").convert_alpha()
+    player_walk1 = pygame.image.load("gry/artefakty_pygame/Tomek1.png").convert_alpha()
+    player_walk2 = pygame.image.load("gry/artefakty_pygame/Tomek2.png").convert_alpha()
+    player_walk3 = pygame.image.load("gry/artefakty_pygame/Tomek3.png").convert_alpha()
+    player_walk4 = pygame.image.load("gry/artefakty_pygame/Tomek4.png").convert_alpha()
+    
 
-player_idle = pygame.transform.scale(player_idle, (200, 200))
-player_walk1 = pygame.transform.scale(player_walk1, (200, 200))
-player_walk2 = pygame.transform.scale(player_walk2, (200, 200))
-font = pygame.font.SysFont(None, 36)
-while True:
-    keys = pygame.key.get_pressed()
-    lista = [keys[pygame.K_w],keys[pygame.K_UP],keys[pygame.K_s],keys[pygame.K_DOWN],keys[pygame.K_a],keys[pygame.K_RIGHT],keys[pygame.K_d],keys[pygame.K_LEFT]]
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    player_idle1 = pygame.transform.scale(player_idle1, (200, 200))
+    player_idle2 = pygame.transform.scale(player_idle2, (200, 200))
+    player_walk1 = pygame.transform.scale(player_walk1, (200, 200))
+    player_walk2 = pygame.transform.scale(player_walk2, (200, 200))
+    player_walk3 = pygame.transform.scale(player_walk3, (200, 200))
+    player_walk4 = pygame.transform.scale(player_walk4, (200, 200))
+    font = pygame.font.SysFont(None, 36)
+    player = player_idle1
+    while True:
+        keys = pygame.key.get_pressed()
+        lista = [keys[pygame.K_w],keys[pygame.K_UP],keys[pygame.K_s],keys[pygame.K_DOWN],keys[pygame.K_a],keys[pygame.K_RIGHT],keys[pygame.K_d],keys[pygame.K_LEFT]]
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        if not any(lista):
+            frame = 0
+            if player in [player_walk1, player_walk2]:
+                player = player_idle1
+            elif player in [player_walk3, player_walk4]:
+                player = player_idle2
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            y += speed
+
+            frame += 1
+
+            if frame < 5:
+                player = player_walk1
+            if frame > 5:
+                player = player_walk2
+            if frame >= 10:
+                frame = 0
+        elif keys[pygame.K_w] or keys[pygame.K_UP]:
+            y -= speed
+
+            frame += 1
+
+            if frame < 5:
+                player = player_walk3
+            if frame > 5:
+                player = player_walk4
+            if frame >= 10:
+                player = player_walk3
+                frame = 0
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            x -= speed
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            x += speed
+        if keys[pygame.K_q]:
             pygame.quit()
             exit()
-    if not any(lista):
-        frame = 0
-        player = player_idle
-    if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-        y += speed
+        if stamina >= 100:
+            stamina = 100
+        if stamina <= 0:
+            stamina = 0
+        if keys[pygame.K_LSHIFT] and stamina > 0 and any(lista):
+            speed = 8
+            stamina -= 1
+        if (not keys[pygame.K_LSHIFT] or stamina <= 0):
+            speed = 3
+            stamina += 1
+        screen.fill((0, 255, 0))
+        screen.blit(player, (x, y))
+        # tło paska
+        pygame.draw.rect(screen,(100, 100, 100), (10, 50, 200, 20))
 
-        frame += 1
-
-        if frame < 5:
-            player = player_walk1
-        if frame > 5:
-            player = player_walk2
-        if frame >= 10:
-            frame = 0
-    elif keys[pygame.K_w] or keys[pygame.K_UP]:
-        y -= speed
-
-        frame += 1
-
-        if frame < 5:
-            player = player_walk1
-        if frame > 5:
-            player = player_walk2
-        if frame >= 10:
-            player = player_walk1
-            frame = 0
-    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-        x -= speed
-    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-        x += speed
-    if keys[pygame.K_q]:
-        pygame.quit()
-        exit()
-    if stamina >= 100:
-        stamina = 100
-    if stamina <= 0:
-        stamina = 0
-    if keys[pygame.K_LSHIFT] and stamina > 0 and any(lista):
-        speed = 8
-        stamina -= 1
-    if (not keys[pygame.K_LSHIFT] or stamina <= 0):
-        speed = 3
-        stamina += 1
-    screen.fill((0, 255, 0))
-    screen.blit(player, (x, y))
-    # tło paska
-    pygame.draw.rect(screen,(100, 100, 100), (10, 50, 200, 20))
-
-    # aktualna stamina
-    pygame.draw.rect(screen, (0, 0, 255), (10, 50, 2 * stamina, 20))
-    pygame.display.update()
-    clock.tick(60)
-    print(frame)
+        # aktualna stamina
+        pygame.draw.rect(screen, (0, 0, 255), (10, 50, 2 * stamina, 20))
+        pygame.display.update()
+        clock.tick(60)
+gra()
