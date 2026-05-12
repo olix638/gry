@@ -476,9 +476,9 @@ def gra():
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             y += speed
             if keys[pygame.K_LSHIFT]:
-                if stamina > 0:
+                if stamina > 1:
                     a = 4
-            else:
+            elif not keys[pygame.K_LSHIFT] or stamina <= 1:
                 a = 10
             frame += 1
 
@@ -516,8 +516,8 @@ def gra():
                 stamina += 1
         if stamina > 100:
             stamina = 100
-        elif stamina < 0:
-            stamina = 0
+        elif stamina <= -1:
+            stamina = -1
         screen.fill((0, 255, 0))
         screen.blit(player, (x, y))
         # tło paska
