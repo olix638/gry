@@ -475,25 +475,29 @@ def gra():
                 player = player_idle2
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             y += speed
-
+            if keys[pygame.K_LSHIFT]:
+                if stamina > 0:
+                    a = 4
+            else:
+                a = 10
             frame += 1
 
-            if frame < 5:
+            if frame < a/2:
                 player = player_walk1
-            if frame > 5:
+            if frame > a/2:
                 player = player_walk2
-            if frame >= 10:
+            if frame >= a:
                 frame = 0
         elif keys[pygame.K_w] or keys[pygame.K_UP]:
             y -= speed
 
             frame += 1
 
-            if frame < 5:
+            if frame < a/2:
                 player = player_walk3
-            if frame > 5:
+            if frame > a/2:
                 player = player_walk4
-            if frame >= 10:
+            if frame >= a:
                 player = player_walk3
                 frame = 0
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -503,16 +507,17 @@ def gra():
         if keys[pygame.K_q]:
             pygame.quit()
             exit()
-        if stamina >= 100:
+        for i in range(len(lista)):
+            if keys[pygame.K_LSHIFT] and stamina > 0 and lista[i]:
+                speed = 8
+                stamina -= 1
+            if (not keys[pygame.K_LSHIFT] or stamina <= 0):
+                speed = 3
+                stamina += 1
+        if stamina > 100:
             stamina = 100
-        if stamina <= 0:
+        elif stamina < 0:
             stamina = 0
-        if keys[pygame.K_LSHIFT] and stamina > 0 and any(lista):
-            speed = 8
-            stamina -= 1
-        if (not keys[pygame.K_LSHIFT] or stamina <= 0):
-            speed = 3
-            stamina += 1
         screen.fill((0, 255, 0))
         screen.blit(player, (x, y))
         # tło paska
@@ -522,4 +527,5 @@ def gra():
         pygame.draw.rect(screen, (0, 0, 255), (10, 50, 2 * stamina, 20))
         pygame.display.update()
         clock.tick(60)
+        print(stamina)
 gra()
